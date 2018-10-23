@@ -1,6 +1,0 @@
-D:\Studia\V_semestr\TPA\Projekt\Project\MyLibrary\bin\Debug\MyLibrary.dll
-D:\Studia\V_semestr\TPA\Projekt\Project\MyLibrary\bin\Debug\MyLibrary.pdb
-D:\Studia\V_semestr\TPA\Projekt\Project\MyLibrary\obj\Debug\MyLibrary.csprojAssemblyReference.cache
-D:\Studia\V_semestr\TPA\Projekt\Project\MyLibrary\obj\Debug\MyLibrary.csproj.CoreCompileInputs.cache
-D:\Studia\V_semestr\TPA\Projekt\Project\MyLibrary\obj\Debug\MyLibrary.dll
-D:\Studia\V_semestr\TPA\Projekt\Project\MyLibrary\obj\Debug\MyLibrary.pdb
