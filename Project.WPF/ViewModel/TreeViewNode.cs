@@ -34,9 +34,7 @@ namespace Project.WPF.ViewModel
         private bool m_IsExpanded;
         private void BuildMyself()
         {
-            Random random = new Random();
-            for (int i = 0; i < random.Next(7); i++)
-                this.Children.Add(new TreeViewNode() { Name = "sample" + i });
+
         }
     }
 }

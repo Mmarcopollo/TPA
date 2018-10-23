@@ -27,10 +27,5 @@ namespace Project.WPF
             InitializeComponent();
             this.Loaded += (s, e) => { this.DataContext = this.viewModel; };
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-          
-        }
     }
 }

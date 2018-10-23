@@ -12,8 +12,29 @@
             <ColumnDefinition Width="38*"/>
             <ColumnDefinition Width="53*"/>
         </Grid.ColumnDefinitions>
-        <TreeView x:Name="TreeView1" HorizontalAlignment="Left" Height="400" Margin="50,50,0,0" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="3"/>
-        <Button Content="Load tree" HorizontalAlignment="Left" Margin="366,502,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="3" Click="Button_Click"/>
 
+        <TreeView x:Name="TreeViewDll" HorizontalAlignment="Left" Height="320" Margin="50,142,0,0"
+                  VerticalAlignment="Top" Width="391" Grid.ColumnSpan="3"
+                  ItemsSource="{Binding  HierarchicalAreas, Mode=TwoWay}" >
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
+                    <TextBlock Text="{Binding Path=Name}" Margin="0,0,4,0" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+
+        <Button Content="Load tree" HorizontalAlignment="Left" Margin="366,502,0,0" VerticalAlignment="Top" 
+                Visibility="{Binding ChangeControlVisibility,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                Width="75" Grid.ColumnSpan="3"  Command="{Binding LoadDllCmd}"/>
+
+        <TextBox Text="{Binding Mode=OneWay,Path=PathVariable,UpdateSourceTrigger=PropertyChanged}"  
+                 HorizontalAlignment="Left" Height="25" Margin="50,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="391" Grid.ColumnSpan="3"/>
+        <Button x:Name="Browse" Content="Browse" Command="{Binding BrowseCmd}"
+                HorizontalAlignment="Left" Margin="356,95,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
