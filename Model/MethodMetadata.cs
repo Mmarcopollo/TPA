@@ -10,7 +10,6 @@ namespace Model
 {
     internal class MethodMetadata
     {
-
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
         {
             return from MethodBase _currentMethod in methods
@@ -74,6 +73,5 @@ namespace Model
             return new Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum>(_access, _abstract, _static, _virtual);
         }
         #endregion
-
     }
 }

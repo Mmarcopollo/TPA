@@ -34,7 +34,7 @@ namespace ViewModel
         private bool m_IsExpanded;
         private void BuildMyself()
         {
-
+            
         }
     }
 }

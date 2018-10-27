@@ -20,6 +20,6 @@ namespace Model
         {
             M_AssemblyModel = new AssemblyMetadata(assembly);
         }
-        internal AssemblyMetadata M_AssemblyModel { get; private set; }
+        public AssemblyMetadata M_AssemblyModel { get; private set; }
     }
 }

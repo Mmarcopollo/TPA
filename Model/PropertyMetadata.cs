@@ -9,7 +9,6 @@ namespace Model
 {
     internal class PropertyMetadata
     {
-
         internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
         {
             return from prop in props
@@ -26,6 +25,5 @@ namespace Model
             m_TypeMetadata = propertyType;
         }
         #endregion
-
     }
 }

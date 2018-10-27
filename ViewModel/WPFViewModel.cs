@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,16 +27,17 @@ namespace ViewModel
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand BrowseCmd { get; }
         public ICommand LoadDllCmd { get; set; }
-
+        private Reflector Reflector { get; set; }
 
         private void LoadDLL()
         {
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
+                Reflector = new Reflector(PathVariable);
                 TreeViewLoaded();
         }
         private void TreeViewLoaded()
         {
-            TreeViewNode rootItem = new TreeViewNode { Name = PathVariable.Substring(PathVariable.LastIndexOf('\\') + 1) };
+            TreeViewNode rootItem = new TreeViewNode { Name = Reflector.M_AssemblyModel.Name };
             HierarchicalAreas.Add(rootItem);
         }
 

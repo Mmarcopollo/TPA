@@ -9,7 +9,6 @@ namespace Model
 {
     internal static class ExtensionMethods
     {
-
         internal static bool GetVisible(this Type type)
         {
             return type.IsPublic || type.IsNestedPublic || type.IsNestedFamily || type.IsNestedFamANDAssem;
@@ -23,6 +22,5 @@ namespace Model
             string ns = type.Namespace;
             return ns ?? string.Empty;
         }
-
     }
 }

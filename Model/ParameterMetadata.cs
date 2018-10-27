@@ -8,7 +8,6 @@ namespace Model
 {
     internal class ParameterMetadata
     {
-
         public ParameterMetadata(string name, TypeMetadata typeMetadata)
         {
             this.m_Name = name;
@@ -18,6 +17,5 @@ namespace Model
         //private vars
         private string m_Name;
         private TypeMetadata m_TypeMetadata;
-
     }
 }

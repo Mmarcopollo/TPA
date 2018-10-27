@@ -9,11 +9,10 @@ namespace Model
 {
     public class AssemblyMetadata
     {
-
         internal AssemblyMetadata(Assembly assembly)
         {
-            m_Name = assembly.ManifestModule.Name;
-            m_Namespaces = from Type _type in assembly.GetTypes()
+            Name = assembly.ManifestModule.Name;
+            Namespaces = from Type _type in assembly.GetTypes()
                            where _type.GetVisible()
                            group _type by _type.GetNamespace() into _group
                            orderby _group.Key
@@ -23,5 +22,7 @@ namespace Model
         private string m_Name;
         private IEnumerable<NamespaceMetadata> m_Namespaces;
 
+        public string Name { get => m_Name; set => m_Name = value; }
+        internal IEnumerable<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
     }
 }

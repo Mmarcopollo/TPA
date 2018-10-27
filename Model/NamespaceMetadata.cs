@@ -8,7 +8,6 @@ namespace Model
 {
     internal class NamespaceMetadata
     {
-
         internal NamespaceMetadata(string name, IEnumerable<Type> types)
         {
             m_NamespaceName = name;
@@ -17,6 +16,5 @@ namespace Model
 
         private string m_NamespaceName;
         private IEnumerable<TypeMetadata> m_Types;
-
     }
 }
