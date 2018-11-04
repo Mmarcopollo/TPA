@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal class MethodMetadata
+    public class MethodMetadata : Metadata
     {
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
         {
@@ -25,6 +25,9 @@ namespace Model
         private TypeMetadata m_ReturnType;
         private bool m_Extension;
         private IEnumerable<ParameterMetadata> m_Parameters;
+
+        public override string Name { get => m_Name; set => m_Name = value; }
+
         //constructor
         private MethodMetadata(MethodBase method)
         {
@@ -71,6 +74,33 @@ namespace Model
             if (method.IsVirtual)
                 _virtual = VirtualEnum.Virtual;
             return new Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum>(_access, _abstract, _static, _virtual);
+        }
+
+        public override IEnumerable<NamespaceMetadata> GetAllNamespaces()
+        {
+            return null;
+        }
+
+        public override IEnumerable<TypeMetadata> GetAllTypes()
+        {
+            if (m_ReturnType == null) return m_GenericArguments;
+            if (m_GenericArguments == null) m_GenericArguments = Enumerable.Empty<TypeMetadata>();
+            return m_GenericArguments.Concat(new[] { m_ReturnType });
+        }
+
+        public override IEnumerable<PropertyMetadata> GetAllProperties()
+        {
+            return null;
+        }
+
+        public override IEnumerable<MethodMetadata> GetAllMethods()
+        {
+            return null; 
+        }
+
+        public override IEnumerable<ParameterMetadata> GetAllParameters()
+        {
+            return m_Parameters;
         }
         #endregion
     }

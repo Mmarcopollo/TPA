@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal class PropertyMetadata
+    public class PropertyMetadata : Metadata
     {
         internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
         {
@@ -16,9 +16,38 @@ namespace Model
                    select new PropertyMetadata(prop.Name, TypeMetadata.EmitReference(prop.PropertyType));
         }
 
+        public override IEnumerable<NamespaceMetadata> GetAllNamespaces()
+        {
+            return null;
+        }
+
+        public override IEnumerable<TypeMetadata> GetAllTypes()
+        {
+            if (m_TypeMetadata != null) return new[] { m_TypeMetadata };
+            return null;
+        }
+
+        public override IEnumerable<PropertyMetadata> GetAllProperties()
+        {
+            return null;
+        }
+
+        public override IEnumerable<MethodMetadata> GetAllMethods()
+        {
+            return null;
+        }
+
+        public override IEnumerable<ParameterMetadata> GetAllParameters()
+        {
+            return null;
+        }
+
         #region private
         private string m_Name;
         private TypeMetadata m_TypeMetadata;
+
+        public override string Name { get => m_Name; set => m_Name = value; }
+
         private PropertyMetadata(string propertyName, TypeMetadata propertyType)
         {
             m_Name = propertyName;

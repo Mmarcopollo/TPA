@@ -31,13 +31,14 @@ namespace ViewModel
 
         private void LoadDLL()
         {
+            HierarchicalAreas.Clear();
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
                 Reflector = new Reflector(PathVariable);
                 TreeViewLoaded();
         }
         private void TreeViewLoaded()
         {
-            TreeViewNode rootItem = new TreeViewNode { Name = Reflector.M_AssemblyModel.Name };
+            TreeViewNode rootItem = new TreeViewNode { Element = Reflector.M_AssemblyModel };
             HierarchicalAreas.Add(rootItem);
         }
 
