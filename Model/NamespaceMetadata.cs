@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal class NamespaceMetadata
+    public class NamespaceMetadata : Metadata
     {
         internal NamespaceMetadata(string name, IEnumerable<Type> types)
         {
@@ -16,5 +16,32 @@ namespace Model
 
         private string m_NamespaceName;
         private IEnumerable<TypeMetadata> m_Types;
+
+        public override string Name { get => m_NamespaceName; set => m_NamespaceName = value; }
+
+        public override IEnumerable<NamespaceMetadata> GetAllNamespaces()
+        {
+            return null;
+        }
+
+        public override IEnumerable<TypeMetadata> GetAllTypes()
+        {
+            return m_Types;
+        }
+
+        public override IEnumerable<PropertyMetadata> GetAllProperties()
+        {
+            return null;
+        }
+
+        public override IEnumerable<MethodMetadata> GetAllMethods()
+        {
+            return null;
+        }
+
+        public override IEnumerable<ParameterMetadata> GetAllParameters()
+        {
+            return null;
+        }
     }
 }

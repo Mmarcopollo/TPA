@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace ViewModel
             Children = new ObservableCollection<TreeViewNode>() { null };
             this.m_WasBuilt = false;
         }
-        public string Name { get; set; }
+        public Metadata Element { get; set; }
         public ObservableCollection<TreeViewNode> Children { get; set; }
         public bool IsExpanded
         {
@@ -34,7 +35,26 @@ namespace ViewModel
         private bool m_IsExpanded;
         private void BuildMyself()
         {
-            
+            foreach(NamespaceMetadata namespaceMetadata in Element.GetAllNamespaces().OrEmptyIfNull())
+            {
+                Children.Add(new TreeViewNode { Element = namespaceMetadata });
+            }
+            foreach (TypeMetadata typeMetadata in Element.GetAllTypes().OrEmptyIfNull())
+            {
+                Children.Add(new TreeViewNode { Element = typeMetadata });
+            }
+            foreach (PropertyMetadata propertyMetadata in Element.GetAllProperties().OrEmptyIfNull())
+            {
+                Children.Add(new TreeViewNode { Element = propertyMetadata });
+            }
+            foreach (MethodMetadata methodMetadata in Element.GetAllMethods().OrEmptyIfNull())
+            {
+                Children.Add(new TreeViewNode { Element = methodMetadata });
+            }
+            foreach (ParameterMetadata parameterMetadata in Element.GetAllParameters().OrEmptyIfNull())
+            {
+                Children.Add(new TreeViewNode { Element = parameterMetadata });
+            }
         }
     }
 }

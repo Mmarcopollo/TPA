@@ -44,6 +44,7 @@
     <Compile Include="AccessLevel.cs" />
     <Compile Include="AssemblyMetadata.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Metadata.cs" />
     <Compile Include="MethodMetadata.cs" />
     <Compile Include="NamespaceMetadata.cs" />
     <Compile Include="ParameterMetadata.cs" />

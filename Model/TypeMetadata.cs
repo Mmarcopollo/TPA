@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal class TypeMetadata
+    public class TypeMetadata : Metadata
     {
 
         #region constructors
@@ -60,6 +60,9 @@ namespace Model
         private TypeMetadata m_DeclaringType;
         private IEnumerable<MethodMetadata> m_Methods;
         private IEnumerable<MethodMetadata> m_Constructors;
+
+        public override string Name { get => m_typeName; set => m_typeName = value; }
+
         //constructors
         private TypeMetadata(string typeName, string namespaceName)
         {
@@ -122,7 +125,40 @@ namespace Model
                 return null;
             return EmitReference(baseType);
         }
+
+        public override IEnumerable<NamespaceMetadata> GetAllNamespaces()
+        {
+            return null;
+        }
+
+        public override IEnumerable<TypeMetadata> GetAllTypes()
+        {
+            if (m_GenericArguments == null) m_GenericArguments = Enumerable.Empty<TypeMetadata>();
+            if (m_ImplementedInterfaces == null) m_ImplementedInterfaces = Enumerable.Empty<TypeMetadata>();
+            if (m_NestedTypes == null) m_NestedTypes = Enumerable.Empty<TypeMetadata>();
+            IEnumerable<TypeMetadata> result = m_GenericArguments.Concat(m_ImplementedInterfaces.Concat(m_NestedTypes));
+            if (m_DeclaringType != null) result.Concat(new[] { m_DeclaringType });
+            return result;
+        }
+
+        public override IEnumerable<PropertyMetadata> GetAllProperties()
+        {
+            return m_Properties;
+        }
+
+        public override IEnumerable<MethodMetadata> GetAllMethods()
+        {
+            if (m_Methods == null) m_Methods = Enumerable.Empty<MethodMetadata>();
+            if (m_Constructors == null) m_Constructors = Enumerable.Empty<MethodMetadata>();
+            return m_Methods.Concat(m_Constructors);
+        }
+
+        public override IEnumerable<ParameterMetadata> GetAllParameters()
+        {
+            return null;
+        }
         #endregion
+
 
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class AssemblyMetadata
+    public class AssemblyMetadata : Metadata
     {
         internal AssemblyMetadata(Assembly assembly)
         {
@@ -22,7 +22,32 @@ namespace Model
         private string m_Name;
         private IEnumerable<NamespaceMetadata> m_Namespaces;
 
-        public string Name { get => m_Name; set => m_Name = value; }
+        public override string Name { get => m_Name; set => m_Name = value; }
         internal IEnumerable<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
+
+        public override IEnumerable<NamespaceMetadata> GetAllNamespaces()
+        {
+            return Namespaces;
+        }
+
+        public override IEnumerable<TypeMetadata> GetAllTypes()
+        {
+            return null;
+        }
+
+        public override IEnumerable<PropertyMetadata> GetAllProperties()
+        {
+            return null;
+        }
+
+        public override IEnumerable<MethodMetadata> GetAllMethods()
+        {
+            return null;
+        }
+
+        public override IEnumerable<ParameterMetadata> GetAllParameters()
+        {
+            return null;
+        }
     }
 }
