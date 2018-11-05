@@ -16,6 +16,7 @@ namespace ViewModel
             this.m_WasBuilt = false;
         }
         public Metadata Element { get; set; }
+        public String FullName { get; set; }
         public ObservableCollection<TreeViewNode> Children { get; set; }
         public bool IsExpanded
         {
@@ -37,23 +38,23 @@ namespace ViewModel
         {
             foreach(NamespaceMetadata namespaceMetadata in Element.GetAllNamespaces().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = namespaceMetadata });
+                Children.Add(new TreeViewNode { Element = namespaceMetadata, FullName = namespaceMetadata.Name + ":namespace" });
             }
             foreach (TypeMetadata typeMetadata in Element.GetAllTypes().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = typeMetadata });
+                Children.Add(new TreeViewNode { Element = typeMetadata, FullName = typeMetadata.Name + ":type" });
             }
             foreach (PropertyMetadata propertyMetadata in Element.GetAllProperties().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = propertyMetadata });
+                Children.Add(new TreeViewNode { Element = propertyMetadata, FullName = propertyMetadata.Name + ":property" });
             }
             foreach (MethodMetadata methodMetadata in Element.GetAllMethods().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = methodMetadata });
+                Children.Add(new TreeViewNode { Element = methodMetadata, FullName = methodMetadata.Name + ":method" });
             }
             foreach (ParameterMetadata parameterMetadata in Element.GetAllParameters().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = parameterMetadata });
+                Children.Add(new TreeViewNode { Element = parameterMetadata, FullName = parameterMetadata.Name + ":parameter" });
             }
         }
     }

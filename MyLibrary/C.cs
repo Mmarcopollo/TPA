@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace MyLibrary
 {
-    class C
+    public class C
     {
-        private int z;
-        private A classA;
+        public A classA;
 
-        public int Z { get => z; set => z = value; }
-        internal A ClassA { get => classA; set => classA = value; }
+        public int Z { get; set; }
+
+        float  MethodInC(B classB)
+        {
+            return classB.Y;
+        }
     }
 }

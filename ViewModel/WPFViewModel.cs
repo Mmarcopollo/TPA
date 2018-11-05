@@ -32,13 +32,13 @@ namespace ViewModel
         private void LoadDLL()
         {
             HierarchicalAreas.Clear();
-            if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
+            if (PathVariable.Substring(PathVariable.Length - 4) == ".dll" || PathVariable.Substring(PathVariable.Length - 4) == ".exe")
                 Reflector = new Reflector(PathVariable);
                 TreeViewLoaded();
         }
         private void TreeViewLoaded()
         {
-            TreeViewNode rootItem = new TreeViewNode { Element = Reflector.M_AssemblyModel };
+            TreeViewNode rootItem = new TreeViewNode { Element = Reflector.M_AssemblyModel, FullName = Reflector.M_AssemblyModel.Name + ":assembly" };
             HierarchicalAreas.Add(rootItem);
         }
 
@@ -46,7 +46,7 @@ namespace ViewModel
         {
             OpenFileDialog test = new OpenFileDialog()
             {
-                Filter = "Dynamic Library File(*.dll)| *.dll"
+                Filter = "Dynamic Library File(*.dll)| *.dll|Executable(*.exe)| *.exe"
             };
             test.ShowDialog();
             if (test.FileName.Length == 0)

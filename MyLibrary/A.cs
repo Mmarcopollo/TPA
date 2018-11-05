@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyLibrary
 {
-    class A
+    public class A
     {
-        private int x;
-        private string tekst;
-
-        public int X { get => x; set => x = value; }
-        public string Tekst { get => tekst; set => tekst = value; }
+        public int X { get; set; }
+        public string Tekst { get; set; }
     }
 }

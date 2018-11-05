@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyLibrary
 {
-    class B
+    public class B
     {
-        private float y;
-
-        public float Y { get => y; set => y = value; }
+        public float Y { get; set; }
     }
 }

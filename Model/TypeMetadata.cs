@@ -138,6 +138,7 @@ namespace Model
             if (m_NestedTypes == null) m_NestedTypes = Enumerable.Empty<TypeMetadata>();
             IEnumerable<TypeMetadata> result = m_GenericArguments.Concat(m_ImplementedInterfaces.Concat(m_NestedTypes));
             if (m_DeclaringType != null) result.Concat(new[] { m_DeclaringType });
+            if (m_BaseType != null) result.Concat(new[] { m_BaseType });
             return result;
         }
 
