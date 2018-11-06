@@ -12,7 +12,7 @@ namespace MyLibrary
 
         public int Z { get; set; }
 
-        float  MethodInC(B classB)
+        public float  MethodInC(B classB)
         {
             return classB.Y;
         }

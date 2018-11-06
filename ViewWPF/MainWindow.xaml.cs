@@ -1,6 +1,10 @@
-﻿using System;
+﻿using log4net;
+using log4net.Config;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,8 +26,10 @@ namespace ViewWPF
     public partial class MainWindow : Window
     {
         WPFViewModel viewModel = new WPFViewModel();
+     
         public MainWindow()
         {
+            XmlConfigurator.Configure();
             this.Loaded += (s, e) => { this.DataContext = this.viewModel; };
             InitializeComponent();            
         }

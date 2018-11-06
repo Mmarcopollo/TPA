@@ -1,9 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using log4net;
+using log4net.Config;
+using Microsoft.Win32;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +16,7 @@ namespace ViewModel
 {
     public class WPFViewModel : ViewModelBase
     {
+        private static readonly log4net.ILog log = LogHelper.GetLogger();
 
         public WPFViewModel()
         {
@@ -27,19 +31,24 @@ namespace ViewModel
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand BrowseCmd { get; }
         public ICommand LoadDllCmd { get; set; }
-        private Reflector Reflector { get; set; }
+        public Reflector Reflector { get; set; }
 
-        private void LoadDLL()
+        public bool LoadDLL()
         {
+
             HierarchicalAreas.Clear();
             if (PathVariable.Substring(PathVariable.Length - 4) == ".dll" || PathVariable.Substring(PathVariable.Length - 4) == ".exe")
                 Reflector = new Reflector(PathVariable);
                 TreeViewLoaded();
+            log.Info("File loaded to treeview.");
+            return true;
+
         }
         private void TreeViewLoaded()
         {
             TreeViewNode rootItem = new TreeViewNode { Element = Reflector.M_AssemblyModel, FullName = Reflector.M_AssemblyModel.Name + ":assembly" };
             HierarchicalAreas.Add(rootItem);
+            log.Info("TreeView is loaded");
         }
 
         private void Browse()
@@ -57,6 +66,8 @@ namespace ViewModel
                 ChangeControlVisibility = Visibility.Visible;
                 RaisePropertyChanged("ChangeControlVisibility");
                 RaisePropertyChanged("PathVariable");
+
+                log.Info("The file to load was selected");
             }
         }
     }

@@ -133,12 +133,12 @@ namespace Model
 
         public override IEnumerable<TypeMetadata> GetAllTypes()
         {
-            if (m_GenericArguments == null) m_GenericArguments = Enumerable.Empty<TypeMetadata>();
-            if (m_ImplementedInterfaces == null) m_ImplementedInterfaces = Enumerable.Empty<TypeMetadata>();
-            if (m_NestedTypes == null) m_NestedTypes = Enumerable.Empty<TypeMetadata>();
-            IEnumerable<TypeMetadata> result = m_GenericArguments.Concat(m_ImplementedInterfaces.Concat(m_NestedTypes));
-            if (m_DeclaringType != null) result.Concat(new[] { m_DeclaringType });
+            IEnumerable<TypeMetadata> result = Enumerable.Empty<TypeMetadata>();
             if (m_BaseType != null) result.Concat(new[] { m_BaseType });
+            if (m_GenericArguments != null) result.Concat(m_GenericArguments);
+            if (m_ImplementedInterfaces != null) result.Concat(m_ImplementedInterfaces);
+            if (m_NestedTypes != null) result.Concat(m_NestedTypes);
+            if (m_DeclaringType != null) result.Concat(new[] { m_DeclaringType });
             return result;
         }
 

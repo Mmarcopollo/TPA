@@ -10,6 +10,8 @@ namespace ViewModel
 {
     public class TreeViewNode
     {
+        private static readonly log4net.ILog log = LogHelper.GetLogger();
+
         public TreeViewNode()
         {
             Children = new ObservableCollection<TreeViewNode>() { null };
@@ -56,6 +58,7 @@ namespace ViewModel
             {
                 Children.Add(new TreeViewNode { Element = parameterMetadata, FullName = parameterMetadata.Name + ":parameter" });
             }
+            log.Info("Method BuildMyself work properly.");
         }
     }
 }
