@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyLibrary
+namespace Model
 {
-    public class B
+    internal enum StaticEnum
     {
-        public C c { get; set; }
-
-        public float Y { get; set; }
+        NotStatic, Static
     }
 }

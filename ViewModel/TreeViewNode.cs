@@ -41,10 +41,11 @@ namespace ViewModel
             foreach(NamespaceMetadata namespaceMetadata in Element.GetAllNamespaces().OrEmptyIfNull())
             {
                 Children.Add(new TreeViewNode { Element = namespaceMetadata, FullName = namespaceMetadata.Name + ":namespace" });
+
             }
-            foreach (TypeMetadata typeMetadata in Element.GetAllTypes().OrEmptyIfNull())
+           foreach (TypeMetadata typeMetadata in Element.GetAllTypes().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = typeMetadata, FullName = typeMetadata.Name + ":type" });
+                Children.Add(new TreeViewNode { Element = TypeMetadata.TypeDictionary[typeMetadata.m_typeName], FullName = typeMetadata.Name + ":type" });
             }
             foreach (PropertyMetadata propertyMetadata in Element.GetAllProperties().OrEmptyIfNull())
             {
@@ -59,6 +60,7 @@ namespace ViewModel
                 Children.Add(new TreeViewNode { Element = parameterMetadata, FullName = parameterMetadata.Name + ":parameter" });
             }
             log.Info("Method BuildMyself work properly.");
+            
         }
     }
 }

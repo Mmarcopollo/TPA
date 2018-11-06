@@ -8,7 +8,7 @@ namespace MyLibrary
 {
     public class A
     {
-        public int X { get; set; }
+        public B b { get; set; }
         public string Tekst { get; set; }
     }
 }

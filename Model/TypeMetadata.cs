@@ -8,9 +8,10 @@ namespace Model
 {
     public class TypeMetadata : Metadata
     {
+        public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
 
         #region constructors
-        internal TypeMetadata(Type type)
+        public TypeMetadata(Type type)
         {
             m_typeName = type.Name;
             m_DeclaringType = EmitDeclaringType(type.DeclaringType);
@@ -24,22 +25,31 @@ namespace Model
             m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             m_TypeKind = GetTypeKind(type);
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+
+            if (!TypeDictionary.ContainsKey(this.m_typeName))
+            {
+                TypeDictionary.Add(this.m_typeName, this);
+            }
+            else
+            {
+                return;
+            }
         }
         #endregion
 
         #region API
-        internal enum TypeKind
+        public enum TypeKind
         {
             EnumType, StructType, InterfaceType, ClassType
         }
-        internal static TypeMetadata EmitReference(Type type)
+        public static TypeMetadata EmitReference(Type type)
         {
             if (!type.IsGenericType)
                 return new TypeMetadata(type.Name, type.GetNamespace());
             else
                 return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
         }
-        internal static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
+        public static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
             return from Type _argument in arguments select EmitReference(_argument);
         }
@@ -47,19 +57,19 @@ namespace Model
 
         #region private
         //vars
-        private string m_typeName;
-        private string m_NamespaceName;
-        private TypeMetadata m_BaseType;
-        private IEnumerable<TypeMetadata> m_GenericArguments;
-        private Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
-        private TypeKind m_TypeKind;
-        private IEnumerable<Attribute> m_Attributes;
-        private IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        private IEnumerable<TypeMetadata> m_NestedTypes;
-        private IEnumerable<PropertyMetadata> m_Properties;
-        private TypeMetadata m_DeclaringType;
-        private IEnumerable<MethodMetadata> m_Methods;
-        private IEnumerable<MethodMetadata> m_Constructors;
+        public string m_typeName;
+        public string m_NamespaceName;
+        public TypeMetadata m_BaseType;
+        public IEnumerable<TypeMetadata> m_GenericArguments;
+        public Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
+        public TypeKind m_TypeKind;
+        public IEnumerable<Attribute> m_Attributes;
+        public IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        public IEnumerable<TypeMetadata> m_NestedTypes;
+        public IEnumerable<PropertyMetadata> m_Properties;
+        public TypeMetadata m_DeclaringType;
+        public IEnumerable<MethodMetadata> m_Methods;
+        public IEnumerable<MethodMetadata> m_Constructors;
 
         public override string Name { get => m_typeName; set => m_typeName = value; }
 

@@ -8,7 +8,7 @@ namespace MyLibrary
 {
     public class C
     {
-        public A classA;
+        public A classA { get; set; }
 
         public int Z { get; set; }
 
