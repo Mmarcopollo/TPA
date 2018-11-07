@@ -10,6 +10,8 @@ namespace Model
 {
     public class MethodMetadata : Metadata
     {
+        public static Dictionary<string, MethodMetadata> TypeDictionary = new Dictionary<string, MethodMetadata>();
+
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
         {
             return from MethodBase _currentMethod in methods
@@ -19,7 +21,7 @@ namespace Model
 
         #region private
         //vars
-        private string m_Name;
+        public string m_Name;
         private IEnumerable<TypeMetadata> m_GenericArguments;
         private Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum> m_Modifiers;
         private TypeMetadata m_ReturnType;
@@ -37,6 +39,15 @@ namespace Model
             m_Parameters = EmitParameters(method.GetParameters());
             m_Modifiers = EmitModifiers(method);
             m_Extension = EmitExtension(method);
+
+            if (!TypeDictionary.ContainsKey(this.m_Name))
+            {
+                TypeDictionary.Add(this.m_Name, this);
+            }
+            else
+            {
+                return;
+            }
         }
         //methods
         private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parms)

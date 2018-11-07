@@ -9,6 +9,8 @@ namespace Model
 {
     public class PropertyMetadata : Metadata
     {
+        public static Dictionary<string, PropertyMetadata> TypeDictionary = new Dictionary<string, PropertyMetadata>();
+
         internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
         {
             return from prop in props
@@ -43,8 +45,8 @@ namespace Model
         }
 
         #region private
-        private string m_Name;
-        private TypeMetadata m_TypeMetadata;
+        public string m_Name;
+        public TypeMetadata m_TypeMetadata;
 
         public override string Name { get => m_Name; set => m_Name = value; }
 
@@ -52,6 +54,15 @@ namespace Model
         {
             m_Name = propertyName;
             m_TypeMetadata = propertyType;
+
+            if (!TypeDictionary.ContainsKey(this.m_Name))
+            {
+                TypeDictionary.Add(this.m_Name, this);
+            }
+            else
+            {
+                return;
+            }
         }
         #endregion
     }
