@@ -20,6 +20,7 @@ namespace ViewModel
 
         public TreeViewModel()
         {
+            XmlConfigurator.Configure();
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
             BrowseCmd = new RelayCommand(pars => Browse());
