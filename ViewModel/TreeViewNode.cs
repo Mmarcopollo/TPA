@@ -15,7 +15,7 @@ namespace ViewModel
         public TreeViewNode()
         {
             Children = new ObservableCollection<TreeViewNode>() { null };
-            this.m_WasBuilt = false;
+            this.WasBuilt = false;
         }
         public Metadata Element { get; set; }
         public String FullName { get; set; }
@@ -26,13 +26,15 @@ namespace ViewModel
             set
             {
                 m_IsExpanded = value;
-                if (m_WasBuilt)
+                if (WasBuilt)
                     return;
                 Children.Clear();
                 BuildMyself();
-                m_WasBuilt = true;
+                WasBuilt = true;
             }
         }
+
+        public bool WasBuilt {private get => m_WasBuilt; set => m_WasBuilt = value; }
 
         private bool m_WasBuilt;
         private bool m_IsExpanded;
@@ -41,11 +43,10 @@ namespace ViewModel
             foreach(NamespaceMetadata namespaceMetadata in Element.GetAllNamespaces().OrEmptyIfNull())
             {
                 Children.Add(new TreeViewNode { Element = namespaceMetadata, FullName = namespaceMetadata.Name + ":namespace" });
-
             }
            foreach (TypeMetadata typeMetadata in Element.GetAllTypes().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = TypeMetadata.TypeDictionary[typeMetadata.m_typeName], FullName = typeMetadata.Name + ":type" });
+                Children.Add(new TreeViewNode { Element = TypeMetadata.TypeDictionary[typeMetadata.Name], FullName = typeMetadata.Name + ":type" });
             }
             foreach (PropertyMetadata propertyMetadata in Element.GetAllProperties().OrEmptyIfNull())
             {

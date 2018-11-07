@@ -44,6 +44,14 @@ namespace ViewConsole
                         DisplayTree(node, 0);
                     }
                 }
+                else if (control == ConsoleKey.LeftArrow)
+                {
+                    foreach (TreeViewNode node in viewModel.HierarchicalAreas)
+                    {
+                        ConvolveTree(node);
+                        DisplayTree(node, 0);
+                    }
+                }
                 control = Console.ReadKey().Key;
             }
         }
@@ -70,6 +78,16 @@ namespace ViewConsole
                     foreach (TreeViewNode childNode in node.Children) ExpandTree(childNode);
                 }
                 else node.IsExpanded = true;
+            }
+        }
+
+        private static void ConvolveTree(TreeViewNode node)
+        {
+            if(node != null)
+            {
+                node.IsExpanded = false;
+                node.Children.Clear();
+                node.WasBuilt = false;
             }
         }
     }
