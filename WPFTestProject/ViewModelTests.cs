@@ -30,5 +30,24 @@ namespace WPFTestProject
 
         }
 
+        [TestMethod]
+        public void TreeViewLoaded_LoadingTree_CheckTimeOfLoading()
+        {
+
+            Mock<TreeViewModel> vmTest = new Mock<TreeViewModel>();
+            vmTest.SetupAllProperties();
+
+            string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
+            Reflector reflector = new Reflector(path);
+
+            vmTest.Object.PathVariable = path;
+            vmTest.Object.Reflector = reflector;
+
+            vmTest.Object.TreeViewLoaded();
+            Thread.Sleep(3000);
+            Assert.IsTrue(vmTest.Object.HierarchicalAreas.Count > 0);
+
+        }
+
     }
 }

@@ -51,14 +51,14 @@ namespace ViewModel
                 return false;
             }
         }
-        private void TreeViewLoaded()
+        public void TreeViewLoaded()
         {
         TreeViewNode rootItem = new TreeViewNode { Element = Reflector.M_AssemblyModel, FullName = Reflector.M_AssemblyModel.Name + ":assembly" };
             HierarchicalAreas.Add(rootItem);
             log.Info("TreeView is loaded");
         }
 
-        private void Browse()
+        public void Browse()
         {
             OpenFileDialog test = new OpenFileDialog()
             {

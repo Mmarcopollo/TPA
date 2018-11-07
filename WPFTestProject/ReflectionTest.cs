@@ -38,5 +38,7 @@ namespace WPFTestProject
             Assert.AreEqual(props.Count, 2);
 
         }
+
+
     }
 }
