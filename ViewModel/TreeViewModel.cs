@@ -14,11 +14,11 @@ using System.Windows.Input;
 
 namespace ViewModel
 {
-    public class WPFViewModel : ViewModelBase
+    public class TreeViewModel : ViewModelBase
     {
         private static readonly log4net.ILog log = LogHelper.GetLogger();
 
-        public WPFViewModel()
+        public TreeViewModel()
         {
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
@@ -35,14 +35,19 @@ namespace ViewModel
 
         public bool LoadDLL()
         {
-
             HierarchicalAreas.Clear();
-            if (PathVariable.Substring(PathVariable.Length - 4) == ".dll" || PathVariable.Substring(PathVariable.Length - 4) == ".exe")
+            if (PathVariable.Length > 4 && (PathVariable.Substring(PathVariable.Length - 4) == ".dll" || PathVariable.Substring(PathVariable.Length - 4) == ".exe"))
+            {
                 Reflector = new Reflector(PathVariable);
                 TreeViewLoaded();
-            log.Info("File loaded to treeview.");
-            return true;
-
+                log.Info("File loaded to treeview.");
+                return true;
+            }
+            else
+            {
+                log.Info("File failed when loading from path");
+                return false;
+            }
         }
         private void TreeViewLoaded()
         {

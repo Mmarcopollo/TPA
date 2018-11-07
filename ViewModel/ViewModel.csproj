@@ -50,7 +50,7 @@
     <Compile Include="RellyCommand.cs" />
     <Compile Include="TreeViewNode.cs" />
     <Compile Include="ViewModelBase.cs" />
-    <Compile Include="WPFViewModel.cs" />
+    <Compile Include="TreeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
