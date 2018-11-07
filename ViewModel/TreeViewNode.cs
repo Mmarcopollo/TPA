@@ -50,15 +50,15 @@ namespace ViewModel
             }
             foreach (PropertyMetadata propertyMetadata in Element.GetAllProperties().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = propertyMetadata, FullName = propertyMetadata.Name + ":property" });
+                Children.Add(new TreeViewNode { Element = PropertyMetadata.TypeDictionary[propertyMetadata.m_Name], FullName = propertyMetadata.Name + ":property" });
             }
             foreach (MethodMetadata methodMetadata in Element.GetAllMethods().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = methodMetadata, FullName = methodMetadata.Name + ":method" });
+                Children.Add(new TreeViewNode { Element = MethodMetadata.TypeDictionary[methodMetadata.m_Name], FullName = methodMetadata.Name + ":method" });
             }
             foreach (ParameterMetadata parameterMetadata in Element.GetAllParameters().OrEmptyIfNull())
             {
-                Children.Add(new TreeViewNode { Element = parameterMetadata, FullName = parameterMetadata.Name + ":parameter" });
+                Children.Add(new TreeViewNode { Element = ParameterMetadata.TypeDictionary[parameterMetadata.m_Name], FullName = parameterMetadata.Name + ":parameter" });
             }
             log.Info("Method BuildMyself work properly.");
             
