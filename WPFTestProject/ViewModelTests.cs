@@ -15,7 +15,7 @@ namespace WPFTestProject
         public void LoadDll_Loadingfile_CheckTimeOfLoading()
         {
 
-            Mock<WPFViewModel> vmTest= new Mock<WPFViewModel>();
+            Mock<TreeViewModel> vmTest= new Mock<TreeViewModel>();
             vmTest.SetupAllProperties();
 
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
