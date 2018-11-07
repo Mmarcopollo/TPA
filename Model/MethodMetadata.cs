@@ -10,8 +10,6 @@ namespace Model
 {
     public class MethodMetadata : Metadata
     {
-        public static Dictionary<string, MethodMetadata> TypeDictionary = new Dictionary<string, MethodMetadata>();
-
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
         {
             return from MethodBase _currentMethod in methods
@@ -39,15 +37,6 @@ namespace Model
             m_Parameters = EmitParameters(method.GetParameters());
             m_Modifiers = EmitModifiers(method);
             m_Extension = EmitExtension(method);
-
-            if (!TypeDictionary.ContainsKey(this.m_Name))
-            {
-                TypeDictionary.Add(this.m_Name, this);
-            }
-            else
-            {
-                return;
-            }
         }
         //methods
         private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parms)
@@ -94,9 +83,10 @@ namespace Model
 
         public override IEnumerable<TypeMetadata> GetAllTypes()
         {
-            if (m_ReturnType == null) return m_GenericArguments;
-            if (m_GenericArguments == null) m_GenericArguments = Enumerable.Empty<TypeMetadata>();
-            return m_GenericArguments.Concat(new[] { m_ReturnType });
+            IEnumerable<TypeMetadata> result = Enumerable.Empty<TypeMetadata>();
+            if (m_ReturnType != null) result.Concat(new[] { m_ReturnType });
+            if (m_GenericArguments != null) result.Concat(m_GenericArguments);
+            return result;
         }
 
         public override IEnumerable<PropertyMetadata> GetAllProperties()

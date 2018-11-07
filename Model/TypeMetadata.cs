@@ -28,11 +28,7 @@ namespace Model
 
             if (!TypeDictionary.ContainsKey(this.m_typeName))
             {
-                TypeDictionary.Add(this.m_typeName, this);
-            }
-            else
-            {
-                return;
+                TypeDictionary.Add(Name, this);
             }
         }
         #endregion

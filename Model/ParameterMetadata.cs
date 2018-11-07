@@ -8,21 +8,10 @@ namespace Model
 {
     public class ParameterMetadata : Metadata
     {
-        public static Dictionary<string, ParameterMetadata> TypeDictionary = new Dictionary<string, ParameterMetadata>();
-
         public ParameterMetadata(string name, TypeMetadata typeMetadata)
         {
             this.m_Name = name;
             this.m_TypeMetadata = typeMetadata;
-
-            if (!TypeDictionary.ContainsKey(this.m_Name))
-            {
-                TypeDictionary.Add(this.m_Name, this);
-            }
-            else
-            {
-                return;
-            }
         }
 
         //private vars
@@ -39,7 +28,7 @@ namespace Model
         public override IEnumerable<TypeMetadata> GetAllTypes()
         {
             if(m_TypeMetadata != null) return new[] { m_TypeMetadata };
-            return null;
+            return Enumerable.Empty<TypeMetadata>();
         }
 
         public override IEnumerable<PropertyMetadata> GetAllProperties()

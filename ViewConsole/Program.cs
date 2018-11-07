@@ -26,7 +26,7 @@ namespace ViewConsole
                 Console.Write("Write the path to file you want load:");
                 //string path = Console.ReadLine();
                 //viewModel.PathVariable = path;
-                viewModel.PathVariable = "D:\\Studia\\V_semestr\\TPA\\Projekt_po_przebudowie\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
+                viewModel.PathVariable = "E:\\Moje\\Super Studia\\Semestr 5\\TPA\\El Projekto\\TPA\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
                 isSuccessfullyRead = viewModel.LoadDLL();
             }
             while (!isSuccessfullyRead);

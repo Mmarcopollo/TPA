@@ -9,8 +9,6 @@ namespace Model
 {
     public class PropertyMetadata : Metadata
     {
-        public static Dictionary<string, PropertyMetadata> TypeDictionary = new Dictionary<string, PropertyMetadata>();
-
         internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
         {
             return from prop in props
@@ -26,7 +24,7 @@ namespace Model
         public override IEnumerable<TypeMetadata> GetAllTypes()
         {
             if (m_TypeMetadata != null) return new[] { m_TypeMetadata };
-            return null;
+            return Enumerable.Empty<TypeMetadata>();
         }
 
         public override IEnumerable<PropertyMetadata> GetAllProperties()
@@ -54,15 +52,6 @@ namespace Model
         {
             m_Name = propertyName;
             m_TypeMetadata = propertyType;
-
-            if (!TypeDictionary.ContainsKey(this.m_Name))
-            {
-                TypeDictionary.Add(this.m_Name, this);
-            }
-            else
-            {
-                return;
-            }
         }
         #endregion
     }
