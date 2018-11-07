@@ -36,6 +36,7 @@ namespace ViewModel
 
         public bool LoadDLL()
         {
+            log.Info("Loading DLL.");
             HierarchicalAreas.Clear();
             if (PathVariable.Length > 4 && (PathVariable.Substring(PathVariable.Length - 4) == ".dll" || PathVariable.Substring(PathVariable.Length - 4) == ".exe"))
             {

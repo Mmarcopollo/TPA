@@ -9,7 +9,7 @@ namespace Model
 {
     public class AssemblyMetadata : Metadata
     {
-        internal AssemblyMetadata(Assembly assembly)
+        public AssemblyMetadata(Assembly assembly)
         {
             Name = assembly.ManifestModule.Name;
             Namespaces = from Type _type in assembly.GetTypes()
@@ -23,7 +23,7 @@ namespace Model
         private IEnumerable<NamespaceMetadata> m_Namespaces;
 
         public override string Name { get => m_Name; set => m_Name = value; }
-        internal IEnumerable<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
+        public IEnumerable<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
 
         public override IEnumerable<NamespaceMetadata> GetAllNamespaces()
         {

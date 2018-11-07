@@ -14,8 +14,8 @@ namespace Model
             m_Types = from type in types orderby type.Name select new TypeMetadata(type);
         }
 
-        private string m_NamespaceName;
-        private IEnumerable<TypeMetadata> m_Types;
+        public string m_NamespaceName;
+        public IEnumerable<TypeMetadata> m_Types;
 
         public override string Name { get => m_NamespaceName; set => m_NamespaceName = value; }
 
