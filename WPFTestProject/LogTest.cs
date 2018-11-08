@@ -23,7 +23,6 @@ namespace WPFTestProject
             vmTest.Object.Reflector = reflector;
 
             vmTest.Object.LoadDLL();
-
             string pathToLog = "..\\..\\..\\Logs\\LogFile.log";
             if (File.Exists(path))
                 Assert.IsTrue(File.Exists(pathToLog));
