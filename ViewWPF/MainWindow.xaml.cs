@@ -24,13 +24,9 @@ namespace ViewWPF
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        TreeViewModel viewModel = new TreeViewModel();
-     
+    {     
         public MainWindow()
         {
-            XmlConfigurator.Configure();
-            this.Loaded += (s, e) => { this.DataContext = this.viewModel; };
             InitializeComponent();            
         }
     }
