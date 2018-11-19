@@ -23,16 +23,50 @@ namespace ViewModel
             XmlConfigurator.Configure();
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
-            BrowseCmd = new RelayCommand(pars => Browse());
+            BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
 
+        }
+        private void ExecuteBrowseFile()
+        {
+            if (FilePathProvider != null)
+            {
+                PathVariable = FilePathProvider.Browse();
+            }
+        }
+
+        public TreeViewModel(IBrowseFile pathProvider)
+        {
+            FilePathProvider = pathProvider;
+            XmlConfigurator.Configure();
+            HierarchicalAreas = new ObservableCollection<TreeViewNode>();
+            LoadDllCmd = new RelayCommand(pars => LoadDLL());
+            BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
         }
 
         public ObservableCollection<TreeViewNode> HierarchicalAreas { get; set; }
-        public string PathVariable { get; set; }
+
+        private string _pathVariable;
+        public string PathVariable
+        {
+            get
+            {
+                return _pathVariable;
+            }
+            set
+            {
+                _pathVariable = value;
+                RaisePropertyChanged();
+            }
+        }
         public Visibility ChangeControlVisibility { get; set; } = Visibility.Hidden;
         public ICommand BrowseCmd { get; }
         public ICommand LoadDllCmd { get; set; }
         public Reflector Reflector { get; set; }
+
+        public IBrowseFile FilePathProvider
+        {
+            get;
+        }
 
         public bool LoadDLL()
         {
@@ -58,24 +92,6 @@ namespace ViewModel
             log.Info("TreeView is loaded");
         }
 
-        public void Browse()
-        {
-            OpenFileDialog test = new OpenFileDialog()
-            {
-                Filter = "Dynamic Library File(*.dll)| *.dll|Executable(*.exe)| *.exe"
-            };
-            test.ShowDialog();
-            if (test.FileName.Length == 0)
-                MessageBox.Show("No files selected");
-            else
-            {
-                PathVariable = test.FileName;
-                ChangeControlVisibility = Visibility.Visible;
-                RaisePropertyChanged("ChangeControlVisibility");
-                RaisePropertyChanged("PathVariable");
-
-                log.Info("The file to load was selected");
-            }
-        }
+       
     }
 }

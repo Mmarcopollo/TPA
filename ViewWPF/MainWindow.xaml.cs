@@ -25,7 +25,7 @@ namespace ViewWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        TreeViewModel viewModel = new TreeViewModel();
+        TreeViewModel viewModel = new TreeViewModel(new BrowseFile());
      
         public MainWindow()
         {

@@ -30,7 +30,6 @@
         </TreeView>
 
         <Button Content="Load tree" HorizontalAlignment="Left" Margin="366,502,0,0" VerticalAlignment="Top" 
-                Visibility="{Binding ChangeControlVisibility,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                 Width="75" Grid.ColumnSpan="3"  Command="{Binding LoadDllCmd}"/>
 
         <TextBox Text="{Binding Mode=OneWay,Path=PathVariable,UpdateSourceTrigger=PropertyChanged}"  
