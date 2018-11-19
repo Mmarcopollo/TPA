@@ -26,7 +26,7 @@ namespace ViewModel
             BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
 
         }
-        private void ExecuteBrowseFile()
+        public void ExecuteBrowseFile()
         {
             if (FilePathProvider != null)
             {
