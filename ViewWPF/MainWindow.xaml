@@ -8,7 +8,11 @@
         Title="Reflection project" Height="600" Width="500"
         ResizeMode="NoResize">
     <Window.DataContext>
-        <local:TreeViewModel/>
+        <ObjectDataProvider ObjectType="local:TreeViewModel" xmlns:browse="clr-namespace:ViewWPF">
+            <ObjectDataProvider.ConstructorParameters>
+                <browse:BrowseFile/>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -33,7 +37,6 @@
         </TreeView>
 
         <Button Content="Load tree" HorizontalAlignment="Left" Margin="366,502,0,0" VerticalAlignment="Top" 
-                Visibility="{Binding ChangeControlVisibility,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                 Width="75" Grid.ColumnSpan="3"  Command="{Binding LoadDllCmd}"/>
 
         <TextBox Text="{Binding Mode=OneWay,Path=PathVariable,UpdateSourceTrigger=PropertyChanged}"  

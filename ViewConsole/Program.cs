@@ -16,20 +16,24 @@ namespace ViewConsole
         static void Main(string[] args)
         {
             XmlConfigurator.Configure();
-            TreeViewModel viewModel = new TreeViewModel();
+            TreeViewModel viewModel = new TreeViewModel(new BrowseFile());
             Console.WriteLine("Welcome in reflection Tree View program.");
-            bool isSuccessfullyRead = true;
+            //bool isSuccessfullyRead = true;
 
-            do
-            {
-                if (!isSuccessfullyRead) Console.WriteLine("You typed wrong path. Try again.");
-                Console.Write("Write the path to file you want load:");
-                //string path = Console.ReadLine();
-                //viewModel.PathVariable = path;
-                viewModel.PathVariable = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
-                isSuccessfullyRead = viewModel.LoadDLL();
-            }
-            while (!isSuccessfullyRead);
+            //do
+            //{
+            //    if (!isSuccessfullyRead) Console.WriteLine("You typed wrong path. Try again.");
+            //    Console.Write("Write the path to file you want load:");
+            //    //string path = Console.ReadLine();
+            //    //viewModel.PathVariable = path;
+            //    viewModel.PathVariable = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
+            //    isSuccessfullyRead = viewModel.LoadDLL();
+            //}
+            //while (!isSuccessfullyRead);
+
+            viewModel.ExecuteBrowseFile();
+            viewModel.LoadDLL();
+            
 
             Console.Clear();
             foreach (TreeViewNode node in viewModel.HierarchicalAreas) DisplayTree(node, 0);
