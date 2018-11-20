@@ -16,7 +16,7 @@ namespace Model
 
         //private vars
         public string m_Name;
-        private TypeMetadata m_TypeMetadata;
+        public TypeMetadata m_TypeMetadata;
 
         public override string Name { get => m_Name; set => m_Name = value; }
 

@@ -20,11 +20,11 @@ namespace Model
         #region private
         //vars
         public string m_Name;
-        private IEnumerable<TypeMetadata> m_GenericArguments;
+        public IEnumerable<TypeMetadata> m_GenericArguments;
         private Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum> m_Modifiers;
         private TypeMetadata m_ReturnType;
         private bool m_Extension;
-        private IEnumerable<ParameterMetadata> m_Parameters;
+        public IEnumerable<ParameterMetadata> m_Parameters;
 
         public override string Name { get => m_Name; set => m_Name = value; }
 

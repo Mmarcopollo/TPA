@@ -1,5 +1,4 @@
 ﻿using log4net.Config;
-using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,18 +17,6 @@ namespace ViewConsole
             XmlConfigurator.Configure();
             TreeViewModel viewModel = new TreeViewModel(new BrowseFile());
             Console.WriteLine("Welcome in reflection Tree View program.");
-            //bool isSuccessfullyRead = true;
-
-            //do
-            //{
-            //    if (!isSuccessfullyRead) Console.WriteLine("You typed wrong path. Try again.");
-            //    Console.Write("Write the path to file you want load:");
-            //    //string path = Console.ReadLine();
-            //    //viewModel.PathVariable = path;
-            //    viewModel.PathVariable = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
-            //    isSuccessfullyRead = viewModel.LoadDLL();
-            //}
-            //while (!isSuccessfullyRead);
 
             viewModel.ExecuteBrowseFile();
             viewModel.LoadDLL();

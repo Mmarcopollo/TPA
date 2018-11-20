@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ViewModel.Treeview;
 
 namespace ViewModel
 {
@@ -86,7 +87,7 @@ namespace ViewModel
         }
         public void TreeViewLoaded()
         {
-        TreeViewNode rootItem = new TreeViewNode { Element = Reflector.M_AssemblyModel, FullName = Reflector.M_AssemblyModel.Name + ":assembly" };
+        TreeViewNode rootItem = new AssemblyTreeView(Reflector.M_AssemblyModel);
             HierarchicalAreas.Add(rootItem);
             log.Info("TreeView is loaded");
         }
