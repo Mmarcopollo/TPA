@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class ParameterMetadata : Metadata
+    public class ParameterMetadata
     {
         public ParameterMetadata(string name, TypeMetadata typeMetadata)
         {
@@ -18,32 +18,6 @@ namespace Model
         public string m_Name;
         public TypeMetadata m_TypeMetadata;
 
-        public override string Name { get => m_Name; set => m_Name = value; }
-
-        public override IEnumerable<NamespaceMetadata> GetAllNamespaces()
-        {
-            return null;
-        }
-
-        public override IEnumerable<TypeMetadata> GetAllTypes()
-        {
-            if(m_TypeMetadata != null) return new[] { m_TypeMetadata };
-            return Enumerable.Empty<TypeMetadata>();
-        }
-
-        public override IEnumerable<PropertyMetadata> GetAllProperties()
-        {
-            return null;
-        }
-
-        public override IEnumerable<MethodMetadata> GetAllMethods()
-        {
-            return null;
-        }
-
-        public override IEnumerable<ParameterMetadata> GetAllParameters()
-        {
-            return null;
-        }
+        public string Name { get => m_Name; set => m_Name = value; }
     }
 }

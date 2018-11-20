@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class TypeMetadata : Metadata
+    public class TypeMetadata
     {
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
 
@@ -67,7 +67,7 @@ namespace Model
         public IEnumerable<MethodMetadata> m_Methods;
         public IEnumerable<MethodMetadata> m_Constructors;
 
-        public override string Name { get => m_typeName; set => m_typeName = value; }
+        public string Name { get => m_typeName; set => m_typeName = value; }
 
         //constructors
         private TypeMetadata(string typeName, string namespaceName)
@@ -132,38 +132,6 @@ namespace Model
             return EmitReference(baseType);
         }
 
-        public override IEnumerable<NamespaceMetadata> GetAllNamespaces()
-        {
-            return null;
-        }
-
-        public override IEnumerable<TypeMetadata> GetAllTypes()
-        {
-            IEnumerable<TypeMetadata> result = Enumerable.Empty<TypeMetadata>();
-            if (m_BaseType != null) result.Concat(new[] { m_BaseType });
-            if (m_GenericArguments != null) result.Concat(m_GenericArguments);
-            if (m_ImplementedInterfaces != null) result.Concat(m_ImplementedInterfaces);
-            if (m_NestedTypes != null) result.Concat(m_NestedTypes);
-            if (m_DeclaringType != null) result.Concat(new[] { m_DeclaringType });
-            return result;
-        }
-
-        public override IEnumerable<PropertyMetadata> GetAllProperties()
-        {
-            return m_Properties;
-        }
-
-        public override IEnumerable<MethodMetadata> GetAllMethods()
-        {
-            if (m_Methods == null) m_Methods = Enumerable.Empty<MethodMetadata>();
-            if (m_Constructors == null) m_Constructors = Enumerable.Empty<MethodMetadata>();
-            return m_Methods.Concat(m_Constructors);
-        }
-
-        public override IEnumerable<ParameterMetadata> GetAllParameters()
-        {
-            return null;
-        }
         #endregion
 
 
