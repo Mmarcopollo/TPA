@@ -87,11 +87,9 @@ namespace ViewModel
         }
         public void TreeViewLoaded()
         {
-        TreeViewNode rootItem = new AssemblyTreeView(Reflector.M_AssemblyModel);
+            TreeViewNode rootItem = new AssemblyTreeView(Reflector.M_AssemblyModel);
             HierarchicalAreas.Add(rootItem);
             log.Info("TreeView is loaded");
         }
-
-       
     }
 }

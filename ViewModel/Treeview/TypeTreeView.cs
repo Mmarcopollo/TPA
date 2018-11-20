@@ -10,25 +10,31 @@ namespace ViewModel.Treeview
 {
     public class TypeTreeView : TreeViewNode
     {
+        private static readonly log4net.ILog log = LogHelper.GetLogger();
+
         private TypeMetadata _type;
         public TypeTreeView(TypeMetadata type) 
         {
             _type = type;
+            Name = type.Name;
+            TypeOfMetadata = "type";
+            log.Info("Type tree node was created.");
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
             if (_type.m_Properties != null)
-                foreach (var property in _type.m_Properties)
+                foreach (PropertyMetadata property in _type.m_Properties)
                 {
                     children.Add(new PropertyTreeView(property));
                 }
 
             if (_type.m_Methods != null)
-                foreach (var method in _type.m_Methods)
+                foreach (MethodMetadata method in _type.m_Methods)
                 {
                     children.Add(new MethodTreeView(method));
                 }
+            log.Info("Type tree node has expanded.");
         }
     }
 }

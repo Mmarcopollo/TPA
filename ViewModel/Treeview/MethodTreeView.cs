@@ -10,28 +10,34 @@ namespace ViewModel.Treeview
 {
     public class MethodTreeView : TreeViewNode
     {
+        private static readonly log4net.ILog log = LogHelper.GetLogger();
+
         private MethodMetadata _method;
         public MethodTreeView(MethodMetadata method)
         {
             _method = method;
+            Name = method.Name;
+            TypeOfMetadata = "method";
+            log.Info("Method tree node was created.");
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
             if (_method.m_GenericArguments != null)
             {
-                foreach (var argument in _method.m_GenericArguments)
+                foreach (TypeMetadata argument in _method.m_GenericArguments)
                 {
                     children.Add(new TypeTreeView(argument));
                 }
             }
             if (_method.m_Parameters != null)
             {
-                foreach (var parameter in _method.m_Parameters)
+                foreach (ParameterMetadata parameter in _method.m_Parameters)
                 {
                     children.Add(new ParameterTreeView(parameter));
                 }
             }
+            log.Info("Method tree node has expanded.");
         }
     }
 }

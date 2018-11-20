@@ -54,7 +54,7 @@ namespace ViewConsole
             if(node != null)
             { 
                 for (int i = 0; i < level; i++) Console.Write("  ");
-                Console.WriteLine(node.FullName);
+                Console.WriteLine(node.Name + ":[" + node.TypeOfMetadata + "]");
                 foreach (TreeViewNode childNode in node.Children)
                 {
                     DisplayTree(childNode, level + 1);
