@@ -25,7 +25,7 @@ namespace ViewModel.Treeview
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
             if (_namespaceMeta.m_Types != null)
-                foreach (var type in _namespaceMeta.m_Types)
+                foreach (TypeMetadata type in _namespaceMeta.m_Types)
                 {
                     children.Add(new TypeTreeView(TypeMetadata.TypeDictionary[type.m_typeName]));
                 }
