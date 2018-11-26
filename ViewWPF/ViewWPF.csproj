@@ -66,6 +66,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BrowseFile.cs" />
+    <Compile Include="Convert\ToBrushConverter.cs" />
+    <Compile Include="Convert\ToStringConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

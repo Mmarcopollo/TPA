@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewModel;assembly=ViewModel"
+        xmlns:viewWPF="clr-namespace:ViewWPF.Convert"
         mc:Ignorable="d"
         Title="Reflection project" Height="600" Width="500"
         ResizeMode="NoResize">
@@ -27,12 +28,8 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
                     <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat=" {0}:[{1}]">
-                                <Binding Path="Name"/>
-                                <Binding Path="TypeOfMetadata"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
+                        <TextBlock Padding="0 0 10 0" FontWeight="Bold" Text="{Binding Converter={x:Static viewWPF:ToStringConverter.Instance}}" Foreground="{Binding  Converter={x:Static viewWPF:ToBrushConverter.Instance}}"/>
+                        <TextBlock Text="{Binding Path=Name}" Margin="0,0,4,0" />
                     </TextBlock>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
