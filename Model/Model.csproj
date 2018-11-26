@@ -58,6 +58,7 @@
     <Compile Include="Enum\StaticEnum.cs" />
     <Compile Include="Metadata\TypeMetadata.cs" />
     <Compile Include="Enum\VirtualEnum.cs" />
+    <Compile Include="Serialization\Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

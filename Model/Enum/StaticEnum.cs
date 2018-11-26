@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal enum StaticEnum
+    public enum StaticEnum
     {
         NotStatic, Static
     }

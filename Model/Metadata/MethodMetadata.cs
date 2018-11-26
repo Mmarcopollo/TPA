@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Model
 {
+    [DataContract(IsReference = true)]
     public class MethodMetadata
     {
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
@@ -19,11 +21,17 @@ namespace Model
 
         #region private
         //vars
+        [DataMember]
         public string m_Name;
+        [DataMember]
         public IEnumerable<TypeMetadata> m_GenericArguments;
-        private Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum> m_Modifiers;
-        private TypeMetadata m_ReturnType;
-        private bool m_Extension;
+        [DataMember]
+        public Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum> m_Modifiers;
+        [DataMember]
+        public TypeMetadata m_ReturnType;
+        [DataMember]
+        public bool m_Extension;
+        [DataMember]
         public IEnumerable<ParameterMetadata> m_Parameters;
 
         public string Name { get => m_Name; set => m_Name = value; }

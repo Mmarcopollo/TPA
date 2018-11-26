@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Model
 {
+    [DataContract(IsReference = true)]
     public class TypeMetadata
     {
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
@@ -53,18 +55,31 @@ namespace Model
 
         #region private
         //vars
+        [DataMember]
         public string m_typeName;
+        [DataMember]
         public string m_NamespaceName;
+        [DataMember]
         public TypeMetadata m_BaseType;
+        [DataMember]
         public IEnumerable<TypeMetadata> m_GenericArguments;
+        [DataMember]
         public Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
+        [DataMember]
         public TypeKind m_TypeKind;
+        [DataMember]
         public IEnumerable<Attribute> m_Attributes;
+        [DataMember]
         public IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        [DataMember]
         public IEnumerable<TypeMetadata> m_NestedTypes;
+        [DataMember]
         public IEnumerable<PropertyMetadata> m_Properties;
+        [DataMember]
         public TypeMetadata m_DeclaringType;
+        [DataMember]
         public IEnumerable<MethodMetadata> m_Methods;
+        [DataMember]
         public IEnumerable<MethodMetadata> m_Constructors;
 
         public string Name { get => m_typeName; set => m_typeName = value; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal enum VirtualEnum
+    public enum VirtualEnum
     {
         NotVirtual, Virtual
     }

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Model
 {
+    [DataContract]
     public class AssemblyMetadata
     {
         public AssemblyMetadata(Assembly assembly)
@@ -18,11 +20,14 @@ namespace Model
                            orderby _group.Key
                            select new NamespaceMetadata(_group.Key, _group);
         }
+        [DataMember]
+        public string m_Name;
+        [DataMember]
+        public IEnumerable<NamespaceMetadata> m_Namespaces;
 
-        private string m_Name;
-        private IEnumerable<NamespaceMetadata> m_Namespaces;
-
+        
         public string Name { get => m_Name; set => m_Name = value; }
+
         public IEnumerable<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
     
     }
