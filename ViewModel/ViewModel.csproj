@@ -43,9 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBrowseFile.cs" />
+    <Compile Include="Interfaces\IBrowseFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RellyCommand.cs" />
+    <Compile Include="BaseItems\RellyCommand.cs" />
     <Compile Include="Treeview\AssemblyTreeView.cs" />
     <Compile Include="Treeview\MethodTreeView.cs" />
     <Compile Include="Treeview\NamespacesTreeView.cs" />
@@ -53,7 +53,7 @@
     <Compile Include="Treeview\PropertyTreeView.cs" />
     <Compile Include="Treeview\TreeViewNode.cs" />
     <Compile Include="Treeview\TypeTreeView.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="BaseItems\ViewModelBase.cs" />
     <Compile Include="TreeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
