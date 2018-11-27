@@ -68,7 +68,7 @@ namespace ViewModel
 
         public ICommand SerializeToXmlCommand { get; }
         public ICommand DeserializeFromXmlCommand { get; }
-        public Reflector Reflector { get; set; }
+        public static Reflector Reflector { get; set; }
         public XMLSerialization xmlSerializer;
 
         public IBrowseFile FilePathProvider
@@ -115,10 +115,12 @@ namespace ViewModel
             if (pathToSerializedFile != null)
             {
                 AssemblyMetadata deserializedAssemblyReader = xmlSerializer.Deserialize(pathToSerializedFile);
-                Reflector.M_AssemblyModel = deserializedAssemblyReader;
+                Reflector = new Reflector(deserializedAssemblyReader);
 
                 HierarchicalAreas.Clear();
                 HierarchicalAreas.Add(new AssemblyTreeView(Reflector.M_AssemblyModel));
+
+
             }
         }
     }

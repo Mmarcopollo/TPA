@@ -20,6 +20,10 @@ namespace Model
         {
             M_AssemblyModel = new AssemblyMetadata(assembly);
         }
+        public Reflector(AssemblyMetadata assembly)
+        {
+            M_AssemblyModel = assembly;
+        }
         public AssemblyMetadata M_AssemblyModel { get;  set; }
     }
 }
