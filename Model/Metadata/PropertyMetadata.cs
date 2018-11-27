@@ -11,14 +11,17 @@ namespace Model
     [DataContract(IsReference = true)]
     public class PropertyMetadata
     {
-        internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
+        internal static List<PropertyMetadata> EmitProperties(Type type)
         {
-            return from prop in props
-                   where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
-                   select new PropertyMetadata(prop.Name, TypeMetadata.EmitReference(prop.PropertyType));
+            List<PropertyInfo> props = type
+               .GetProperties(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
+                              BindingFlags.Static | BindingFlags.Instance).ToList();
+
+            return props.Where(t => t.GetGetMethod().GetVisible() || t.GetSetMethod().GetVisible())
+                .Select(t => new PropertyMetadata(t.Name, TypeMetadata.EmitReference(t.PropertyType))).ToList();
         }
 
-
+        public PropertyMetadata() { }
 
         #region private
         [DataMember]

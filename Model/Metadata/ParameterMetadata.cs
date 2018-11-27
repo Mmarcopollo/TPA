@@ -16,6 +16,8 @@ namespace Model
             this.m_TypeMetadata = typeMetadata;
         }
 
+        public ParameterMetadata() { }
+
         //private vars
         [DataMember]
         public string m_Name;

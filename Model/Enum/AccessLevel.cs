@@ -8,6 +8,6 @@ namespace Model
 {
     public enum AccessLevel
     {
-        IsPublic, IsProtected, IsProtectedInternal, IsPrivate
+        Default, IsPublic, IsProtected, IsProtectedInternal, IsPrivate
     }
 }

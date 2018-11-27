@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public enum AbstractENum
+    public enum AbstractEnum
     {
-        NotAbstract, Abstract
+        NotAbstract,
+        Abstract
     }
 }
