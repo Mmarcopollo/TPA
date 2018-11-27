@@ -13,7 +13,7 @@ namespace Model
     {
         public AssemblyMetadata(Assembly assembly)
         {
-            Name = assembly.ManifestModule.Name;
+            m_Name = assembly.ManifestModule.Name;
             //Namespaces = from Type _type in assembly.GetTypes()
             //               where _type.GetVisible()
             //               group _type by _type.GetNamespace() into _group
@@ -31,9 +31,9 @@ namespace Model
         public AssemblyMetadata() { }
 
         
-        public string Name { get => m_Name; set => m_Name = value; }
+        //public string Name { get => m_Name; set => m_Name = value; }
 
-        public List<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
+        //public List<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
     
     }
 }

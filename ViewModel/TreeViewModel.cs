@@ -68,7 +68,7 @@ namespace ViewModel
 
         public ICommand SerializeToXmlCommand { get; }
         public ICommand DeserializeFromXmlCommand { get; }
-        public static Reflector Reflector { get; set; }
+        public Reflector Reflector { get; set; }
         public XMLSerialization xmlSerializer;
 
         public IBrowseFile FilePathProvider
