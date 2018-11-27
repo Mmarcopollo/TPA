@@ -24,17 +24,17 @@ namespace WPFTestProject
 
             methods = types[0].m_Methods.ToList();
             props = types[0].m_Properties.ToList();
-            Assert.AreEqual(methods.Count, 8);
+            Assert.AreEqual(methods.Count, 4);
             Assert.AreEqual(props.Count, 2);
 
             methods = types[1].m_Methods.ToList();
             props = types[1].m_Properties.ToList();
-            Assert.AreEqual(methods.Count, 8);
+            Assert.AreEqual(methods.Count, 4);
             Assert.AreEqual(props.Count, 2);
 
             methods = types[2].m_Methods.ToList();
             props = types[2].m_Properties.ToList();
-            Assert.AreEqual(methods.Count, 9);
+            Assert.AreEqual(methods.Count, 5);
             Assert.AreEqual(props.Count, 2);
 
         }
@@ -75,13 +75,13 @@ namespace WPFTestProject
             List<MethodMetadata> methods;
 
             methods = types[0].m_Methods.ToList();
-            Assert.AreEqual(methods.Count, 8);
+            Assert.AreEqual(methods.Count, 4);
 
             methods = types[1].m_Methods.ToList();
-            Assert.AreEqual(methods.Count, 8);
+            Assert.AreEqual(methods.Count, 4);
 
             methods = types[2].m_Methods.ToList();
-            Assert.AreEqual(methods.Count, 9);
+            Assert.AreEqual(methods.Count, 5);
 
         }
 

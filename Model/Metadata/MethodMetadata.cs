@@ -28,7 +28,13 @@ namespace Model
         [DataMember]
         public List<TypeMetadata> m_GenericArguments;
         [DataMember]
-        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers { get; set; }
+        public AccessLevel AccessLevel { get; set; }
+        [DataMember]
+        public AbstractEnum AbstractEnum { get; set; }
+        [DataMember]
+        public StaticEnum StaticEnum { get; set; }
+        [DataMember]
+        public VirtualEnum VirtualEnum { get; set; }
         [DataMember]
         public TypeMetadata m_ReturnType;
         [DataMember]
@@ -45,7 +51,7 @@ namespace Model
             m_GenericArguments = !method.IsGenericMethodDefinition ? null : EmitGenericArguments(method);
             m_ReturnType = EmitReturnType(method);
             m_Parameters = EmitParameters(method);
-            m_Modifiers = EmitModifiers(method);
+            EmitModifiers(method);
             m_Extension = EmitExtension(method);
 
         }
