@@ -14,11 +14,7 @@ namespace Model
         public AssemblyMetadata(Assembly assembly)
         {
             m_Name = assembly.ManifestModule.Name;
-            //Namespaces = from Type _type in assembly.GetTypes()
-            //               where _type.GetVisible()
-            //               group _type by _type.GetNamespace() into _group
-            //               orderby _group.Key
-            //               select new NamespaceMetadata(_group.Key, _group);
+
             Type[] types = assembly.GetTypes();
             m_Namespaces = types.Where(t => t.IsVisible).GroupBy(t => t.Namespace).OrderBy(t => t.Key)
                 .Select(t => new NamespaceMetadata(t.Key, t.ToList())).ToList();
@@ -29,11 +25,6 @@ namespace Model
         public List<NamespaceMetadata> m_Namespaces;
 
         public AssemblyMetadata() { }
-
-        
-        //public string Name { get => m_Name; set => m_Name = value; }
-
-        //public List<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
     
     }
 }

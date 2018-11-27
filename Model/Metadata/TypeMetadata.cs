@@ -11,6 +11,7 @@ namespace Model
     [DataContract(IsReference = true)]
     public class TypeMetadata
     {
+        [DataMember]
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
 
         #region constructors

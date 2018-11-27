@@ -22,8 +22,11 @@ namespace Model
         }
         public Reflector(AssemblyMetadata assembly)
         {
-            M_AssemblyModel = assembly;
+            M_AssemblyModel =assembly;
+            TypeMetadata.TypeDictionary.Clear();
+            M_AssemblyModel.m_Namespaces.ForEach(ns => ns.m_Types.ForEach(t => TypeMetadata.TypeDictionary.Add(t.Name, t) ));
         }
         public AssemblyMetadata M_AssemblyModel { get;  set; }
+
     }
 }

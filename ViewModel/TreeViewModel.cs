@@ -117,7 +117,7 @@ namespace ViewModel
                 AssemblyMetadata deserializedAssemblyReader = xmlSerializer.Deserialize(pathToSerializedFile);
                 Reflector = new Reflector(deserializedAssemblyReader);
 
-
+                HierarchicalAreas.Clear();
                 TreeViewLoaded();
 
             }
