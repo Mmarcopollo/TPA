@@ -28,7 +28,7 @@ namespace Model
         [DataMember]
         public List<TypeMetadata> m_GenericArguments;
         [DataMember]
-        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers;
+        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> m_Modifiers { get; set; }
         [DataMember]
         public TypeMetadata m_ReturnType;
         [DataMember]

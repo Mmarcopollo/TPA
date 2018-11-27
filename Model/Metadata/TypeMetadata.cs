@@ -73,7 +73,7 @@ namespace Model
         [DataMember]
         public List<TypeMetadata> m_GenericArguments;
         [DataMember]
-        public Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers;
+        public Tuple<AccessLevel, SealedEnum, AbstractEnum> m_Modifiers { get; set; }
         [DataMember]
         public TypeKind m_TypeKind;
         [DataMember]
