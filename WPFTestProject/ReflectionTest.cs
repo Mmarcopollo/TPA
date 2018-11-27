@@ -15,7 +15,7 @@ namespace WPFTestProject
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
-            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.Namespaces.ToList();
+            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.m_Namespaces.ToList();
             Assert.AreEqual(namespaces.Count, 1);
             List<TypeMetadata> types = namespaces[0].m_Types.ToList();
             Assert.AreEqual(types.Count, 3);
@@ -24,17 +24,17 @@ namespace WPFTestProject
 
             methods = types[0].m_Methods.ToList();
             props = types[0].m_Properties.ToList();
-            Assert.AreEqual(methods.Count, 8);
+            Assert.AreEqual(methods.Count, 4);
             Assert.AreEqual(props.Count, 2);
 
             methods = types[1].m_Methods.ToList();
             props = types[1].m_Properties.ToList();
-            Assert.AreEqual(methods.Count, 8);
+            Assert.AreEqual(methods.Count, 4);
             Assert.AreEqual(props.Count, 2);
 
             methods = types[2].m_Methods.ToList();
             props = types[2].m_Properties.ToList();
-            Assert.AreEqual(methods.Count, 9);
+            Assert.AreEqual(methods.Count, 5);
             Assert.AreEqual(props.Count, 2);
 
         }
@@ -45,7 +45,7 @@ namespace WPFTestProject
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
-            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.Namespaces.ToList();
+            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.m_Namespaces.ToList();
             Assert.AreEqual(namespaces.Count, 1);
 
         }
@@ -56,7 +56,7 @@ namespace WPFTestProject
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
-            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.Namespaces.ToList();
+            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.m_Namespaces.ToList();
             List<TypeMetadata> types = namespaces[0].m_Types.ToList();
             Assert.AreEqual(types.Count, 3);
 
@@ -68,20 +68,20 @@ namespace WPFTestProject
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
-            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.Namespaces.ToList();
+            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.m_Namespaces.ToList();
             Assert.AreEqual(namespaces.Count, 1);
             List<TypeMetadata> types = namespaces[0].m_Types.ToList();
             Assert.AreEqual(types.Count, 3);
             List<MethodMetadata> methods;
 
             methods = types[0].m_Methods.ToList();
-            Assert.AreEqual(methods.Count, 8);
+            Assert.AreEqual(methods.Count, 4);
 
             methods = types[1].m_Methods.ToList();
-            Assert.AreEqual(methods.Count, 8);
+            Assert.AreEqual(methods.Count, 4);
 
             methods = types[2].m_Methods.ToList();
-            Assert.AreEqual(methods.Count, 9);
+            Assert.AreEqual(methods.Count, 5);
 
         }
 
@@ -91,7 +91,7 @@ namespace WPFTestProject
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
-            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.Namespaces.ToList();
+            List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.m_Namespaces.ToList();
             List<TypeMetadata> types = namespaces[0].m_Types.ToList();
  
             List<PropertyMetadata> props;

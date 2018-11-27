@@ -17,14 +17,14 @@ namespace ViewModel.Treeview
         public AssemblyTreeView(AssemblyMetadata assembly)
         {
             _assembly = assembly;
-            Name = assembly.Name;
+            Name = assembly.m_Name;
             TypeOfMetadata = "assembly";
             log.Info("Assembly tree node was created.");
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
-            List<NamespaceMetadata> namespacesList = _assembly.Namespaces.ToList();
+            List<NamespaceMetadata> namespacesList = _assembly.m_Namespaces.ToList();
             if (namespacesList != null)
             {
                 foreach (NamespaceMetadata name in namespacesList)

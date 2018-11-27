@@ -2,6 +2,7 @@
 using log4net.Config;
 using Microsoft.Win32;
 using Model;
+using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,6 +43,9 @@ namespace ViewModel
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
             BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
+            SerializeToXmlCommand = new RelayCommand(pars => SerializeToXml());
+            DeserializeFromXmlCommand = new RelayCommand(pars => DeserializeFromXml());
+            xmlSerializer = new XMLSerialization();
         }
 
         public ObservableCollection<TreeViewNode> HierarchicalAreas { get; set; }
@@ -61,7 +65,11 @@ namespace ViewModel
         }
         public ICommand BrowseCmd { get; }
         public ICommand LoadDllCmd { get; set; }
+
+        public ICommand SerializeToXmlCommand { get; }
+        public ICommand DeserializeFromXmlCommand { get; }
         public Reflector Reflector { get; set; }
+        public XMLSerialization xmlSerializer;
 
         public IBrowseFile FilePathProvider
         {
@@ -90,6 +98,29 @@ namespace ViewModel
             TreeViewNode rootItem = new AssemblyTreeView(Reflector.M_AssemblyModel);
             HierarchicalAreas.Add(rootItem);
             log.Info("TreeView is loaded");
+        }
+
+        public void SerializeToXml()
+        {
+            string pathToSaveSerializedFile = FilePathProvider.Browse();
+
+            xmlSerializer.Serialize(Reflector.M_AssemblyModel, pathToSaveSerializedFile);
+        }
+
+        public void DeserializeFromXml()
+        {
+
+            string pathToSerializedFile = FilePathProvider.Browse();
+
+            if (pathToSerializedFile != null)
+            {
+                AssemblyMetadata deserializedAssemblyReader = xmlSerializer.Deserialize(pathToSerializedFile);
+                Reflector = new Reflector(deserializedAssemblyReader);
+
+                HierarchicalAreas.Clear();
+                TreeViewLoaded();
+
+            }
         }
     }
 }

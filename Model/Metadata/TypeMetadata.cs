@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace Model
     [DataContract(IsReference = true)]
     public class TypeMetadata
     {
+        [DataMember]
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
 
         #region constructors
@@ -17,22 +19,24 @@ namespace Model
         {
             m_typeName = type.Name;
             m_DeclaringType = EmitDeclaringType(type.DeclaringType);
-            m_Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
-            m_Methods = MethodMetadata.EmitMethods(type.GetMethods());
-            m_NestedTypes = EmitNestedTypes(type.GetNestedTypes());
-            m_ImplementedInterfaces = EmitImplements(type.GetInterfaces());
-            m_GenericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
-            m_Modifiers = EmitModifiers(type);
+            m_Constructors = MethodMetadata.EmitConstructors(type);
+            m_Methods = MethodMetadata.EmitMethods(type);
+            m_NestedTypes = EmitNestedTypes(type);
+            m_ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
+            m_GenericArguments = !type.IsGenericTypeDefinition ? null : EmitGenericArguments(type);
+            EmitModifiers(type);
             m_BaseType = EmitExtends(type.BaseType);
-            m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
+            m_Properties = PropertyMetadata.EmitProperties(type);
             m_TypeKind = GetTypeKind(type);
-            m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>().ToList();
+
 
             if (!TypeDictionary.ContainsKey(this.m_typeName))
             {
                 TypeDictionary.Add(Name, this);
             }
         }
+        public TypeMetadata() { }
         #endregion
 
         #region API
@@ -45,11 +49,17 @@ namespace Model
             if (!type.IsGenericType)
                 return new TypeMetadata(type.Name, type.GetNamespace());
             else
-                return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type.GetGenericArguments()));
+                return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type));
         }
-        public static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
+        public static List<TypeMetadata> EmitGenericArguments(Type type)
         {
-            return from Type _argument in arguments select EmitReference(_argument);
+            List<Type> arguments = type.GetGenericArguments().ToList();
+            foreach (Type typ in arguments)
+            {
+                StoreType(typ);
+            }
+
+            return arguments.Select(EmitReference).ToList();
         }
         #endregion
 
@@ -62,25 +72,29 @@ namespace Model
         [DataMember]
         public TypeMetadata m_BaseType;
         [DataMember]
-        public IEnumerable<TypeMetadata> m_GenericArguments;
+        public List<TypeMetadata> m_GenericArguments;
         [DataMember]
-        public Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
+        public AccessLevel AccessLevel { get; set; }
+        [DataMember]
+        public AbstractEnum AbstractEnum { get; set; }
+        [DataMember]
+        public SealedEnum SealedEnum { get; set; }
         [DataMember]
         public TypeKind m_TypeKind;
         [DataMember]
-        public IEnumerable<Attribute> m_Attributes;
+        public List<Attribute> m_Attributes;
         [DataMember]
-        public IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        public List<TypeMetadata> m_ImplementedInterfaces;
         [DataMember]
-        public IEnumerable<TypeMetadata> m_NestedTypes;
+        public List<TypeMetadata> m_NestedTypes;
         [DataMember]
-        public IEnumerable<PropertyMetadata> m_Properties;
+        public List<PropertyMetadata> m_Properties;
         [DataMember]
         public TypeMetadata m_DeclaringType;
         [DataMember]
-        public IEnumerable<MethodMetadata> m_Methods;
+        public List<MethodMetadata> m_Methods;
         [DataMember]
-        public IEnumerable<MethodMetadata> m_Constructors;
+        public List<MethodMetadata> m_Constructors;
 
         public string Name { get => m_typeName; set => m_typeName = value; }
 
@@ -92,7 +106,7 @@ namespace Model
         }
         private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments) : this(typeName, namespaceName)
         {
-            m_GenericArguments = genericArguments;
+            m_GenericArguments = genericArguments.ToList();
         }
         //methods
         private TypeMetadata EmitDeclaringType(Type declaringType)
@@ -101,11 +115,22 @@ namespace Model
                 return null;
             return EmitReference(declaringType);
         }
-        private IEnumerable<TypeMetadata> EmitNestedTypes(IEnumerable<Type> nestedTypes)
+        private List<TypeMetadata> EmitNestedTypes(Type type)
         {
-            return from _type in nestedTypes
-                   where _type.GetVisible()
-                   select new TypeMetadata(_type);
+            List<Type> nestedTypes = type.GetNestedTypes(BindingFlags.Public | BindingFlags.NonPublic).ToList();
+            foreach (Type typ in nestedTypes)
+            {
+                StoreType(typ);
+            }
+
+            return nestedTypes.Select(t => new TypeMetadata(t)).ToList();
+        }
+        public static void StoreType(Type type)
+        {
+            if (!TypeDictionary.ContainsKey(type.Name))
+            {
+                new TypeMetadata(type);
+            }
         }
         private IEnumerable<TypeMetadata> EmitImplements(IEnumerable<Type> interfaces)
         {
@@ -119,11 +144,11 @@ namespace Model
                    type.IsInterface ? TypeKind.InterfaceType :
                    TypeKind.ClassType;
         }
-        static Tuple<AccessLevel, SealedEnum, AbstractENum> EmitModifiers(Type type)
+        static Tuple<AccessLevel, SealedEnum, AbstractEnum> EmitModifiers(Type type)
         {
             //set defaults 
             AccessLevel _access = AccessLevel.IsPrivate;
-            AbstractENum _abstract = AbstractENum.NotAbstract;
+            AbstractEnum _abstract = AbstractEnum.NotAbstract;
             SealedEnum _sealed = SealedEnum.NotSealed;
             // check if not default 
             if (type.IsPublic)
@@ -137,8 +162,8 @@ namespace Model
             if (type.IsSealed)
                 _sealed = SealedEnum.Sealed;
             if (type.IsAbstract)
-                _abstract = AbstractENum.Abstract;
-            return new Tuple<AccessLevel, SealedEnum, AbstractENum>(_access, _sealed, _abstract);
+                _abstract = AbstractEnum.Abstract;
+            return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(_access, _sealed, _abstract);
         }
         private static TypeMetadata EmitExtends(Type baseType)
         {
