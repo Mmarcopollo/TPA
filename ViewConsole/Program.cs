@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ViewConsole.Convert;
 using ViewModel;
 
 namespace ViewConsole
@@ -54,7 +55,11 @@ namespace ViewConsole
             if(node != null)
             { 
                 for (int i = 0; i < level; i++) Console.Write("  ");
-                Console.WriteLine(node.Name + ":[" + node.TypeOfMetadata + "]");
+                String textToDisplay = (String)ToStringConverter.Instance.Convert(node, null, null, null);
+                Console.ForegroundColor = (ConsoleColor)ToColorConverter.Instance.Convert(node, null, null, null);
+                Console.Write(textToDisplay);
+                Console.ResetColor();
+                Console.WriteLine(" " + node.Name);
                 foreach (TreeViewNode childNode in node.Children)
                 {
                     DisplayTree(childNode, level + 1);
