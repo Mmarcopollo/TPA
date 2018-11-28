@@ -22,8 +22,8 @@ namespace Serialization
             lista.Add(typeof(System.AttributeUsageAttribute));
             lista.Add(typeof(System.ObsoleteAttribute));
             lista.Add(typeof(System.SerializableAttribute));
+            lista.Add(typeof(System.Runtime.Serialization.KnownTypeAttribute));
             lista.Add(typeof(log4net.Util.TypeConverters.TypeConverterAttribute));
-            
 
            DataContractSerializer serializer = new DataContractSerializer(obj.GetType(), lista);
 
