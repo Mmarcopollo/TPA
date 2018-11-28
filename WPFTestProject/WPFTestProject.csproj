@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="LogTest.cs" />
     <Compile Include="ReflectionTest.cs" />
+    <Compile Include="SerializationTest.cs" />
     <Compile Include="ViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,6 +79,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{3BD54EE6-C405-40BA-8246-E83A2046C996}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Serialization\Serialization.csproj">
+      <Project>{E040D4D9-889D-4864-8C20-265800B6FE92}</Project>
+      <Name>Serialization</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModel\ViewModel.csproj">
       <Project>{50A4BC19-9BDD-47ED-A5DD-A027E4EA9A8C}</Project>
