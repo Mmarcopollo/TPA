@@ -22,7 +22,6 @@ namespace ViewModel
 
         public TreeViewModel()
         {
-            XmlConfigurator.Configure();
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
             BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
@@ -39,12 +38,11 @@ namespace ViewModel
         public TreeViewModel(IBrowseFile pathProvider)
         {
             FilePathProvider = pathProvider;
-            XmlConfigurator.Configure();
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
             BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
-            SerializeToXmlCommand = new RelayCommand(pars => SerializeToXml());
-            DeserializeFromXmlCommand = new RelayCommand(pars => DeserializeFromXml());
+            SerializeCommand = new RelayCommand(pars => Serialize());
+            DeserializeCommand = new RelayCommand(pars => Deserialize());
             Serialization = new Serializer();
         }
 
@@ -65,8 +63,8 @@ namespace ViewModel
         }
         public ICommand BrowseCmd { get; }
         public ICommand LoadDllCmd { get; set; }
-        public ICommand SerializeToXmlCommand { get; }
-        public ICommand DeserializeFromXmlCommand { get; }
+        public ICommand SerializeCommand { get; }
+        public ICommand DeserializeCommand { get; }
         public Reflector Reflector { get; set; }
         public Serializer Serialization { get; set; }
 
@@ -99,14 +97,16 @@ namespace ViewModel
             log.Info("TreeView is loaded");
         }
 
-        public void SerializeToXml()
+        public void Serialize()
         {
-            string pathToSaveSerializedFile = FilePathProvider.Browse();
-
-            Serialization.Write(Reflector.M_AssemblyModel, pathToSaveSerializedFile);
+            if(Reflector != null)
+            {
+                string pathToSaveSerializedFile = FilePathProvider.Browse();
+                if( pathToSaveSerializedFile != "" ) Serialization.Write(Reflector.M_AssemblyModel, pathToSaveSerializedFile);
+            }
         }
 
-        public void DeserializeFromXml()
+        public void Deserialize()
         {
 
             string pathToSerializedFile = FilePathProvider.Browse();
@@ -117,7 +117,6 @@ namespace ViewModel
 
                 HierarchicalAreas.Clear();
                 TreeViewLoaded();
-
             }
         }
 

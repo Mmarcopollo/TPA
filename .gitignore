@@ -4,3 +4,4 @@ obj
 /packages
 Logs/LogFile.log
 *.coverage
+Logs/

@@ -15,7 +15,7 @@ namespace ViewWPF
         {
             OpenFileDialog test = new OpenFileDialog()
             {
-              //  Filter = "Dynamic Library File(*.dll)| *.dll|Executable(*.exe)| *.exe "
+               Filter = "Dynamic Library File(*.dll)|*.dll|Executable(*.exe)|*.exe|All|*"
             };
             test.ShowDialog();
             return test.FileName;

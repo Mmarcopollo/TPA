@@ -29,9 +29,9 @@ namespace ViewConsole
 
             while (control != ConsoleKey.Escape)
             {
-                Console.Clear();
                 if (control == ConsoleKey.RightArrow)
                 {
+                    Console.Clear();
                     foreach (TreeViewNode node in viewModel.HierarchicalAreas)
                     {
                         ExpandTree(node);
@@ -40,6 +40,23 @@ namespace ViewConsole
                 }
                 else if (control == ConsoleKey.LeftArrow)
                 {
+                    Console.Clear();
+                    foreach (TreeViewNode node in viewModel.HierarchicalAreas)
+                    {
+                        ConvolveTree(node);
+                        DisplayTree(node, 0);
+                    }
+                }
+                else if (control == ConsoleKey.S)
+                {
+                    Console.Clear();
+                    viewModel.Serialize();
+                }
+                else if (control == ConsoleKey.D)
+                {
+                    Console.Clear();
+                    viewModel.Deserialize();
+                    Console.Clear();
                     foreach (TreeViewNode node in viewModel.HierarchicalAreas)
                     {
                         ConvolveTree(node);

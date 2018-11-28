@@ -11,9 +11,9 @@ namespace ViewConsole
     {
         public string Browse()
         {
-            Console.Write("Write the path to file you want load:");
-            //return Console.ReadLine();
-            return "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
+            Console.Write("Write the path to file:");
+            return Console.ReadLine();
+            //return "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
         }
     }
 }
