@@ -22,7 +22,7 @@ namespace Model
             m_NestedTypes = EmitNestedTypes(type.GetNestedTypes());
             m_ImplementedInterfaces = EmitImplements(type.GetInterfaces());
             m_GenericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
-            m_Modifiers = EmitModifiers(type);
+            EmitModifiers(type);
             m_BaseType = EmitExtends(type.BaseType);
             m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             m_TypeKind = GetTypeKind(type);
@@ -64,7 +64,11 @@ namespace Model
         [DataMember]
         public IEnumerable<TypeMetadata> m_GenericArguments;
         [DataMember]
-        public Tuple<AccessLevel, SealedEnum, AbstractENum> m_Modifiers;
+        public AccessLevel AccessLevel { get; set; }
+        [DataMember]
+        public AbstractENum AbstractEnum { get; set; }
+        [DataMember]
+        public SealedEnum SealedEnum { get; set; }
         [DataMember]
         public TypeKind m_TypeKind;
         [DataMember]

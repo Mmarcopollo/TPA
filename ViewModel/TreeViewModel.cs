@@ -2,6 +2,7 @@
 using log4net.Config;
 using Microsoft.Win32;
 using Model;
+using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,6 +43,9 @@ namespace ViewModel
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
             BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
+            SerializeToXmlCommand = new RelayCommand(pars => SerializeToXml());
+            DeserializeFromXmlCommand = new RelayCommand(pars => DeserializeFromXml());
+            Serialization = new Serializer();
         }
 
         public ObservableCollection<TreeViewNode> HierarchicalAreas { get; set; }
@@ -61,7 +65,10 @@ namespace ViewModel
         }
         public ICommand BrowseCmd { get; }
         public ICommand LoadDllCmd { get; set; }
+        public ICommand SerializeToXmlCommand { get; }
+        public ICommand DeserializeFromXmlCommand { get; }
         public Reflector Reflector { get; set; }
+        public Serializer Serialization { get; set; }
 
         public IBrowseFile FilePathProvider
         {
@@ -91,5 +98,29 @@ namespace ViewModel
             HierarchicalAreas.Add(rootItem);
             log.Info("TreeView is loaded");
         }
+
+        public void SerializeToXml()
+        {
+            string pathToSaveSerializedFile = FilePathProvider.Browse();
+
+            Serialization.Write(Reflector.M_AssemblyModel, pathToSaveSerializedFile);
+        }
+
+        public void DeserializeFromXml()
+        {
+
+            string pathToSerializedFile = FilePathProvider.Browse();
+
+            if (pathToSerializedFile != null)
+            {
+               Reflector.M_AssemblyModel = Serialization.Read(pathToSerializedFile);
+
+                HierarchicalAreas.Clear();
+                TreeViewLoaded();
+
+            }
+        }
+
+
     }
 }
