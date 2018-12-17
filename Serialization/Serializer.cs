@@ -25,7 +25,17 @@ namespace Serialization
             lista.Add(typeof(System.Runtime.Serialization.KnownTypeAttribute));
             lista.Add(typeof(log4net.Util.TypeConverters.TypeConverterAttribute));
 
-           DataContractSerializer serializer = new DataContractSerializer(obj.GetType(), lista);
+
+            DataContractSerializerSettings DCSsettings = new DataContractSerializerSettings { PreserveObjectReferences = true };
+
+
+            var XmlWriterSettings = new XmlWriterSettings()
+            {
+                Indent = true,
+                IndentChars = "\t"
+            };
+
+            DataContractSerializer serializer = new DataContractSerializer(obj.GetType(), lista);
 
             using (FileStream stream = File.Create(filePath))
             {
@@ -34,9 +44,11 @@ namespace Serialization
 
         }
 
+    
+
         public T Read<T>(string filePath)
         {
-            T result;
+            T result = default(T);
             DataContractSerializer deserializer = new DataContractSerializer(typeof(T));
             using (FileStream stream = File.OpenRead(filePath))
             {
