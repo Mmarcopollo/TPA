@@ -14,6 +14,7 @@ namespace Serialization
     [KnownType(typeof(log4net.Util.TypeConverters.TypeConverterAttribute))]
     public class Serializer : ISerializer
     {
+
         public void Write<T>(T obj, string filePath)
         {
             var lista = new List<Type>();
@@ -48,8 +49,18 @@ namespace Serialization
 
         public T Read<T>(string filePath)
         {
+            var lista = new List<Type>();
+            lista.Add(typeof(System.FlagsAttribute));
+            lista.Add(typeof(System.Reflection.DefaultMemberAttribute));
+            lista.Add(typeof(System.AttributeUsageAttribute));
+            lista.Add(typeof(System.ObsoleteAttribute));
+            lista.Add(typeof(System.SerializableAttribute));
+            lista.Add(typeof(System.Runtime.Serialization.KnownTypeAttribute));
+            lista.Add(typeof(log4net.Util.TypeConverters.TypeConverterAttribute));
+
+
             T result = default(T);
-            DataContractSerializer deserializer = new DataContractSerializer(typeof(T));
+            DataContractSerializer deserializer = new DataContractSerializer(typeof(T),lista);
             using (FileStream stream = File.OpenRead(filePath))
             {
                 result = (T)deserializer.ReadObject(stream);
