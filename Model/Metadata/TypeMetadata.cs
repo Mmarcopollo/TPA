@@ -15,6 +15,7 @@ namespace Model
         #region constructors
         public TypeMetadata(Type type)
         {
+            Guid = Guid.NewGuid();
             m_typeName = type.Name;
             m_DeclaringType = EmitDeclaringType(type.DeclaringType);
             m_Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
@@ -55,6 +56,8 @@ namespace Model
 
         #region private
         //vars
+        [DataMember]
+        public Guid Guid;
         [DataMember]
         public string m_typeName;
         [DataMember]

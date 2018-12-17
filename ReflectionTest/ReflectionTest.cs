@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 
-namespace WPFTestProject
+namespace ReflectionTest
 {
     [TestClass]
     public class ReflectionTest
@@ -93,7 +93,7 @@ namespace WPFTestProject
 
             List<NamespaceMetadata> namespaces = reflector.M_AssemblyModel.Namespaces.ToList();
             List<TypeMetadata> types = namespaces[0].m_Types.ToList();
- 
+
             List<PropertyMetadata> props;
 
             props = types[0].m_Properties.ToList();
@@ -106,7 +106,5 @@ namespace WPFTestProject
             Assert.AreEqual(props.Count, 2);
 
         }
-
-
     }
 }

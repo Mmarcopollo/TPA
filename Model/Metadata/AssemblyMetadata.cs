@@ -13,6 +13,7 @@ namespace Model
     {
         public AssemblyMetadata(Assembly assembly)
         {
+            Guid = Guid.NewGuid();
             Name = assembly.ManifestModule.Name;
             Namespaces = from Type _type in assembly.GetTypes()
                            where _type.GetVisible()
@@ -24,11 +25,26 @@ namespace Model
         public string m_Name;
         [DataMember]
         public IEnumerable<NamespaceMetadata> m_Namespaces;
+        [DataMember]
+        public Guid Guid;
 
-        
+
         public string Name { get => m_Name; set => m_Name = value; }
 
         public IEnumerable<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
-    
+
+        public override bool Equals(object obj)
+        {
+            var metadata = obj as AssemblyMetadata;
+            return metadata != null &&
+                   m_Name == metadata.m_Name &&
+                   Namespaces.SequenceEqual(metadata.Namespaces);
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

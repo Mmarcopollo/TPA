@@ -14,6 +14,11 @@ namespace Model
         {
             this.m_Name = name;
             this.m_TypeMetadata = typeMetadata;
+
+            if (!TypeMetadata.TypeDictionary.ContainsKey(typeMetadata.m_typeName))
+            {
+                TypeMetadata.TypeDictionary.Add(typeMetadata.m_typeName, typeMetadata);
+            }
         }
 
         //private vars

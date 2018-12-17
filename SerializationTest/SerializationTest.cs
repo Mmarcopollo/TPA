@@ -2,11 +2,9 @@
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
-using Moq;
 using Serialization;
-using ViewModel;
 
-namespace WPFTestProject
+namespace SerializationTest
 {
     [TestClass]
     public class SerializationTest
@@ -37,7 +35,7 @@ namespace WPFTestProject
 
             AssemblyMetadata assemblyLoaded = repository.Read<AssemblyMetadata>(pathXML);
 
-            Assert.AreEqual(reflector.M_AssemblyModel.m_Name,assemblyLoaded.m_Name);
+            Assert.AreEqual(reflector.M_AssemblyModel.m_Name, assemblyLoaded.m_Name);
         }
     }
 }

@@ -12,17 +12,33 @@ namespace Model
     {
         internal NamespaceMetadata(string name, IEnumerable<Type> types)
         {
+            Guid = Guid.NewGuid();
             m_NamespaceName = name;
             m_Types = from type in types orderby type.Name select new TypeMetadata(type);
+
         }
 
         [DataMember]
         public string m_NamespaceName;
         [DataMember]
         public IEnumerable<TypeMetadata> m_Types;
-
+        [DataMember]
+        public Guid Guid;
         public string Name { get => m_NamespaceName; set => m_NamespaceName = value; }
 
+
+        public override bool Equals(object obj)
+        {
+            var metadata = obj as NamespaceMetadata;
+            return metadata != null &&
+                   m_NamespaceName == metadata.m_NamespaceName &&
+                   m_Types.SequenceEqual(metadata.m_Types);
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }
