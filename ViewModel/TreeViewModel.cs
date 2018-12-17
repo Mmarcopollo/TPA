@@ -113,7 +113,7 @@ namespace ViewModel
 
             if (pathToSerializedFile != null)
             {
-                Reflector = new Reflector(Serialization.Read(pathToSerializedFile));
+                Reflector = new Reflector(Serialization.Read<AssemblyMetadata>(pathToSerializedFile));
 
                 HierarchicalAreas.Clear();
                 TreeViewLoaded();

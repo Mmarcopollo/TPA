@@ -14,7 +14,7 @@ namespace Serialization
     [KnownType(typeof(log4net.Util.TypeConverters.TypeConverterAttribute))]
     public class Serializer : ISerializer
     {
-        public void Write(AssemblyMetadata obj, string filePath)
+        public void Write<T>(T obj, string filePath)
         {
             var lista = new List<Type>();
             lista.Add(typeof(System.FlagsAttribute));
@@ -34,13 +34,13 @@ namespace Serialization
 
         }
 
-        public AssemblyMetadata Read(string filePath)
+        public T Read<T>(string filePath)
         {
-            AssemblyMetadata result;
-            DataContractSerializer deserializer = new DataContractSerializer(typeof(AssemblyMetadata));
+            T result;
+            DataContractSerializer deserializer = new DataContractSerializer(typeof(T));
             using (FileStream stream = File.OpenRead(filePath))
             {
-                result = (AssemblyMetadata)deserializer.ReadObject(stream);
+                result = (T)deserializer.ReadObject(stream);
             }
 
             return result;
