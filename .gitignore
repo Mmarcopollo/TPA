@@ -5,3 +5,4 @@ obj
 Logs/LogFile.log
 *.coverage
 Logs/
+MyLibrary/test.txt

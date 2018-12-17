@@ -19,10 +19,10 @@ namespace WPFTestProject
 
             Reflector reflector = new Reflector(pathDLL);
 
-            Serializer repozitory = new Serializer();
-            repozitory.Write(reflector.M_AssemblyModel, pathXML);
+            Serializer repository = new Serializer();
+            repository.Write(reflector.M_AssemblyModel, pathXML);
 
-            AssemblyMetadata assemblyLoaded = repozitory.Read(pathXML);
+            AssemblyMetadata assemblyLoaded = repository.Read<AssemblyMetadata>(pathXML);
 
             Assert.IsTrue(File.Exists("..\\..\\..\\MyLibrary\\bin\\Debug\\Data.xml"));
         }
@@ -32,10 +32,10 @@ namespace WPFTestProject
 
             Reflector reflector = new Reflector(pathDLL);
 
-            Serializer repozitory = new Serializer();
-            repozitory.Write(reflector.M_AssemblyModel, pathXML);
+            Serializer repository = new Serializer();
+            repository.Write(reflector.M_AssemblyModel, pathXML);
 
-            AssemblyMetadata assemblyLoaded = repozitory.Read(pathXML);
+            AssemblyMetadata assemblyLoaded = repository.Read<AssemblyMetadata>(pathXML);
 
             Assert.AreEqual(reflector.M_AssemblyModel.m_Name,assemblyLoaded.m_Name);
         }
