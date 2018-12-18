@@ -102,7 +102,7 @@ namespace Model
                 m_Properties = properties;
             }
 
-            if (typeMetadataDTO.m_BaseType != null)
+            if (typeMetadataDTO.m_DeclaringType != null)
             {
                 if (TypeMetadata.TypeDictionary.ContainsKey(typeMetadataDTO.m_DeclaringType.m_typeName)) m_DeclaringType = TypeMetadata.TypeDictionary[typeMetadataDTO.m_DeclaringType.m_typeName];
                 else m_DeclaringType = new TypeMetadata(typeMetadataDTO.m_DeclaringType);
@@ -134,6 +134,110 @@ namespace Model
             {
                 TypeDictionary.Add(Name, this);
             }
+        }
+
+        public TypeMetadataDTO ConvertToDTO()
+        {
+            TypeMetadataDTO result = new TypeMetadataDTO();
+            result.m_typeName = m_typeName;
+            result.m_NamespaceName = m_NamespaceName;
+
+            if (m_BaseType != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(m_BaseType.m_typeName)) result.m_BaseType = TypeMetadataDTO.DTOTypeDictionary[m_BaseType.m_typeName];
+                else result.m_BaseType = m_BaseType.ConvertToDTO();
+            }
+
+            if (m_GenericArguments != null)
+            {
+                List<TypeMetadataDTO> arguments = new List<TypeMetadataDTO>();
+                foreach (TypeMetadata metadata in m_GenericArguments)
+                {
+                    TypeMetadataDTO DTO;
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    else DTO = metadata.ConvertToDTO();
+                    arguments.Add(DTO);
+                }
+                result.m_GenericArguments = arguments;
+            }
+
+            //nie wiem czy to rzutowanie jak i każde kolejne będzie działać
+            result.AccessLevel = (Serialization.AccessLevel)AccessLevel;
+            result.AbstractEnum = (Serialization.AbstractEnum)AbstractEnum;
+            result.SealedEnum = (Serialization.SealedEnum)SealedEnum;
+            result.m_TypeKind = (Serialization.TypeKind)m_TypeKind;
+            result.m_Attributes = m_Attributes;
+
+            if (m_ImplementedInterfaces != null)
+            {
+                List<TypeMetadataDTO> interfaces = new List<TypeMetadataDTO>();
+                foreach (TypeMetadata metadata in m_ImplementedInterfaces)
+                {
+                    TypeMetadataDTO DTO;
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    else DTO = metadata.ConvertToDTO();
+                    interfaces.Add(DTO);
+                }
+                result.m_ImplementedInterfaces = interfaces;
+            }
+
+            if (m_NestedTypes != null)
+            {
+                List<TypeMetadataDTO> nested = new List<TypeMetadataDTO>();
+                foreach (TypeMetadata metadata in m_NestedTypes)
+                {
+                    TypeMetadataDTO DTO;
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    else DTO = metadata.ConvertToDTO();
+                    nested.Add(DTO);
+                }
+                result.m_NestedTypes = nested;
+            }
+
+            if (m_Properties != null)
+            {
+                List<PropertyMetadataDTO> properties = new List<PropertyMetadataDTO>();
+                foreach (PropertyMetadata metadata in m_Properties)
+                {
+                    PropertyMetadataDTO propertyMetadataDTO = metadata.ConvertToDTO();
+                    properties.Add(propertyMetadataDTO);
+                }
+                result.m_Properties = properties;
+            }
+
+            if (m_DeclaringType != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(m_DeclaringType.m_typeName)) result.m_DeclaringType = TypeMetadataDTO.DTOTypeDictionary[m_DeclaringType.m_typeName];
+                else result.m_DeclaringType = m_DeclaringType.ConvertToDTO();
+            }
+
+            if (m_Methods != null)
+            {
+                List<MethodMetadataDTO> methods = new List<MethodMetadataDTO>();
+                foreach (MethodMetadata metadata in m_Methods)
+                {
+                    MethodMetadataDTO methodMetadataDTO = metadata.ConvertToDTO();
+                    methods.Add(methodMetadataDTO);
+                }
+                result.m_Methods = methods;
+            }
+
+            if (m_Constructors != null)
+            {
+                List<MethodMetadataDTO> constructors = new List<MethodMetadataDTO>();
+                foreach (MethodMetadata metadata in m_Constructors)
+                {
+                    MethodMetadataDTO methodMetadataDTO = metadata.ConvertToDTO();
+                    constructors.Add(methodMetadataDTO);
+                }
+                result.m_Constructors = constructors;
+            }
+
+            if (!TypeMetadataDTO.DTOTypeDictionary.ContainsKey(result.m_typeName))
+            {
+                TypeMetadataDTO.DTOTypeDictionary.Add(result.m_typeName, result);
+            }
+            return result;
         }
         #endregion
 

@@ -36,6 +36,22 @@ namespace Model
             }
         }
 
+        AssemblyMetadataDTO convertToDTO()
+        {
+            AssemblyMetadataDTO result = new AssemblyMetadataDTO();
+            result.m_Name = m_Name;
+            if(m_Namespaces != null)
+            {
+                List<NamespaceMetadataDTO> namespaces = new List<NamespaceMetadataDTO>();
+                foreach (NamespaceMetadata metadata in m_Namespaces)
+                {
+                    namespaces.Add(metadata.ConvertToDTO());
+                }
+                result.m_Namespaces = namespaces;
+            }
+            return result;
+        }
+
         public string m_Name;
         public IEnumerable<NamespaceMetadata> m_Namespaces;
         

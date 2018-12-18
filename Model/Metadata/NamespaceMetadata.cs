@@ -33,6 +33,25 @@ namespace Model
             }
         }
 
+        public NamespaceMetadataDTO ConvertToDTO()
+        {
+            NamespaceMetadataDTO result = new NamespaceMetadataDTO();
+            result.m_NamespaceName = m_NamespaceName;
+            if (m_Types != null)
+            {
+                List<TypeMetadataDTO> types = new List<TypeMetadataDTO>();
+                foreach (TypeMetadata metadata in m_Types)
+                {
+                    TypeMetadataDTO DTO;
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    else DTO = metadata.ConvertToDTO();
+                    types.Add(DTO);
+                }
+                result.m_Types = types;
+            }
+            return result;
+        }
+
         public string m_NamespaceName;
         public IEnumerable<TypeMetadata> m_Types;
 

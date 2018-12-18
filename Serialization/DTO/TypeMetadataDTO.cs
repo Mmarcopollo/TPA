@@ -9,7 +9,9 @@ namespace Serialization
 {
     [DataContract(IsReference = true)]
     public class TypeMetadataDTO
-    { 
+    {
+        public static Dictionary<string, TypeMetadataDTO> DTOTypeDictionary = new Dictionary<string, TypeMetadataDTO>();
+
         [DataMember]
         public string m_typeName;
         [DataMember]
