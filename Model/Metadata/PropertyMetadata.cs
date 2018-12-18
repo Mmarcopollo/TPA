@@ -40,6 +40,18 @@ namespace Model
                 else m_TypeMetadata = new TypeMetadata(propertyMetadataDTO.m_TypeMetadata);
             }
         }
+
+        public PropertyMetadataDTO ConvertToDTO()
+        {
+            PropertyMetadataDTO result = new PropertyMetadataDTO();
+            result.m_Name = m_Name;
+            if (m_TypeMetadata != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(m_TypeMetadata.m_typeName)) result.m_TypeMetadata = TypeMetadataDTO.DTOTypeDictionary[m_TypeMetadata.m_typeName];
+                else result.m_TypeMetadata = m_TypeMetadata.ConvertToDTO();
+            }
+            return result;
+        }
         #endregion
     }
 }

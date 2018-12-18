@@ -83,6 +83,48 @@ namespace Model
                 m_Parameters = parameters;
             }
         }
+
+        public MethodMetadataDTO ConvertToDTO()
+        {
+            MethodMetadataDTO result = new MethodMetadataDTO();
+            result.m_Name = m_Name;
+            if (m_GenericArguments != null)
+            {
+                List<TypeMetadataDTO> generic = new List<TypeMetadataDTO>();
+                foreach (TypeMetadata metadata in m_GenericArguments)
+                {
+                    TypeMetadataDTO DTO;
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    else DTO = metadata.ConvertToDTO();
+                    generic.Add(DTO);
+                }
+                result.m_GenericArguments = generic;
+            }
+            result.AccessLevel = (Serialization.AccessLevel)AccessLevel;
+            result.AbstractEnum = (Serialization.AbstractEnum)AbstractEnum;
+            result.StaticEnum = (Serialization.StaticEnum)StaticEnum;
+            result.VirtualEnum = (Serialization.VirtualEnum)VirtualEnum;
+
+            if (m_ReturnType != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(m_ReturnType.m_typeName)) result.m_ReturnType = TypeMetadataDTO.DTOTypeDictionary[m_ReturnType.m_typeName];
+                else result.m_ReturnType = m_ReturnType.ConvertToDTO();
+            }
+
+            result.m_Extension = m_Extension;
+
+            if (m_Parameters != null)
+            {
+                List<ParameterMetadataDTO> parameters = new List<ParameterMetadataDTO>();
+                foreach (ParameterMetadata metadata in m_Parameters)
+                {
+                    ParameterMetadataDTO methodMetadataDTO = metadata.ConvertToDTO();
+                    parameters.Add(methodMetadataDTO);
+                }
+                result.m_Parameters = parameters;
+            }
+            return result;
+        }
         //methods
         private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parms)
         {

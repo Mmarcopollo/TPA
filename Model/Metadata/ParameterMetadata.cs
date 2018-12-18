@@ -26,6 +26,18 @@ namespace Model
             }
         }
 
+        public ParameterMetadataDTO ConvertToDTO()
+        {
+            ParameterMetadataDTO result = new ParameterMetadataDTO();
+            result.m_Name = m_Name;
+            if (m_TypeMetadata != null)
+            {
+                if(TypeMetadataDTO.DTOTypeDictionary.ContainsKey(m_TypeMetadata.m_typeName)) result.m_TypeMetadata = TypeMetadataDTO.DTOTypeDictionary[m_TypeMetadata.m_typeName];
+                else result.m_TypeMetadata = m_TypeMetadata.ConvertToDTO();
+            }
+            return result;
+        }
+
         //private vars
         public string m_Name;
         public TypeMetadata m_TypeMetadata;
