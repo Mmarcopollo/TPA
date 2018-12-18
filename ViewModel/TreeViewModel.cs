@@ -2,7 +2,6 @@
 using log4net.Config;
 using Microsoft.Win32;
 using Model;
-using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,7 +42,6 @@ namespace ViewModel
             BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
             SerializeCommand = new RelayCommand(pars => Serialize());
             DeserializeCommand = new RelayCommand(pars => Deserialize());
-            Serialization = new Serializer();
         }
 
         public ObservableCollection<TreeViewNode> HierarchicalAreas { get; set; }
@@ -66,7 +64,6 @@ namespace ViewModel
         public ICommand SerializeCommand { get; }
         public ICommand DeserializeCommand { get; }
         public Reflector Reflector { get; set; }
-        public Serializer Serialization { get; set; }
 
         public IBrowseFile FilePathProvider
         {
@@ -102,7 +99,8 @@ namespace ViewModel
             if(Reflector != null)
             {
                 string pathToSaveSerializedFile = FilePathProvider.Browse();
-                if( pathToSaveSerializedFile != "" ) Serialization.Write(Reflector.M_AssemblyModel, pathToSaveSerializedFile);
+                //todo
+                //if( pathToSaveSerializedFile != "" ) Serialization.Write(Reflector.M_AssemblyModel, pathToSaveSerializedFile);
             }
         }
 
@@ -113,7 +111,8 @@ namespace ViewModel
 
             if (pathToSerializedFile != null)
             {
-                Reflector = new Reflector(Serialization.Read<AssemblyMetadata>(pathToSerializedFile));
+                //todo
+                //Reflector = new Reflector(Serialization.Read<AssemblyMetadata>(pathToSerializedFile));
 
                 HierarchicalAreas.Clear();
                 TreeViewLoaded();

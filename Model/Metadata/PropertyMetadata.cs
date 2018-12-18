@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [DataContract(IsReference = true)]
     public class PropertyMetadata
     {
         internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
@@ -21,11 +20,8 @@ namespace Model
 
 
         #region private
-        [DataMember]
         public string m_Name;
-        [DataMember]
         public TypeMetadata m_TypeMetadata;
-        [DataMember]
         public string Name { get => m_Name; set => m_Name = value; }
 
         private PropertyMetadata(string propertyName, TypeMetadata propertyType)

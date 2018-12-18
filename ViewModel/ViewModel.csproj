@@ -62,10 +62,6 @@
       <Project>{3bd54ee6-c405-40ba-8246-e83a2046c996}</Project>
       <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Serialization\Serialization.csproj">
-      <Project>{E040D4D9-889D-4864-8C20-265800B6FE92}</Project>
-      <Name>Serialization</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

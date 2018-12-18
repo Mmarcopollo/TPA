@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Serialization
 {
-    public enum AbstractEnum
+    public enum TypeKind
     {
-        NotAbstract, Abstract
+        EnumType, StructType, InterfaceType, ClassType
     }
 }

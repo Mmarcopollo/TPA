@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Serialization
 {
-    public enum AbstractEnum
+    public enum StaticEnum
     {
-        NotAbstract, Abstract
+        NotStatic, Static
     }
 }

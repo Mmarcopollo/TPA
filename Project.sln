@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{3BD54EE6-C405-40BA-8246-E83A2046C996}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary", "MyLibrary\MyLibrary.csproj", "{A8DA6695-7F25-4513-96CE-5FF5E9AF444B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary", "MyLibrary\TestLibrary.csproj", "{A8DA6695-7F25-4513-96CE-5FF5E9AF444B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTestProject", "WPFTestProject\WPFTestProject.csproj", "{EA41ECB8-22B4-437B-ACB1-B7C817B93DF3}"
 EndProject

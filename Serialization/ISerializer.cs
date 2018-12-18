@@ -1,5 +1,4 @@
-﻿using Model;
-using System.IO;
+﻿using System.IO;
 
 namespace Serialization
 {

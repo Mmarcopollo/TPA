@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -7,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [DataContract(IsReference = true)]
     public class TypeMetadata
     {
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
@@ -27,6 +27,108 @@ namespace Model
             m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
             m_TypeKind = GetTypeKind(type);
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+
+            if (!TypeDictionary.ContainsKey(this.m_typeName))
+            {
+                TypeDictionary.Add(Name, this);
+            }
+        }
+
+        public TypeMetadata(TypeMetadataDTO typeMetadataDTO)
+        {
+            m_typeName = typeMetadataDTO.m_typeName;
+            m_NamespaceName = typeMetadataDTO.m_NamespaceName;
+
+            if(typeMetadataDTO.m_BaseType != null)
+            {
+                if (TypeMetadata.TypeDictionary.ContainsKey(typeMetadataDTO.m_BaseType.m_typeName)) m_BaseType = TypeMetadata.TypeDictionary[typeMetadataDTO.m_BaseType.m_typeName];
+                else m_BaseType = new TypeMetadata(typeMetadataDTO.m_BaseType);
+            }
+            
+            if(typeMetadataDTO.m_GenericArguments != null)
+            {
+                List<TypeMetadata> arguments = new List<TypeMetadata>();
+                foreach(TypeMetadataDTO DTO in typeMetadataDTO.m_GenericArguments)
+                {
+                    TypeMetadata metadata;
+                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.m_typeName)) metadata = TypeMetadata.TypeDictionary[DTO.m_typeName];
+                    else metadata = new TypeMetadata(DTO);
+                    arguments.Add(metadata);
+                }
+                m_GenericArguments = arguments;
+            }
+
+            //nie wiem czy to rzutowanie jak i każde kolejne będzie działać
+            AccessLevel = (AccessLevel)typeMetadataDTO.AccessLevel;
+            AbstractEnum = (AbstractEnum)typeMetadataDTO.AbstractEnum;
+            SealedEnum = (SealedEnum)typeMetadataDTO.SealedEnum;
+            m_TypeKind = (TypeKind)typeMetadataDTO.m_TypeKind;
+            m_Attributes = typeMetadataDTO.m_Attributes;
+
+            if(typeMetadataDTO.m_ImplementedInterfaces != null)
+            {
+                List<TypeMetadata> interfaces = new List<TypeMetadata>();
+                foreach (TypeMetadataDTO DTO in typeMetadataDTO.m_ImplementedInterfaces)
+                {
+                    TypeMetadata metadata;
+                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.m_typeName)) metadata = TypeMetadata.TypeDictionary[DTO.m_typeName];
+                    else metadata = new TypeMetadata(DTO);
+                    interfaces.Add(metadata);
+                }
+                m_ImplementedInterfaces = interfaces;
+            }
+            
+            if(typeMetadataDTO.m_NestedTypes != null)
+            {
+                List<TypeMetadata> nested = new List<TypeMetadata>();
+                foreach (TypeMetadataDTO DTO in typeMetadataDTO.m_NestedTypes)
+                {
+                    TypeMetadata metadata;
+                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.m_typeName)) metadata = TypeMetadata.TypeDictionary[DTO.m_typeName];
+                    else metadata = new TypeMetadata(DTO);
+                    nested.Add(metadata);
+                }
+                m_NestedTypes = nested;
+            }
+
+            if(typeMetadataDTO.m_Properties != null)
+            {
+                List<PropertyMetadata> properties = new List<PropertyMetadata>();
+                foreach(PropertyMetadataDTO DTO in typeMetadataDTO.m_Properties)
+                {
+                    PropertyMetadata propertyMetadata = new PropertyMetadata(DTO);
+                    properties.Add(propertyMetadata);
+                }
+                m_Properties = properties;
+            }
+
+            if (typeMetadataDTO.m_BaseType != null)
+            {
+                if (TypeMetadata.TypeDictionary.ContainsKey(typeMetadataDTO.m_DeclaringType.m_typeName)) m_DeclaringType = TypeMetadata.TypeDictionary[typeMetadataDTO.m_DeclaringType.m_typeName];
+                else m_DeclaringType = new TypeMetadata(typeMetadataDTO.m_DeclaringType);
+            }
+
+            if(typeMetadataDTO.m_Methods != null)
+            {
+                List<MethodMetadata> methods = new List<MethodMetadata>();
+                foreach (MethodMetadataDTO DTO in typeMetadataDTO.m_Methods)
+                {
+                    MethodMetadata methodMetadata = new MethodMetadata(DTO);
+                    methods.Add(methodMetadata);
+                }
+                m_Methods = methods;
+            }
+
+            if(typeMetadataDTO.m_Constructors != null)
+            {
+                List<MethodMetadata> constructors = new List<MethodMetadata>();
+                foreach (MethodMetadataDTO DTO in typeMetadataDTO.m_Constructors)
+                {
+                    MethodMetadata methodMetadata = new MethodMetadata(DTO);
+                    constructors.Add(methodMetadata);
+                }
+                m_Constructors = constructors;
+            }
 
             if (!TypeDictionary.ContainsKey(this.m_typeName))
             {
@@ -55,35 +157,20 @@ namespace Model
 
         #region private
         //vars
-        [DataMember]
         public string m_typeName;
-        [DataMember]
         public string m_NamespaceName;
-        [DataMember]
         public TypeMetadata m_BaseType;
-        [DataMember]
         public IEnumerable<TypeMetadata> m_GenericArguments;
-        [DataMember]
         public AccessLevel AccessLevel { get; set; }
-        [DataMember]
-        public AbstractENum AbstractEnum { get; set; }
-        [DataMember]
+        public AbstractEnum AbstractEnum { get; set; }
         public SealedEnum SealedEnum { get; set; }
-        [DataMember]
         public TypeKind m_TypeKind;
-        [DataMember]
         public IEnumerable<Attribute> m_Attributes;
-        [DataMember]
         public IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        [DataMember]
         public IEnumerable<TypeMetadata> m_NestedTypes;
-        [DataMember]
         public IEnumerable<PropertyMetadata> m_Properties;
-        [DataMember]
         public TypeMetadata m_DeclaringType;
-        [DataMember]
         public IEnumerable<MethodMetadata> m_Methods;
-        [DataMember]
         public IEnumerable<MethodMetadata> m_Constructors;
 
         public string Name { get => m_typeName; set => m_typeName = value; }
@@ -123,11 +210,11 @@ namespace Model
                    type.IsInterface ? TypeKind.InterfaceType :
                    TypeKind.ClassType;
         }
-        static Tuple<AccessLevel, SealedEnum, AbstractENum> EmitModifiers(Type type)
+        static Tuple<AccessLevel, SealedEnum, AbstractEnum> EmitModifiers(Type type)
         {
             //set defaults 
             AccessLevel _access = AccessLevel.IsPrivate;
-            AbstractENum _abstract = AbstractENum.NotAbstract;
+            AbstractEnum _abstract = AbstractEnum.NotAbstract;
             SealedEnum _sealed = SealedEnum.NotSealed;
             // check if not default 
             if (type.IsPublic)
@@ -141,8 +228,8 @@ namespace Model
             if (type.IsSealed)
                 _sealed = SealedEnum.Sealed;
             if (type.IsAbstract)
-                _abstract = AbstractENum.Abstract;
-            return new Tuple<AccessLevel, SealedEnum, AbstractENum>(_access, _sealed, _abstract);
+                _abstract = AbstractEnum.Abstract;
+            return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(_access, _sealed, _abstract);
         }
         private static TypeMetadata EmitExtends(Type baseType)
         {

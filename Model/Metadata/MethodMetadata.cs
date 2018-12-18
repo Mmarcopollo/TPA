@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [DataContract(IsReference = true)]
     public class MethodMetadata
     {
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
@@ -21,23 +20,14 @@ namespace Model
 
         #region private
         //vars
-        [DataMember]
         public string m_Name;
-        [DataMember]
         public IEnumerable<TypeMetadata> m_GenericArguments;
-        [DataMember]
         public AccessLevel AccessLevel;
-        [DataMember]
-        public AbstractENum AbstractEnum;
-        [DataMember]
+        public AbstractEnum AbstractEnum;
         public StaticEnum StaticEnum;
-        [DataMember]
         public VirtualEnum VirtualEnum;
-        [DataMember]
         public TypeMetadata m_ReturnType;
-        [DataMember]
         public bool m_Extension;
-        [DataMember]
         public IEnumerable<ParameterMetadata> m_Parameters;
 
         public string Name { get => m_Name; set => m_Name = value; }
@@ -69,7 +59,7 @@ namespace Model
         {
             return method.IsDefined(typeof(ExtensionAttribute), true);
         }
-        private static Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum> EmitModifiers(MethodBase method)
+        private static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> EmitModifiers(MethodBase method)
         {
             AccessLevel _access = AccessLevel.IsPrivate;
             if (method.IsPublic)
@@ -78,16 +68,16 @@ namespace Model
                 _access = AccessLevel.IsProtected;
             else if (method.IsFamilyAndAssembly)
                 _access = AccessLevel.IsProtectedInternal;
-            AbstractENum _abstract = AbstractENum.NotAbstract;
+            AbstractEnum _abstract = AbstractEnum.NotAbstract;
             if (method.IsAbstract)
-                _abstract = AbstractENum.Abstract;
+                _abstract = AbstractEnum.Abstract;
             StaticEnum _static = StaticEnum.NotStatic;
             if (method.IsStatic)
                 _static = StaticEnum.Static;
             VirtualEnum _virtual = VirtualEnum.NotVirtual;
             if (method.IsVirtual)
                 _virtual = VirtualEnum.Virtual;
-            return new Tuple<AccessLevel, AbstractENum, StaticEnum, VirtualEnum>(_access, _abstract, _static, _virtual);
+            return new Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>(_access, _abstract, _static, _virtual);
         }
 
         #endregion

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [DataContract(IsReference = true)]
     public class NamespaceMetadata
     {
         internal NamespaceMetadata(string name, IEnumerable<Type> types)
@@ -16,9 +15,7 @@ namespace Model
             m_Types = from type in types orderby type.Name select new TypeMetadata(type);
         }
 
-        [DataMember]
         public string m_NamespaceName;
-        [DataMember]
         public IEnumerable<TypeMetadata> m_Types;
 
         public string Name { get => m_NamespaceName; set => m_NamespaceName = value; }

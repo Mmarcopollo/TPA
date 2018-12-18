@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enum\AbstractENum.cs" />
+    <Compile Include="Enum\AbstractEnum.cs" />
     <Compile Include="Enum\AccessLevel.cs" />
     <Compile Include="Metadata\AssemblyMetadata.cs" />
     <Compile Include="ExtensionMethods.cs" />
@@ -62,6 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Serialization\Serialization.csproj">
+      <Project>{E040D4D9-889D-4864-8C20-265800B6FE92}</Project>
+      <Name>Serialization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

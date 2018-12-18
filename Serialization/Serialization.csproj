@@ -44,15 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\AssemblyMetadataDTO.cs" />
+    <Compile Include="DTO\MethodMetadataDTO.cs" />
+    <Compile Include="DTO\NamespaceMetadataDTO.cs" />
+    <Compile Include="DTO\ParameterMetadataDTO.cs" />
+    <Compile Include="DTO\PropertyMetadataDTO.cs" />
+    <Compile Include="DTO\TypeMetadataDTO.cs" />
+    <Compile Include="Enum\AbstractEnum.cs" />
+    <Compile Include="Enum\AccessLevel.cs" />
+    <Compile Include="Enum\SealedEnum.cs" />
+    <Compile Include="Enum\StaticEnum.cs" />
+    <Compile Include="Enum\TypeKind.cs" />
+    <Compile Include="Enum\VirtualEnum.cs" />
     <Compile Include="ISerializer.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{3BD54EE6-C405-40BA-8246-E83A2046C996}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
