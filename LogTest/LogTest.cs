@@ -5,7 +5,7 @@ using Model;
 using Moq;
 using ViewModel;
 
-namespace WPFTestProject
+namespace LogTest
 {
     [TestClass]
     public class LogTest
