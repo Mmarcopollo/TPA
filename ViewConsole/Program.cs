@@ -2,7 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,7 +22,8 @@ namespace ViewConsole
         static void Main(string[] args)
         {
             XmlConfigurator.Configure();
-            TreeViewModel viewModel = new TreeViewModel(new BrowseFile());
+            TreeViewModel viewModel = new TreeViewModel();
+            Compose(viewModel);
             Console.WriteLine("Welcome in reflection Tree View program.");
 
             viewModel.ExecuteBrowseFile();
@@ -65,6 +72,20 @@ namespace ViewConsole
                 }
                 control = Console.ReadKey().Key;
             }
+        }
+
+        public static void Compose(object obj)
+        {
+            AssemblyCatalog assemblyCatalog = new AssemblyCatalog(typeof(Program).Assembly);
+            AggregateCatalog catalog = new AggregateCatalog(assemblyCatalog,
+                new DirectoryCatalog(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)));
+
+            CompositionContainer container = new CompositionContainer(catalog);
+
+            container.ComposeParts(obj);
+
+
+
         }
 
         private static void DisplayTree(TreeViewNode node, int level)
