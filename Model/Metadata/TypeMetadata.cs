@@ -58,7 +58,6 @@ namespace Model
                 m_GenericArguments = arguments;
             }
 
-            //nie wiem czy to rzutowanie jak i każde kolejne będzie działać
             AccessLevel = (AccessLevel)typeMetadataDTO.AccessLevel;
             AbstractEnum = (AbstractEnum)typeMetadataDTO.AbstractEnum;
             SealedEnum = (SealedEnum)typeMetadataDTO.SealedEnum;
@@ -161,7 +160,6 @@ namespace Model
                 result.m_GenericArguments = arguments;
             }
 
-            //nie wiem czy to rzutowanie jak i każde kolejne będzie działać
             result.AccessLevel = (Serialization.AccessLevel)AccessLevel;
             result.AbstractEnum = (Serialization.AbstractEnum)AbstractEnum;
             result.SealedEnum = (Serialization.SealedEnum)SealedEnum;

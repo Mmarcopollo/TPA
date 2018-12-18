@@ -36,7 +36,7 @@ namespace Model
             }
         }
 
-        AssemblyMetadataDTO convertToDTO()
+        public AssemblyMetadataDTO ConvertToDTO()
         {
             AssemblyMetadataDTO result = new AssemblyMetadataDTO();
             result.m_Name = m_Name;
@@ -50,6 +50,20 @@ namespace Model
                 result.m_Namespaces = namespaces;
             }
             return result;
+        }
+
+        public void SerializeAssembly(string path)
+        {
+            AssemblyMetadataDTO dataToSerialize = this.ConvertToDTO();
+            Serializer serializer = new Serializer();
+            serializer.Write<AssemblyMetadataDTO>(dataToSerialize, path);
+        }
+
+        public static AssemblyMetadata DeserializeAssembly(string path)
+        {
+            Serializer serializer = new Serializer();
+            AssemblyMetadataDTO deserializedData = serializer.Read<AssemblyMetadataDTO>(path);
+            return new AssemblyMetadata(deserializedData);
         }
 
         public string m_Name;

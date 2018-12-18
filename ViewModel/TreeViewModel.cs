@@ -99,8 +99,7 @@ namespace ViewModel
             if(Reflector != null)
             {
                 string pathToSaveSerializedFile = FilePathProvider.Browse();
-                //todo
-                //if( pathToSaveSerializedFile != "" ) Serialization.Write(Reflector.M_AssemblyModel, pathToSaveSerializedFile);
+                if( pathToSaveSerializedFile != "" ) Reflector.M_AssemblyModel.SerializeAssembly(pathToSaveSerializedFile);
             }
         }
 
@@ -111,8 +110,7 @@ namespace ViewModel
 
             if (pathToSerializedFile != null)
             {
-                //todo
-                //Reflector = new Reflector(Serialization.Read<AssemblyMetadata>(pathToSerializedFile));
+                Reflector = new Reflector(AssemblyMetadata.DeserializeAssembly(pathToSerializedFile));
 
                 HierarchicalAreas.Clear();
                 TreeViewLoaded();
