@@ -8,13 +8,16 @@
         mc:Ignorable="d"
         Title="Reflection project" Height="600" Width="500"
         ResizeMode="NoResize">
+    
+    <!--
     <Window.DataContext>
-        <ObjectDataProvider ObjectType="local:TreeViewModel" xmlns:browse="clr-namespace:ViewWPF">
+        <ObjectDataProvider ObjectType="local:TreeViewModel"  xmlns:browse="clr-namespace:ViewWPF">
             <ObjectDataProvider.ConstructorParameters>
                 <browse:BrowseFile/>
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
     </Window.DataContext>
+    -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="402*"/>

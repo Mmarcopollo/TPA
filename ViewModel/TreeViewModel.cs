@@ -6,6 +6,7 @@ using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -25,6 +26,8 @@ namespace ViewModel
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
             BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
+            SerializeCommand = new RelayCommand(pars => Serialize());
+            DeserializeCommand = new RelayCommand(pars => Deserialize());
 
         }
         public void ExecuteBrowseFile()
@@ -33,17 +36,6 @@ namespace ViewModel
             {
                 PathVariable = FilePathProvider.Browse();
             }
-        }
-
-        public TreeViewModel(IBrowseFile pathProvider)
-        {
-            FilePathProvider = pathProvider;
-            HierarchicalAreas = new ObservableCollection<TreeViewNode>();
-            LoadDllCmd = new RelayCommand(pars => LoadDLL());
-            BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());
-            SerializeCommand = new RelayCommand(pars => Serialize());
-            DeserializeCommand = new RelayCommand(pars => Deserialize());
-            Serialization = new Serializer();
         }
 
         public ObservableCollection<TreeViewNode> HierarchicalAreas { get; set; }
@@ -66,12 +58,20 @@ namespace ViewModel
         public ICommand SerializeCommand { get; }
         public ICommand DeserializeCommand { get; }
         public Reflector Reflector { get; set; }
-        public Serializer Serialization { get; set; }
 
+        #region MEF
+        [Import(typeof(ISerializer))]
+        public ISerializer Serialization
+        {
+            get; set;
+        }
+        [Import(typeof(IBrowseFile))]
         public IBrowseFile FilePathProvider
         {
-            get;
+            get; set;
         }
+
+        #endregion
 
         public bool LoadDLL()
         {

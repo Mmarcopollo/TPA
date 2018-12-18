@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using log4net;
+using System.ComponentModel.Composition;
 
 namespace Serialization
 {
-    [KnownType(typeof(log4net.Util.TypeConverters.TypeConverterAttribute))]
+    [Export(typeof(ISerializer))]
     public class Serializer : ISerializer
     {
 
