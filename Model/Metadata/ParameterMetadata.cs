@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,6 +14,16 @@ namespace Model
         {
             this.m_Name = name;
             this.m_TypeMetadata = typeMetadata;
+        }
+
+        public ParameterMetadata(ParameterMetadataDTO parameterMetadataDTO)
+        {
+            m_Name = parameterMetadataDTO.m_Name;
+            if (parameterMetadataDTO.m_TypeMetadata != null)
+            {
+                if (TypeMetadata.TypeDictionary.ContainsKey(parameterMetadataDTO.m_TypeMetadata.m_typeName)) m_TypeMetadata = TypeMetadata.TypeDictionary[parameterMetadataDTO.m_TypeMetadata.m_typeName];
+                else m_TypeMetadata = new TypeMetadata(parameterMetadataDTO.m_TypeMetadata);
+            }
         }
 
         //private vars

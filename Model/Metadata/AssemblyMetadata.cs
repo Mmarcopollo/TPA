@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,6 +19,21 @@ namespace Model
                            group _type by _type.GetNamespace() into _group
                            orderby _group.Key
                            select new NamespaceMetadata(_group.Key, _group);
+        }
+
+        public AssemblyMetadata(AssemblyMetadataDTO assemblyMetadataDTO)
+        {
+            m_Name = assemblyMetadataDTO.m_Name;
+            if(assemblyMetadataDTO.m_Namespaces != null)
+            {
+                List<NamespaceMetadata> namespaces = new List<NamespaceMetadata>();
+                foreach (NamespaceMetadataDTO DTO in assemblyMetadataDTO.m_Namespaces)
+                {
+                    NamespaceMetadata methodMetadata = new NamespaceMetadata(DTO);
+                    namespaces.Add(methodMetadata);
+                }
+                m_Namespaces = namespaces;
+            }
         }
 
         public string m_Name;

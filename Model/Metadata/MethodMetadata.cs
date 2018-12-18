@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -41,6 +42,46 @@ namespace Model
             m_Parameters = EmitParameters(method.GetParameters());
             EmitModifiers(method);
             m_Extension = EmitExtension(method);
+        }
+
+        public MethodMetadata(MethodMetadataDTO methodMetadataDTO)
+        {
+            m_Name = methodMetadataDTO.m_Name;
+            if (methodMetadataDTO.m_GenericArguments != null)
+            {
+                List<TypeMetadata> generic = new List<TypeMetadata>();
+                foreach (TypeMetadataDTO DTO in methodMetadataDTO.m_GenericArguments)
+                {
+                    TypeMetadata metadata;
+                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.m_typeName)) metadata = TypeMetadata.TypeDictionary[DTO.m_typeName];
+                    else metadata = new TypeMetadata(DTO);
+                    generic.Add(metadata);
+                }
+                m_GenericArguments = generic;
+            }
+            AccessLevel = (AccessLevel)methodMetadataDTO.AccessLevel;
+            AbstractEnum = (AbstractEnum)methodMetadataDTO.AbstractEnum;
+            StaticEnum = (StaticEnum)methodMetadataDTO.StaticEnum;
+            VirtualEnum = (VirtualEnum)methodMetadataDTO.VirtualEnum;
+
+            if (methodMetadataDTO.m_ReturnType != null)
+            {
+                if (TypeMetadata.TypeDictionary.ContainsKey(methodMetadataDTO.m_ReturnType.m_typeName)) m_ReturnType = TypeMetadata.TypeDictionary[methodMetadataDTO.m_ReturnType.m_typeName];
+                else m_ReturnType = new TypeMetadata(methodMetadataDTO.m_ReturnType);
+            }
+
+            m_Extension = methodMetadataDTO.m_Extension;
+
+            if (methodMetadataDTO.m_Parameters != null)
+            {
+                List<ParameterMetadata> parameters = new List<ParameterMetadata>();
+                foreach (ParameterMetadataDTO DTO in methodMetadataDTO.m_Parameters)
+                {
+                    ParameterMetadata methodMetadata = new ParameterMetadata(DTO);
+                    parameters.Add(methodMetadata);
+                }
+                m_Parameters = parameters;
+            }
         }
         //methods
         private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parms)

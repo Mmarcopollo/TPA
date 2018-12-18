@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -28,6 +29,16 @@ namespace Model
         {
             m_Name = propertyName;
             m_TypeMetadata = propertyType;
+        }
+
+        public PropertyMetadata(PropertyMetadataDTO propertyMetadataDTO)
+        {
+            m_Name = propertyMetadataDTO.m_Name;
+            if (propertyMetadataDTO.m_TypeMetadata != null)
+            {
+                if (TypeMetadata.TypeDictionary.ContainsKey(propertyMetadataDTO.m_TypeMetadata.m_typeName)) m_TypeMetadata = TypeMetadata.TypeDictionary[propertyMetadataDTO.m_TypeMetadata.m_typeName];
+                else m_TypeMetadata = new TypeMetadata(propertyMetadataDTO.m_TypeMetadata);
+            }
         }
         #endregion
     }
