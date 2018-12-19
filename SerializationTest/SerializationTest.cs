@@ -38,5 +38,21 @@ namespace SerializationTest
 
             Assert.AreEqual(reflector.M_AssemblyModel.m_Name, assemblyLoaded.m_Name);
         }
+
+        [TestMethod]
+        public void Seralizer_CheckEqualityOfData()
+        {
+
+            Reflector reflector = new Reflector(pathDLL);
+
+            AssemblyMetadataDTO dto = reflector.M_AssemblyModel.ConvertToDTO();
+
+            AssemblyMetadata assembly = new AssemblyMetadata(dto);
+
+            Assert.AreEqual(reflector.M_AssemblyModel.m_Name, assembly.m_Name);
+        }
+
+
+    
     }
 }
