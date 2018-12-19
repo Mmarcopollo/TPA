@@ -10,7 +10,6 @@ namespace ViewModel.Treeview
 {
     public class PropertyTreeView : TreeViewNode
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
 
         private PropertyMetadata _property;
 
@@ -19,7 +18,6 @@ namespace ViewModel.Treeview
             _property = property;
             Name = property.Name;
             TypeOfMetadata = "property";
-            log.Info("Property tree node was created.");
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
@@ -31,7 +29,6 @@ namespace ViewModel.Treeview
                 else
                     children.Add(new TypeTreeView(_property.m_TypeMetadata));
             }
-            log.Info("Property tree node has expanded.");
         }
     }
 }

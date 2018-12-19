@@ -10,7 +10,6 @@ namespace ViewModel.Treeview
 {
     public class ParameterTreeView : TreeViewNode
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
 
         private ParameterMetadata _parameter;
 
@@ -19,7 +18,6 @@ namespace ViewModel.Treeview
             _parameter = parameter;
             Name = parameter.Name;
             TypeOfMetadata = "parameter";
-            log.Info("Parameter tree node was created.");
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
@@ -31,7 +29,6 @@ namespace ViewModel.Treeview
                 else
                     children.Add(new TypeTreeView(_parameter.m_TypeMetadata));
             }
-            log.Info("Parameter tree node has expanded.");
         }
     }
 }

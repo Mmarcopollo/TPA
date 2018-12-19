@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Log\Log.csproj">
+      <Project>{0444571E-C2D7-4BD7-B610-747A52CB69AA}</Project>
+      <Name>Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{3BD54EE6-C405-40BA-8246-E83A2046C996}</Project>
       <Name>Model</Name>

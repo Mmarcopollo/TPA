@@ -48,7 +48,6 @@
     <Compile Include="Enum\AccessLevel.cs" />
     <Compile Include="Metadata\AssemblyMetadata.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Log\LogHelper.cs" />
     <Compile Include="Metadata\MethodMetadata.cs" />
     <Compile Include="Metadata\NamespaceMetadata.cs" />
     <Compile Include="Metadata\ParameterMetadata.cs" />

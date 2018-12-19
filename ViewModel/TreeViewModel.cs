@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Log;
+using log4net;
 using log4net.Config;
 using Microsoft.Win32;
 using Model;
@@ -19,7 +20,7 @@ namespace ViewModel
 {
     public class TreeViewModel : ViewModelBase
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
+        //private static readonly log4net.ILog log = LogHelper.GetLogger();
 
         public TreeViewModel()
         {
@@ -57,7 +58,7 @@ namespace ViewModel
         public ICommand LoadDllCmd { get; set; }
         public ICommand SerializeCommand { get; }
         public ICommand DeserializeCommand { get; }
-        public Reflector Reflector { get; set; }
+        public Reflector Reflector { get; set; } 
 
         #region MEF
         [Import(typeof(ISerializer))]
@@ -70,23 +71,28 @@ namespace ViewModel
         {
             get; set;
         }
+        [Import(typeof(ILogger))]
+        public ILogger Logger
+        {
+            get; set;
+        }
 
         #endregion
 
         public bool LoadDLL()
         {
-            log.Info("Loading DLL.");
+            Logger.Log("Loading DLL.");
             HierarchicalAreas.Clear();
             if (PathVariable.Length > 4 && (PathVariable.Substring(PathVariable.Length - 4) == ".dll" || PathVariable.Substring(PathVariable.Length - 4) == ".exe"))
             {
                 Reflector = new Reflector(PathVariable);
                 TreeViewLoaded();
-                log.Info("File loaded to treeview.");
+                Logger.Log("File loaded to treeview.");
                 return true;
             }
             else
             {
-                log.Info("File failed when loading from path");
+                Logger.Log("File failed when loading from path");
                 return false;
             }
         }
@@ -94,7 +100,7 @@ namespace ViewModel
         {
             TreeViewNode rootItem = new AssemblyTreeView(Reflector.M_AssemblyModel);
             HierarchicalAreas.Add(rootItem);
-            log.Info("TreeView is loaded");
+            Logger.Log("TreeView is loaded");
         }
 
         public void Serialize()
