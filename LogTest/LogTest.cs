@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
@@ -11,7 +12,7 @@ namespace LogTest
     public class LogTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void LogTest_CheckFile()
         {
             Mock<TreeViewModel> vmTest = new Mock<TreeViewModel>();
             vmTest.SetupAllProperties();
@@ -19,6 +20,7 @@ namespace LogTest
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
+            vmTest.Object.Logger = new Logger();
             vmTest.Object.PathVariable = path;
             vmTest.Object.Reflector = reflector;
 

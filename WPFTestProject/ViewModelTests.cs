@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Controls;
+using Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
@@ -21,6 +22,7 @@ namespace WPFTestProject
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
+            vmTest.Object.Logger = new Logger();
             vmTest.Object.PathVariable = path;
             vmTest.Object.Reflector = reflector;
 
@@ -40,6 +42,7 @@ namespace WPFTestProject
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
+            vmTest.Object.Logger = new Logger();
             vmTest.Object.PathVariable = path;
             vmTest.Object.Reflector = reflector;
 

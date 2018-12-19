@@ -10,7 +10,6 @@ namespace ViewModel.Treeview
 {
     public class NamespacesTreeView : TreeViewNode
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
 
         private NamespaceMetadata _namespaceMeta;
 
@@ -19,7 +18,6 @@ namespace ViewModel.Treeview
             _namespaceMeta = namespaceMeta;
             Name = namespaceMeta.Name;
             TypeOfMetadata = "namespace";
-            log.Info("Namespace tree node was created.");
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
@@ -29,7 +27,6 @@ namespace ViewModel.Treeview
                 {
                     children.Add(new TypeTreeView(TypeMetadata.TypeDictionary[type.m_typeName]));
                 }
-            log.Info("Namespace tree node has expanded.");
         }
     }
 }

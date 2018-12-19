@@ -10,7 +10,6 @@ namespace ViewModel.Treeview
 {
     public class AssemblyTreeView : TreeViewNode
     {
-        private static readonly log4net.ILog log = LogHelper.GetLogger();
 
         private AssemblyMetadata _assembly;
 
@@ -19,7 +18,6 @@ namespace ViewModel.Treeview
             _assembly = assembly;
             Name = assembly.Name;
             TypeOfMetadata = "assembly";
-            log.Info("Assembly tree node was created.");
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
@@ -32,7 +30,6 @@ namespace ViewModel.Treeview
                     children.Add(new NamespacesTreeView(name));
                 }
             }
-            log.Info("Assembly tree node has expanded.");
         }
     }
 }

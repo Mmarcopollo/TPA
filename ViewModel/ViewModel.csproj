@@ -34,6 +34,7 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +59,10 @@
     <Compile Include="TreeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Log\Log.csproj">
+      <Project>{0444571E-C2D7-4BD7-B610-747A52CB69AA}</Project>
+      <Name>Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{3bd54ee6-c405-40ba-8246-e83a2046c996}</Project>
       <Name>Model</Name>
