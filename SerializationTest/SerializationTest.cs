@@ -9,8 +9,8 @@ namespace SerializationTest
     [TestClass]
     public class SerializationTest
     {
-        private string pathDLL = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
-        private string pathXML = "..\\..\\..\\MyLibrary\\bin\\Debug\\Data.xml";
+        private readonly string pathDLL = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
+        private readonly string pathXML = "..\\..\\..\\MyLibrary\\bin\\Debug\\Data.xml";
         [TestMethod]
         public void Seralizer_CheckExistanceOfFile()
         {
@@ -18,9 +18,10 @@ namespace SerializationTest
             Reflector reflector = new Reflector(pathDLL);
 
             Serializer repository = new Serializer();
-            repository.Write(reflector.M_AssemblyModel, pathXML);
+            AssemblyMetadataDTO DTO = reflector.M_AssemblyModel.ConvertToDTO();
+            repository.Write(DTO, pathXML);
 
-            AssemblyMetadata assemblyLoaded = repository.Read<AssemblyMetadata>(pathXML);
+            AssemblyMetadataDTO assemblyLoaded = repository.Read<AssemblyMetadataDTO>(pathXML);
 
             Assert.IsTrue(File.Exists("..\\..\\..\\MyLibrary\\bin\\Debug\\Data.xml"));
         }
@@ -31,9 +32,9 @@ namespace SerializationTest
             Reflector reflector = new Reflector(pathDLL);
 
             Serializer repository = new Serializer();
-            repository.Write(reflector.M_AssemblyModel, pathXML);
+            repository.Write(reflector.M_AssemblyModel.ConvertToDTO(), pathXML);
 
-            AssemblyMetadata assemblyLoaded = repository.Read<AssemblyMetadata>(pathXML);
+            AssemblyMetadataDTO assemblyLoaded = repository.Read<AssemblyMetadataDTO>(pathXML);
 
             Assert.AreEqual(reflector.M_AssemblyModel.m_Name, assemblyLoaded.m_Name);
         }

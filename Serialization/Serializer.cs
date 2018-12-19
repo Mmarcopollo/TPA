@@ -17,20 +17,22 @@ namespace Serialization
 
         public void Write<T>(T obj, string filePath)
         {
-            var lista = new List<Type>();
-            lista.Add(typeof(System.FlagsAttribute));
-            lista.Add(typeof(System.Reflection.DefaultMemberAttribute));
-            lista.Add(typeof(System.AttributeUsageAttribute));
-            lista.Add(typeof(System.ObsoleteAttribute));
-            lista.Add(typeof(System.SerializableAttribute));
-            lista.Add(typeof(System.Runtime.Serialization.KnownTypeAttribute));
-            lista.Add(typeof(log4net.Util.TypeConverters.TypeConverterAttribute));
+            List<Type> lista = new List<Type>
+            {
+                typeof(System.FlagsAttribute),
+                typeof(System.Reflection.DefaultMemberAttribute),
+                typeof(System.AttributeUsageAttribute),
+                typeof(System.ObsoleteAttribute),
+                typeof(System.SerializableAttribute),
+                typeof(System.Runtime.Serialization.KnownTypeAttribute),
+                typeof(log4net.Util.TypeConverters.TypeConverterAttribute)
+            };
 
 
             DataContractSerializerSettings DCSsettings = new DataContractSerializerSettings { PreserveObjectReferences = true };
 
 
-            var XmlWriterSettings = new XmlWriterSettings()
+            XmlWriterSettings XmlWriterSettings = new XmlWriterSettings()
             {
                 Indent = true,
                 IndentChars = "\t"
@@ -47,14 +49,16 @@ namespace Serialization
 
         public T Read<T>(string filePath)
         {
-            var lista = new List<Type>();
-            lista.Add(typeof(System.FlagsAttribute));
-            lista.Add(typeof(System.Reflection.DefaultMemberAttribute));
-            lista.Add(typeof(System.AttributeUsageAttribute));
-            lista.Add(typeof(System.ObsoleteAttribute));
-            lista.Add(typeof(System.SerializableAttribute));
-            lista.Add(typeof(System.Runtime.Serialization.KnownTypeAttribute));
-            lista.Add(typeof(log4net.Util.TypeConverters.TypeConverterAttribute));
+            List<Type> lista = new List<Type>
+            {
+                typeof(System.FlagsAttribute),
+                typeof(System.Reflection.DefaultMemberAttribute),
+                typeof(System.AttributeUsageAttribute),
+                typeof(System.ObsoleteAttribute),
+                typeof(System.SerializableAttribute),
+                typeof(System.Runtime.Serialization.KnownTypeAttribute),
+                typeof(log4net.Util.TypeConverters.TypeConverterAttribute)
+            };
 
 
             T result = default(T);
