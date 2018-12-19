@@ -13,7 +13,6 @@ namespace Model
     {
         public AssemblyMetadata(Assembly assembly)
         {
-            Guid = Guid.NewGuid();
             Name = assembly.ManifestModule.Name;
             Namespaces = from Type _type in assembly.GetTypes()
                            where _type.GetVisible()
