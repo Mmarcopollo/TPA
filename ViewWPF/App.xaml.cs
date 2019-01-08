@@ -17,6 +17,9 @@ namespace ViewWPF
     /// </summary>
     public partial class App : Application
     {
+        private CompositionContainer _container;
+        private AggregateCatalog _aggCatalog = new AggregateCatalog();
+
         public void Start(object sender, StartupEventArgs e)
         {
             TreeViewModel tv = new TreeViewModel();
@@ -32,14 +35,19 @@ namespace ViewWPF
 
         public void Compose(object obj)
         {
-            CompositionContainer container;
-            AssemblyCatalog assemblyCatalog = new AssemblyCatalog(typeof(App).Assembly);
-            AggregateCatalog catalog = new AggregateCatalog(assemblyCatalog,
-                new DirectoryCatalog(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)));
-            container = new CompositionContainer(catalog);
 
-            container.ComposeParts(obj);
+            _aggCatalog = new AggregateCatalog();
+            DirectoryCatalog loggers = new DirectoryCatalog("..\\..\\..\\Log\\bin\\Debug");
+            DirectoryCatalog repo = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
+            DirectoryCatalog thisDirectory = new DirectoryCatalog(Directory.GetCurrentDirectory(), "*.exe");
+            _aggCatalog.Catalogs.Add(loggers);
+            _aggCatalog.Catalogs.Add(repo);
+            _aggCatalog.Catalogs.Add(thisDirectory);
+
+            _container = new CompositionContainer(_aggCatalog);
+            _container.ComposeParts(obj);
 
         }
     }
 }
+

@@ -51,11 +51,11 @@ namespace ViewModel
         public Reflector Reflector { get; set; }
 
         #region MEF
-        [Import(typeof(ISerializer))]
-        public ISerializer Serialization
-        {
-            get; set;
-        }
+        //[Import(typeof(ISerializer))]
+        //public ISerializer Serialization
+        //{
+        //    get; set;
+        //}
         [Import(typeof(IBrowseFile))]
         public IBrowseFile FilePathProvider
         {

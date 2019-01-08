@@ -1,6 +1,7 @@
 ﻿using Serialization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -11,6 +12,12 @@ namespace Model
 {
     public class AssemblyMetadata
     {
+        [Import(typeof(ISerializer))]
+        public ISerializer Serialization
+        {
+            get; set;
+        }
+
         public AssemblyMetadata(Assembly assembly)
         {
             Name = assembly.ManifestModule.Name;
@@ -55,8 +62,7 @@ namespace Model
         public void SerializeAssembly(string path)
         {
             AssemblyMetadataDTO dataToSerialize = this.ConvertToDTO();
-            Serializer serializer = new Serializer();
-            serializer.Write<AssemblyMetadataDTO>(dataToSerialize, path);
+            Serialization.Write<AssemblyMetadataDTO>(dataToSerialize, path);
         }
 
         public static AssemblyMetadata DeserializeAssembly(string path)
