@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.MEF;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -21,12 +22,12 @@ namespace Model
                 throw new System.ArgumentNullException();
             Assembly assembly = Assembly.LoadFrom(assemblyFile);
             M_AssemblyModel = new AssemblyMetadata(assembly);
-            Compose(M_AssemblyModel);
+            MefStartup.Compose(M_AssemblyModel);
         }
         public Reflector(Assembly assembly)
         {
             M_AssemblyModel = new AssemblyMetadata(assembly);
-            Compose(M_AssemblyModel);
+            MefStartup.Compose(M_AssemblyModel);
         }
 
         public Reflector() { }
@@ -40,20 +41,8 @@ namespace Model
         public AssemblyMetadata M_AssemblyModel { get; set; }
 
 
-        private CompositionContainer _container;
-        private AggregateCatalog _aggCatalog = new AggregateCatalog();
-
-        public void Compose(object obj)
-        {
-
-            _aggCatalog = new AggregateCatalog();
-            DirectoryCatalog serialize = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
-            _aggCatalog.Catalogs.Add(serialize);
-
-            _container = new CompositionContainer(_aggCatalog);
-            _container.ComposeParts(obj);
 
 
-        }
+
     }
 }
