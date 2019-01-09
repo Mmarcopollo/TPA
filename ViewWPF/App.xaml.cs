@@ -9,7 +9,6 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Reflection;
 using System.Configuration;
-using Model.MEF;
 
 namespace ViewWPF
 {

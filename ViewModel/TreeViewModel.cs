@@ -1,7 +1,6 @@
 ﻿using Log;
 using Model;
 using Model.MEF;
-using Serialization;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
