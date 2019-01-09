@@ -17,18 +17,6 @@ namespace ViewWPF
     /// </summary>
     public partial class App : Application
     {
-
-        public void Start(object sender, StartupEventArgs e)
-        {
-            TreeViewModel tv = new TreeViewModel();
-            MainWindow window = new MainWindow
-            {
-                DataContext = tv
-            };
-            window.Show();
-            Application.Current.MainWindow = window;
-
-        }
     }
 }
 
