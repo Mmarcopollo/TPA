@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using log4net;
 using System.ComponentModel.Composition;
 
 namespace Serialization
@@ -24,8 +23,7 @@ namespace Serialization
                 typeof(System.AttributeUsageAttribute),
                 typeof(System.ObsoleteAttribute),
                 typeof(System.SerializableAttribute),
-                typeof(System.Runtime.Serialization.KnownTypeAttribute),
-                typeof(log4net.Util.TypeConverters.TypeConverterAttribute)
+                typeof(System.Runtime.Serialization.KnownTypeAttribute)
             };
 
 
@@ -56,8 +54,7 @@ namespace Serialization
                 typeof(System.AttributeUsageAttribute),
                 typeof(System.ObsoleteAttribute),
                 typeof(System.SerializableAttribute),
-                typeof(System.Runtime.Serialization.KnownTypeAttribute),
-                typeof(log4net.Util.TypeConverters.TypeConverterAttribute)
+                typeof(System.Runtime.Serialization.KnownTypeAttribute)
             };
 
 

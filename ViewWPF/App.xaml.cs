@@ -37,15 +37,16 @@ namespace ViewWPF
         {
 
             _aggCatalog = new AggregateCatalog();
-            DirectoryCatalog loggers = new DirectoryCatalog("..\\..\\..\\Log\\bin\\Debug");
-            DirectoryCatalog repo = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
+            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\Log\\bin\\Debug");
+            DirectoryCatalog serialize = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
             DirectoryCatalog thisDirectory = new DirectoryCatalog(Directory.GetCurrentDirectory(), "*.exe");
-            _aggCatalog.Catalogs.Add(loggers);
-            _aggCatalog.Catalogs.Add(repo);
+            _aggCatalog.Catalogs.Add(logger);
+            _aggCatalog.Catalogs.Add(serialize);
             _aggCatalog.Catalogs.Add(thisDirectory);
 
             _container = new CompositionContainer(_aggCatalog);
             _container.ComposeParts(obj);
+
 
         }
     }
