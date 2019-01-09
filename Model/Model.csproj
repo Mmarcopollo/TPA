@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MEF\MefStartup.cs" />
     <Compile Include="Metadata\AssemblyMetadata.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Metadata\MethodMetadata.cs" />
@@ -60,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataBase\BasicData.csproj">
-      <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
+      <Project>{05f972f3-6c2d-4595-8b09-a248e41e79d0}</Project>
       <Name>BasicData</Name>
     </ProjectReference>
     <ProjectReference Include="..\Serialization\Serialization.csproj">
