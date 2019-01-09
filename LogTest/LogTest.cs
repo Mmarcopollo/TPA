@@ -4,6 +4,7 @@ using Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
+using ViewConsole;
 using ViewModel;
 
 namespace LogTest
@@ -21,6 +22,7 @@ namespace LogTest
             Reflector reflector = new Reflector(path);
 
             vmTest.Object.Logger = new Logger();
+            vmTest.Object.FilePathProvider = new BrowseFile();
             vmTest.Object.PathVariable = path;
             vmTest.Object.Reflector = reflector;
 

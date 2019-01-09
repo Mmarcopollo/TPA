@@ -84,6 +84,10 @@
       <Project>{50A4BC19-9BDD-47ED-A5DD-A027E4EA9A8C}</Project>
       <Name>ViewModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ViewWPF\ViewWPF.csproj">
+      <Project>{72139A33-76C2-49BA-B020-B47A4C348C45}</Project>
+      <Name>ViewWPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

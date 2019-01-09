@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
 using ViewModel;
+using ViewWPF;
 
 namespace WPFTestProject
 {
@@ -23,6 +24,7 @@ namespace WPFTestProject
             Reflector reflector = new Reflector(path);
 
             vmTest.Object.Logger = new Logger();
+            vmTest.Object.FilePathProvider = new BrowseFile();
             vmTest.Object.PathVariable = path;
             vmTest.Object.Reflector = reflector;
 
@@ -43,6 +45,7 @@ namespace WPFTestProject
             Reflector reflector = new Reflector(path);
 
             vmTest.Object.Logger = new Logger();
+            vmTest.Object.FilePathProvider = new BrowseFile();
             vmTest.Object.PathVariable = path;
             vmTest.Object.Reflector = reflector;
 
