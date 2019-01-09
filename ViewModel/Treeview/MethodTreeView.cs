@@ -22,16 +22,16 @@ namespace ViewModel.Treeview
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
-            if (_method.m_GenericArguments != null)
+            if (_method.GenericArguments != null)
             {
-                foreach (TypeMetadata argument in _method.m_GenericArguments)
+                foreach (TypeMetadata argument in _method.GenericArguments)
                 {
                     children.Add(new TypeTreeView(argument));
                 }
             }
-            if (_method.m_Parameters != null)
+            if (_method.Parameters != null)
             {
-                foreach (ParameterMetadata parameter in _method.m_Parameters)
+                foreach (ParameterMetadata parameter in _method.Parameters)
                 {
                     children.Add(new ParameterTreeView(parameter));
                 }

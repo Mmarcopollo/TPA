@@ -1,4 +1,5 @@
-﻿using Serialization;
+﻿using BasicData;
+using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,65 +9,65 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class NamespaceMetadata
+    public class NamespaceMetadata : BaseNamespaceMetadata
     {
+        public override string NamespaceName { get => base.NamespaceName; set => base.NamespaceName = value; }
+        public override Guid Guid { get => base.Guid; set => base.Guid = value; }
+        public new IEnumerable<TypeMetadata> Types { get => (IEnumerable<TypeMetadata>)base.Types; set => base.Types = value; }
+
         internal NamespaceMetadata(string name, IEnumerable<Type> types)
         {
             Guid = Guid.NewGuid();
-            m_NamespaceName = name;
-            m_Types = from type in types orderby type.Name select new TypeMetadata(type);
+            NamespaceName = name;
+            Types = from type in types orderby type.Name select new TypeMetadata(type);
 
         }
 
         public NamespaceMetadata(NamespaceMetadataDTO namespaceMetadataDTO)
         {
-            m_NamespaceName = namespaceMetadataDTO.m_NamespaceName;
-            if (namespaceMetadataDTO.m_Types != null)
+            NamespaceName = namespaceMetadataDTO.NamespaceName;
+            Guid = namespaceMetadataDTO.Guid;
+            if (namespaceMetadataDTO.Types != null)
             {
                 List<TypeMetadata> types = new List<TypeMetadata>();
-                foreach (TypeMetadataDTO DTO in namespaceMetadataDTO.m_Types)
+                foreach (TypeMetadataDTO DTO in namespaceMetadataDTO.Types)
                 {
                     TypeMetadata metadata;
-                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.m_typeName)) metadata = TypeMetadata.TypeDictionary[DTO.m_typeName];
+                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadata.TypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadata(DTO);
                     types.Add(metadata);
                 }
-                m_Types = types;
+                Types = types;
             }
         }
 
         public NamespaceMetadataDTO ConvertToDTO()
         {
             NamespaceMetadataDTO result = new NamespaceMetadataDTO();
-            result.m_NamespaceName = m_NamespaceName;
-            if (m_Types != null)
+            result.NamespaceName = NamespaceName;
+            result.Guid = Guid;
+            if (Types != null)
             {
                 List<TypeMetadataDTO> types = new List<TypeMetadataDTO>();
-                foreach (TypeMetadata metadata in m_Types)
+                foreach (TypeMetadata metadata in Types)
                 {
                     TypeMetadataDTO DTO;
-                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.TypeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.TypeName];
                     else DTO = metadata.ConvertToDTO();
                     types.Add(DTO);
                 }
-                result.m_Types = types;
+                result.Types = types;
             }
             return result;
         }
-
-        public string m_NamespaceName;
-        public IEnumerable<TypeMetadata> m_Types;
-        [DataMember]
-        public Guid Guid;
-        public string Name { get => m_NamespaceName; set => m_NamespaceName = value; }
 
 
         public override bool Equals(object obj)
         {
             var metadata = obj as NamespaceMetadata;
             return metadata != null &&
-                   m_NamespaceName == metadata.m_NamespaceName &&
-                   m_Types.SequenceEqual(metadata.m_Types);
+                   NamespaceName == metadata.NamespaceName &&
+                   Types.SequenceEqual(metadata.Types);
         }
 
         public override int GetHashCode()

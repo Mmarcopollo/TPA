@@ -24,10 +24,10 @@ namespace ViewModel.Treeview
         {
             if (_property != null)
             {
-                if (TypeMetadata.TypeDictionary.ContainsKey(_property.m_TypeMetadata.m_typeName))
-                    children.Add(new TypeTreeView(TypeMetadata.TypeDictionary[_property.m_TypeMetadata.m_typeName]));
+                if (TypeMetadata.TypeDictionary.ContainsKey(_property.UsedTypeMetadata.TypeName))
+                    children.Add(new TypeTreeView(TypeMetadata.TypeDictionary[_property.UsedTypeMetadata.TypeName]));
                 else
-                    children.Add(new TypeTreeView(_property.m_TypeMetadata));
+                    children.Add(new TypeTreeView((TypeMetadata)_property.UsedTypeMetadata));
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Serialization;
+﻿using BasicData;
+using Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -10,13 +11,15 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class AssemblyMetadata
+    public class AssemblyMetadata : BaseAssemblyMetadata
     {
         [Import(typeof(ISerializer))]
         public ISerializer Serialization
         {
             get; set;
         }
+        public override string Name { get => base.Name; set => base.Name = value; }
+        public new IEnumerable<NamespaceMetadata> Namespaces { get => (IEnumerable<NamespaceMetadata>)base.Namespaces; set => base.Namespaces = value; }
 
         public AssemblyMetadata(Assembly assembly)
         {
@@ -30,31 +33,31 @@ namespace Model
 
         public AssemblyMetadata(AssemblyMetadataDTO assemblyMetadataDTO)
         {
-            m_Name = assemblyMetadataDTO.m_Name;
-            if(assemblyMetadataDTO.m_Namespaces != null)
+            Name = assemblyMetadataDTO.Name;
+            if(assemblyMetadataDTO.Namespaces != null)
             {
                 List<NamespaceMetadata> namespaces = new List<NamespaceMetadata>();
-                foreach (NamespaceMetadataDTO DTO in assemblyMetadataDTO.m_Namespaces)
+                foreach (NamespaceMetadataDTO DTO in assemblyMetadataDTO.Namespaces)
                 {
                     NamespaceMetadata methodMetadata = new NamespaceMetadata(DTO);
                     namespaces.Add(methodMetadata);
                 }
-                m_Namespaces = namespaces;
+                Namespaces = namespaces;
             }
         }
 
         public AssemblyMetadataDTO ConvertToDTO()
         {
             AssemblyMetadataDTO result = new AssemblyMetadataDTO();
-            result.m_Name = m_Name;
-            if(m_Namespaces != null)
+            result.Name = Name;
+            if(Namespaces != null)
             {
                 List<NamespaceMetadataDTO> namespaces = new List<NamespaceMetadataDTO>();
-                foreach (NamespaceMetadata metadata in m_Namespaces)
+                foreach (NamespaceMetadata metadata in Namespaces)
                 {
                     namespaces.Add(metadata.ConvertToDTO());
                 }
-                result.m_Namespaces = namespaces;
+                result.Namespaces = namespaces;
             }
             return result;
         }
@@ -62,27 +65,21 @@ namespace Model
         public void SerializeAssembly(string path)
         {
             AssemblyMetadataDTO dataToSerialize = this.ConvertToDTO();
-            Serialization.Write<AssemblyMetadataDTO>(dataToSerialize, path);
+            Serialization.Write(dataToSerialize, path);
         }
 
         public static AssemblyMetadata DeserializeAssembly(string path)
         {
             Serializer serializer = new Serializer();
-            AssemblyMetadataDTO deserializedData = serializer.Read<AssemblyMetadataDTO>(path);
+            AssemblyMetadataDTO deserializedData = serializer.Read(path);
             return new AssemblyMetadata(deserializedData);
         }
 
-        public string m_Name;
-        public IEnumerable<NamespaceMetadata> m_Namespaces;
-
-        public string Name { get => m_Name; set => m_Name = value; }
-        public IEnumerable<NamespaceMetadata> Namespaces { get => m_Namespaces; set => m_Namespaces = value; }
-
         public override bool Equals(object obj)
         {
-            var metadata = obj as AssemblyMetadata;
+            AssemblyMetadata metadata = obj as AssemblyMetadata;
             return metadata != null &&
-                   m_Name == metadata.m_Name &&
+                   Name == metadata.Name &&
                    Namespaces.SequenceEqual(metadata.Namespaces);
         }
 

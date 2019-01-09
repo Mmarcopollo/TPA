@@ -1,4 +1,5 @@
-﻿using Serialization;
+﻿using BasicData;
+using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,11 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class PropertyMetadata
+    public class PropertyMetadata : BasePropertyMetadata
     {
+        public override string Name { get => base.Name; set => base.Name = value; }
+        public new TypeMetadata UsedTypeMetadata { get => (TypeMetadata)base.UsedTypeMetadata; set => base.UsedTypeMetadata = value; }
+
         internal static IEnumerable<PropertyMetadata> EmitProperties(IEnumerable<PropertyInfo> props)
         {
             return from prop in props
@@ -18,39 +22,41 @@ namespace Model
                    select new PropertyMetadata(prop.Name, TypeMetadata.EmitReference(prop.PropertyType));
         }
 
-
-
         #region private
-        public string m_Name;
-        public TypeMetadata m_TypeMetadata;
-        public string Name { get => m_Name; set => m_Name = value; }
 
         private PropertyMetadata(string propertyName, TypeMetadata propertyType)
         {
-            m_Name = propertyName;
-            m_TypeMetadata = propertyType;
+            Name = propertyName;
+            UsedTypeMetadata = propertyType;
         }
 
         public PropertyMetadata(PropertyMetadataDTO propertyMetadataDTO)
         {
-            m_Name = propertyMetadataDTO.m_Name;
-            if (propertyMetadataDTO.m_TypeMetadata != null)
+            Name = propertyMetadataDTO.Name;
+            if (propertyMetadataDTO.UsedTypeMetadata != null)
             {
-                if (TypeMetadata.TypeDictionary.ContainsKey(propertyMetadataDTO.m_TypeMetadata.m_typeName)) m_TypeMetadata = TypeMetadata.TypeDictionary[propertyMetadataDTO.m_TypeMetadata.m_typeName];
-                else m_TypeMetadata = new TypeMetadata(propertyMetadataDTO.m_TypeMetadata);
+                if (TypeMetadata.TypeDictionary.ContainsKey(propertyMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = TypeMetadata.TypeDictionary[propertyMetadataDTO.UsedTypeMetadata.TypeName];
+                else UsedTypeMetadata = new TypeMetadata((TypeMetadataDTO)propertyMetadataDTO.UsedTypeMetadata);
             }
         }
 
         public PropertyMetadataDTO ConvertToDTO()
         {
-            PropertyMetadataDTO result = new PropertyMetadataDTO();
-            result.m_Name = m_Name;
-            if (m_TypeMetadata != null)
+            PropertyMetadataDTO result = new PropertyMetadataDTO
             {
-                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(m_TypeMetadata.m_typeName)) result.m_TypeMetadata = TypeMetadataDTO.DTOTypeDictionary[m_TypeMetadata.m_typeName];
-                else result.m_TypeMetadata = m_TypeMetadata.ConvertToDTO();
+                Name = Name
+            };
+            if (UsedTypeMetadata != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(UsedTypeMetadata.TypeName)) result.UsedTypeMetadata = TypeMetadataDTO.DTOTypeDictionary[UsedTypeMetadata.TypeName];
+                else result.UsedTypeMetadata = ((TypeMetadata)UsedTypeMetadata).ConvertToDTO();
             }
             return result;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
         #endregion
     }

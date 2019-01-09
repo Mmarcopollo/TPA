@@ -22,7 +22,7 @@ namespace ViewModel.Treeview
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
-            List<NamespaceMetadata> namespacesList = _assembly.Namespaces.ToList();
+            List<NamespaceMetadata> namespacesList = ((IEnumerable<NamespaceMetadata>)_assembly.Namespaces).ToList();
             if (namespacesList != null)
             {
                 foreach (NamespaceMetadata name in namespacesList)

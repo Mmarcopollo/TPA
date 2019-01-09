@@ -1,4 +1,5 @@
-﻿using Serialization;
+﻿using BasicData;
+using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,242 +9,257 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class TypeMetadata
+    public class TypeMetadata : BaseTypeMetadata
     {
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
+
+        public override string TypeName { get => base.TypeName; set => base.TypeName = value; }
+        public override string NamespaceName { get => base.NamespaceName; set => base.NamespaceName = value; }
+        public new TypeMetadata BaseType { get => (TypeMetadata)base.BaseType; set => base.BaseType = value; }
+        public new IEnumerable<TypeMetadata> GenericArguments { get => (IEnumerable<TypeMetadata>)base.GenericArguments; set => base.GenericArguments = value; }
+        public override AccessLevel AccessLevel { get => base.AccessLevel; set => base.AccessLevel = value; }
+        public override AbstractEnum AbstractEnum { get => base.AbstractEnum; set => base.AbstractEnum = value; }
+        public override SealedEnum SealedEnum { get => base.SealedEnum; set => base.SealedEnum = value; }
+        public override TypeKind TypeKind { get => base.TypeKind; set => base.TypeKind = value; }
+        public override IEnumerable<Attribute> Attributes { get => base.Attributes; set => base.Attributes = value; }
+        public new IEnumerable<TypeMetadata> ImplementedInterfaces { get => (IEnumerable<TypeMetadata>)base.ImplementedInterfaces; set => base.ImplementedInterfaces = value; }
+        public new IEnumerable<TypeMetadata> NestedTypes { get => (IEnumerable<TypeMetadata>)base.NestedTypes; set => base.NestedTypes = value; }
+        public new IEnumerable<PropertyMetadata> Properties { get => (IEnumerable<PropertyMetadata>)base.Properties; set => base.Properties = value; }
+        public new TypeMetadata DeclaringType { get => (TypeMetadata)base.DeclaringType; set => base.DeclaringType = value; }
+        public new IEnumerable<MethodMetadata> Methods { get => (IEnumerable<MethodMetadata>)base.Methods; set => base.Methods = value; }
+        public new IEnumerable<MethodMetadata> Constructors { get => (IEnumerable<MethodMetadata>)base.Constructors; set => base.Constructors = value; }
+
 
         #region constructors
         public TypeMetadata(Type type)
         {
-            m_typeName = type.Name;
-            m_DeclaringType = EmitDeclaringType(type.DeclaringType);
-            m_Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
-            m_Methods = MethodMetadata.EmitMethods(type.GetMethods());
-            m_NestedTypes = EmitNestedTypes(type.GetNestedTypes());
-            m_ImplementedInterfaces = EmitImplements(type.GetInterfaces());
-            m_GenericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
+            TypeName = type.Name;
+            DeclaringType = EmitDeclaringType(type.DeclaringType);
+            Constructors = MethodMetadata.EmitMethods(type.GetConstructors());
+            Methods = MethodMetadata.EmitMethods(type.GetMethods());
+            NestedTypes = EmitNestedTypes(type.GetNestedTypes());
+            ImplementedInterfaces = EmitImplements(type.GetInterfaces());
+            GenericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
             EmitModifiers(type);
-            m_BaseType = EmitExtends(type.BaseType);
-            m_Properties = PropertyMetadata.EmitProperties(type.GetProperties());
-            m_TypeKind = GetTypeKind(type);
-            m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            BaseType = EmitExtends(type.BaseType);
+            Properties = PropertyMetadata.EmitProperties(type.GetProperties());
+            TypeKind = GetTypeKind(type);
+            Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
 
-            if (!TypeDictionary.ContainsKey(this.m_typeName))
+            if (!TypeDictionary.ContainsKey(this.TypeName))
             {
-                TypeDictionary.Add(Name, this);
+                TypeDictionary.Add(TypeName, this);
             }
         }
 
         public TypeMetadata(TypeMetadataDTO typeMetadataDTO)
         {
-            m_typeName = typeMetadataDTO.m_typeName;
-            m_NamespaceName = typeMetadataDTO.m_NamespaceName;
+            TypeName = typeMetadataDTO.TypeName;
+            NamespaceName = typeMetadataDTO.NamespaceName;
 
-            if(typeMetadataDTO.m_BaseType != null)
+            if(typeMetadataDTO.BaseType != null)
             {
-                if (TypeMetadata.TypeDictionary.ContainsKey(typeMetadataDTO.m_BaseType.m_typeName)) m_BaseType = TypeMetadata.TypeDictionary[typeMetadataDTO.m_BaseType.m_typeName];
-                else m_BaseType = new TypeMetadata(typeMetadataDTO.m_BaseType);
+                if (TypeMetadata.TypeDictionary.ContainsKey(typeMetadataDTO.BaseType.TypeName)) BaseType = TypeMetadata.TypeDictionary[typeMetadataDTO.BaseType.TypeName];
+                else BaseType = new TypeMetadata((TypeMetadataDTO)typeMetadataDTO.BaseType);
             }
             
-            if(typeMetadataDTO.m_GenericArguments != null)
+            if(typeMetadataDTO.GenericArguments != null)
             {
                 List<TypeMetadata> arguments = new List<TypeMetadata>();
-                foreach(TypeMetadataDTO DTO in typeMetadataDTO.m_GenericArguments)
+                foreach(TypeMetadataDTO DTO in typeMetadataDTO.GenericArguments)
                 {
                     TypeMetadata metadata;
-                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.m_typeName)) metadata = TypeMetadata.TypeDictionary[DTO.m_typeName];
+                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadata.TypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadata(DTO);
                     arguments.Add(metadata);
                 }
-                m_GenericArguments = arguments;
+                GenericArguments = arguments;
             }
 
-            AccessLevel = (AccessLevel)typeMetadataDTO.AccessLevel;
-            AbstractEnum = (AbstractEnum)typeMetadataDTO.AbstractEnum;
-            SealedEnum = (SealedEnum)typeMetadataDTO.SealedEnum;
-            m_TypeKind = (TypeKind)typeMetadataDTO.m_TypeKind;
-            m_Attributes = typeMetadataDTO.m_Attributes;
+            AccessLevel = typeMetadataDTO.AccessLevel;
+            AbstractEnum = typeMetadataDTO.AbstractEnum;
+            SealedEnum = typeMetadataDTO.SealedEnum;
+            TypeKind = typeMetadataDTO.TypeKind;
+            Attributes = typeMetadataDTO.Attributes;
 
-            if(typeMetadataDTO.m_ImplementedInterfaces != null)
+            if(typeMetadataDTO.ImplementedInterfaces != null)
             {
                 List<TypeMetadata> interfaces = new List<TypeMetadata>();
-                foreach (TypeMetadataDTO DTO in typeMetadataDTO.m_ImplementedInterfaces)
+                foreach (TypeMetadataDTO DTO in typeMetadataDTO.ImplementedInterfaces)
                 {
                     TypeMetadata metadata;
-                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.m_typeName)) metadata = TypeMetadata.TypeDictionary[DTO.m_typeName];
+                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadata.TypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadata(DTO);
                     interfaces.Add(metadata);
                 }
-                m_ImplementedInterfaces = interfaces;
+                ImplementedInterfaces = interfaces;
             }
             
-            if(typeMetadataDTO.m_NestedTypes != null)
+            if(typeMetadataDTO.NestedTypes != null)
             {
                 List<TypeMetadata> nested = new List<TypeMetadata>();
-                foreach (TypeMetadataDTO DTO in typeMetadataDTO.m_NestedTypes)
+                foreach (TypeMetadataDTO DTO in typeMetadataDTO.NestedTypes)
                 {
                     TypeMetadata metadata;
-                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.m_typeName)) metadata = TypeMetadata.TypeDictionary[DTO.m_typeName];
+                    if (TypeMetadata.TypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadata.TypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadata(DTO);
                     nested.Add(metadata);
                 }
-                m_NestedTypes = nested;
+                NestedTypes = nested;
             }
 
-            if(typeMetadataDTO.m_Properties != null)
+            if(typeMetadataDTO.Properties != null)
             {
                 List<PropertyMetadata> properties = new List<PropertyMetadata>();
-                foreach(PropertyMetadataDTO DTO in typeMetadataDTO.m_Properties)
+                foreach(PropertyMetadataDTO DTO in typeMetadataDTO.Properties)
                 {
                     PropertyMetadata propertyMetadata = new PropertyMetadata(DTO);
                     properties.Add(propertyMetadata);
                 }
-                m_Properties = properties;
+                Properties = properties;
             }
 
-            if (typeMetadataDTO.m_DeclaringType != null)
+            if (typeMetadataDTO.DeclaringType != null)
             {
-                if (TypeMetadata.TypeDictionary.ContainsKey(typeMetadataDTO.m_DeclaringType.m_typeName)) m_DeclaringType = TypeMetadata.TypeDictionary[typeMetadataDTO.m_DeclaringType.m_typeName];
-                else m_DeclaringType = new TypeMetadata(typeMetadataDTO.m_DeclaringType);
+                if (TypeMetadata.TypeDictionary.ContainsKey(typeMetadataDTO.DeclaringType.TypeName)) DeclaringType = TypeMetadata.TypeDictionary[typeMetadataDTO.DeclaringType.TypeName];
+                else DeclaringType = new TypeMetadata((TypeMetadataDTO)typeMetadataDTO.DeclaringType);
             }
 
-            if(typeMetadataDTO.m_Methods != null)
+            if(typeMetadataDTO.Methods != null)
             {
                 List<MethodMetadata> methods = new List<MethodMetadata>();
-                foreach (MethodMetadataDTO DTO in typeMetadataDTO.m_Methods)
+                foreach (MethodMetadataDTO DTO in typeMetadataDTO.Methods)
                 {
                     MethodMetadata methodMetadata = new MethodMetadata(DTO);
                     methods.Add(methodMetadata);
                 }
-                m_Methods = methods;
+                Methods = methods;
             }
 
-            if(typeMetadataDTO.m_Constructors != null)
+            if(typeMetadataDTO.Constructors != null)
             {
                 List<MethodMetadata> constructors = new List<MethodMetadata>();
-                foreach (MethodMetadataDTO DTO in typeMetadataDTO.m_Constructors)
+                foreach (MethodMetadataDTO DTO in typeMetadataDTO.Constructors)
                 {
                     MethodMetadata methodMetadata = new MethodMetadata(DTO);
                     constructors.Add(methodMetadata);
                 }
-                m_Constructors = constructors;
+                Constructors = constructors;
             }
 
-            if (!TypeDictionary.ContainsKey(this.m_typeName))
+            if (!TypeDictionary.ContainsKey(this.TypeName))
             {
-                TypeDictionary.Add(Name, this);
+                TypeDictionary.Add(TypeName, this);
             }
         }
 
         public TypeMetadataDTO ConvertToDTO()
         {
-            TypeMetadataDTO result = new TypeMetadataDTO();
-            result.m_typeName = m_typeName;
-            result.m_NamespaceName = m_NamespaceName;
-
-            if (m_BaseType != null)
+            TypeMetadataDTO result = new TypeMetadataDTO
             {
-                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(m_BaseType.m_typeName)) result.m_BaseType = TypeMetadataDTO.DTOTypeDictionary[m_BaseType.m_typeName];
-                else result.m_BaseType = m_BaseType.ConvertToDTO();
+                TypeName = TypeName,
+                NamespaceName = NamespaceName
+            };
+
+            if (BaseType != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(BaseType.TypeName)) result.BaseType = TypeMetadataDTO.DTOTypeDictionary[BaseType.TypeName];
+                else result.BaseType = ((TypeMetadata)BaseType).ConvertToDTO();
             }
 
-            if (m_GenericArguments != null)
+            if (GenericArguments != null)
             {
                 List<TypeMetadataDTO> arguments = new List<TypeMetadataDTO>();
-                foreach (TypeMetadata metadata in m_GenericArguments)
+                foreach (TypeMetadata metadata in GenericArguments)
                 {
                     TypeMetadataDTO DTO;
-                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.TypeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.TypeName];
                     else DTO = metadata.ConvertToDTO();
                     arguments.Add(DTO);
                 }
-                result.m_GenericArguments = arguments;
+                result.GenericArguments = arguments;
             }
 
-            result.AccessLevel = (Serialization.AccessLevel)AccessLevel;
-            result.AbstractEnum = (Serialization.AbstractEnum)AbstractEnum;
-            result.SealedEnum = (Serialization.SealedEnum)SealedEnum;
-            result.m_TypeKind = (Serialization.TypeKind)m_TypeKind;
-            result.m_Attributes = m_Attributes;
+            result.AccessLevel = AccessLevel;
+            result.AbstractEnum = AbstractEnum;
+            result.SealedEnum = SealedEnum;
+            result.TypeKind = TypeKind;
+            result.Attributes = Attributes;
 
-            if (m_ImplementedInterfaces != null)
+            if (ImplementedInterfaces != null)
             {
                 List<TypeMetadataDTO> interfaces = new List<TypeMetadataDTO>();
-                foreach (TypeMetadata metadata in m_ImplementedInterfaces)
+                foreach (TypeMetadata metadata in ImplementedInterfaces)
                 {
                     TypeMetadataDTO DTO;
-                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.TypeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.TypeName];
                     else DTO = metadata.ConvertToDTO();
                     interfaces.Add(DTO);
                 }
-                result.m_ImplementedInterfaces = interfaces;
+                result.ImplementedInterfaces = interfaces;
             }
 
-            if (m_NestedTypes != null)
+            if (NestedTypes != null)
             {
                 List<TypeMetadataDTO> nested = new List<TypeMetadataDTO>();
-                foreach (TypeMetadata metadata in m_NestedTypes)
+                foreach (TypeMetadata metadata in NestedTypes)
                 {
                     TypeMetadataDTO DTO;
-                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.m_typeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.m_typeName];
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.TypeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.TypeName];
                     else DTO = metadata.ConvertToDTO();
                     nested.Add(DTO);
                 }
-                result.m_NestedTypes = nested;
+                result.NestedTypes = nested;
             }
 
-            if (m_Properties != null)
+            if (Properties != null)
             {
                 List<PropertyMetadataDTO> properties = new List<PropertyMetadataDTO>();
-                foreach (PropertyMetadata metadata in m_Properties)
+                foreach (PropertyMetadata metadata in Properties)
                 {
                     PropertyMetadataDTO propertyMetadataDTO = metadata.ConvertToDTO();
                     properties.Add(propertyMetadataDTO);
                 }
-                result.m_Properties = properties;
+                result.Properties = properties;
             }
 
-            if (m_DeclaringType != null)
+            if (DeclaringType != null)
             {
-                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(m_DeclaringType.m_typeName)) result.m_DeclaringType = TypeMetadataDTO.DTOTypeDictionary[m_DeclaringType.m_typeName];
-                else result.m_DeclaringType = m_DeclaringType.ConvertToDTO();
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(DeclaringType.TypeName)) result.DeclaringType = TypeMetadataDTO.DTOTypeDictionary[DeclaringType.TypeName];
+                else result.DeclaringType = ((TypeMetadata)DeclaringType).ConvertToDTO();
             }
 
-            if (m_Methods != null)
+            if (Methods != null)
             {
                 List<MethodMetadataDTO> methods = new List<MethodMetadataDTO>();
-                foreach (MethodMetadata metadata in m_Methods)
+                foreach (MethodMetadata metadata in Methods)
                 {
                     MethodMetadataDTO methodMetadataDTO = metadata.ConvertToDTO();
                     methods.Add(methodMetadataDTO);
                 }
-                result.m_Methods = methods;
+                result.Methods = methods;
             }
 
-            if (m_Constructors != null)
+            if (Constructors != null)
             {
                 List<MethodMetadataDTO> constructors = new List<MethodMetadataDTO>();
-                foreach (MethodMetadata metadata in m_Constructors)
+                foreach (MethodMetadata metadata in Constructors)
                 {
                     MethodMetadataDTO methodMetadataDTO = metadata.ConvertToDTO();
                     constructors.Add(methodMetadataDTO);
                 }
-                result.m_Constructors = constructors;
+                result.Constructors = constructors;
             }
 
-            if (!TypeMetadataDTO.DTOTypeDictionary.ContainsKey(result.m_typeName))
+            if (!TypeMetadataDTO.DTOTypeDictionary.ContainsKey(result.TypeName))
             {
-                TypeMetadataDTO.DTOTypeDictionary.Add(result.m_typeName, result);
+                TypeMetadataDTO.DTOTypeDictionary.Add(result.TypeName, result);
             }
             return result;
         }
         #endregion
 
         #region API
-        public enum TypeKind
-        {
-            EnumType, StructType, InterfaceType, ClassType
-        }
         public static TypeMetadata EmitReference(Type type)
         {
             if (!type.IsGenericType)
@@ -258,34 +274,15 @@ namespace Model
         #endregion
 
         #region private
-        //vars
-        public string m_typeName;
-        public string m_NamespaceName;
-        public TypeMetadata m_BaseType;
-        public IEnumerable<TypeMetadata> m_GenericArguments;
-        public AccessLevel AccessLevel { get; set; }
-        public AbstractEnum AbstractEnum { get; set; }
-        public SealedEnum SealedEnum { get; set; }
-        public TypeKind m_TypeKind;
-        public IEnumerable<Attribute> m_Attributes;
-        public IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        public IEnumerable<TypeMetadata> m_NestedTypes;
-        public IEnumerable<PropertyMetadata> m_Properties;
-        public TypeMetadata m_DeclaringType;
-        public IEnumerable<MethodMetadata> m_Methods;
-        public IEnumerable<MethodMetadata> m_Constructors;
-
-        public string Name { get => m_typeName; set => m_typeName = value; }
-
         //constructors
         private TypeMetadata(string typeName, string namespaceName)
         {
-            m_typeName = typeName;
-            m_NamespaceName = namespaceName;
+            TypeName = typeName;
+            NamespaceName = namespaceName;
         }
         private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments) : this(typeName, namespaceName)
         {
-            m_GenericArguments = genericArguments;
+            GenericArguments = genericArguments;
         }
         //methods
         private TypeMetadata EmitDeclaringType(Type declaringType)

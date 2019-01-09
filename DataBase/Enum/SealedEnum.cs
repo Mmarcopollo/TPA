@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace BasicData
 {
-    public enum AccessLevel
+    public enum SealedEnum
     {
-        IsPublic, IsProtected, IsProtectedInternal, IsPrivate
+        Sealed, NotSealed
     }
 }

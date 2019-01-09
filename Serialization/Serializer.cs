@@ -14,7 +14,7 @@ namespace Serialization
     public class Serializer : ISerializer
     {
 
-        public void Write<T>(T obj, string filePath)
+        public void Write(AssemblyMetadataDTO obj, string filePath)
         {
             List<Type> lista = new List<Type>
             {
@@ -23,7 +23,13 @@ namespace Serialization
                 typeof(System.AttributeUsageAttribute),
                 typeof(System.ObsoleteAttribute),
                 typeof(System.SerializableAttribute),
-                typeof(System.Runtime.Serialization.KnownTypeAttribute)
+                typeof(System.Runtime.Serialization.KnownTypeAttribute),
+                typeof(AssemblyMetadataDTO),
+                typeof(MethodMetadataDTO),
+                typeof(NamespaceMetadataDTO),
+                typeof(ParameterMetadataDTO),
+                typeof(PropertyMetadataDTO),
+                typeof(TypeMetadataDTO)
             };
 
 
@@ -45,7 +51,7 @@ namespace Serialization
 
         }
 
-        public T Read<T>(string filePath)
+        public AssemblyMetadataDTO Read(string filePath)
         {
             List<Type> lista = new List<Type>
             {
@@ -54,15 +60,21 @@ namespace Serialization
                 typeof(System.AttributeUsageAttribute),
                 typeof(System.ObsoleteAttribute),
                 typeof(System.SerializableAttribute),
-                typeof(System.Runtime.Serialization.KnownTypeAttribute)
+                typeof(System.Runtime.Serialization.KnownTypeAttribute),
+                typeof(AssemblyMetadataDTO),
+                typeof(MethodMetadataDTO),
+                typeof(NamespaceMetadataDTO),
+                typeof(ParameterMetadataDTO),
+                typeof(PropertyMetadataDTO),
+                typeof(TypeMetadataDTO)
             };
 
 
-            T result = default(T);
-            DataContractSerializer deserializer = new DataContractSerializer(typeof(T),lista);
+            AssemblyMetadataDTO result = default(AssemblyMetadataDTO);
+            DataContractSerializer deserializer = new DataContractSerializer(typeof(AssemblyMetadataDTO),lista);
             using (FileStream stream = File.OpenRead(filePath))
             {
-                result = (T)deserializer.ReadObject(stream);
+                result = (AssemblyMetadataDTO)deserializer.ReadObject(stream);
             }
 
             return result;

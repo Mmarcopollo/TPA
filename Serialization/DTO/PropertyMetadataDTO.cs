@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BasicData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 namespace Serialization
 {
     [DataContract(IsReference = true)]
-    public class PropertyMetadataDTO
+    public class PropertyMetadataDTO : BasePropertyMetadata
     {
         [DataMember]
-        public string m_Name;
+        public override string Name { get => base.Name; set => base.Name = value; }
         [DataMember]
-        public TypeMetadataDTO m_TypeMetadata;
+        public override BaseTypeMetadata UsedTypeMetadata { get => base.UsedTypeMetadata; set => base.UsedTypeMetadata = value; }
     }
 }

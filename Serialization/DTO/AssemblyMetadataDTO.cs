@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BasicData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 namespace Serialization
 {
     [DataContract]
-    public class AssemblyMetadataDTO
+    public class AssemblyMetadataDTO : BaseAssemblyMetadata
     {
         [DataMember]
-        public string m_Name;
+        public override string Name { get => base.Name; set => base.Name = value; }
         [DataMember]
-        public IEnumerable<NamespaceMetadataDTO> m_Namespaces;
+        public override IEnumerable<BaseNamespaceMetadata> Namespaces { get => base.Namespaces; set => base.Namespaces = value; }
     }
 }

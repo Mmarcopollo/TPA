@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BasicData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -8,39 +9,39 @@ using System.Threading.Tasks;
 namespace Serialization
 {
     [DataContract(IsReference = true)]
-    public class TypeMetadataDTO
+    public class TypeMetadataDTO : BaseTypeMetadata
     {
         public static Dictionary<string, TypeMetadataDTO> DTOTypeDictionary = new Dictionary<string, TypeMetadataDTO>();
 
         [DataMember]
-        public string m_typeName;
+        public override string TypeName { get => base.TypeName; set => base.TypeName = value; }
         [DataMember]
-        public string m_NamespaceName;
+        public override string NamespaceName { get => base.NamespaceName; set => base.NamespaceName = value; }
         [DataMember]
-        public TypeMetadataDTO m_BaseType;
+        public override BaseTypeMetadata BaseType { get => base.BaseType; set => base.BaseType = value; }
         [DataMember]
-        public IEnumerable<TypeMetadataDTO> m_GenericArguments;
+        public override IEnumerable<BaseTypeMetadata> GenericArguments { get => base.GenericArguments; set => base.GenericArguments = value; }
         [DataMember]
-        public AccessLevel AccessLevel { get; set; }
+        public override AccessLevel AccessLevel { get => base.AccessLevel; set => base.AccessLevel = value; }
         [DataMember]
-        public AbstractEnum AbstractEnum { get; set; }
+        public override AbstractEnum AbstractEnum { get => base.AbstractEnum; set => base.AbstractEnum = value; }
         [DataMember]
-        public SealedEnum SealedEnum { get; set; }
+        public override SealedEnum SealedEnum { get => base.SealedEnum; set => base.SealedEnum = value; }
         [DataMember]
-        public TypeKind m_TypeKind;
+        public override TypeKind TypeKind { get => base.TypeKind; set => base.TypeKind = value; }
         [DataMember]
-        public IEnumerable<Attribute> m_Attributes;
+        public override IEnumerable<Attribute> Attributes { get => base.Attributes; set => base.Attributes = value; }
         [DataMember]
-        public IEnumerable<TypeMetadataDTO> m_ImplementedInterfaces;
+        public override IEnumerable<BaseTypeMetadata> ImplementedInterfaces { get => base.ImplementedInterfaces; set => base.ImplementedInterfaces = value; }
         [DataMember]
-        public IEnumerable<TypeMetadataDTO> m_NestedTypes;
+        public override IEnumerable<BaseTypeMetadata> NestedTypes { get => base.NestedTypes; set => base.NestedTypes = value; }
         [DataMember]
-        public IEnumerable<PropertyMetadataDTO> m_Properties;
+        public override IEnumerable<BasePropertyMetadata> Properties { get => base.Properties; set => base.Properties = value; }
         [DataMember]
-        public TypeMetadataDTO m_DeclaringType;
+        public override BaseTypeMetadata DeclaringType { get => base.DeclaringType; set => base.DeclaringType = value; }
         [DataMember]
-        public IEnumerable<MethodMetadataDTO> m_Methods;
+        public override IEnumerable<BaseMethodMetadata> Methods { get => base.Methods; set => base.Methods = value; }
         [DataMember]
-        public IEnumerable<MethodMetadataDTO> m_Constructors;
+        public override IEnumerable<BaseMethodMetadata> Constructors { get => base.Constructors; set => base.Constructors = value; }
     }
 }

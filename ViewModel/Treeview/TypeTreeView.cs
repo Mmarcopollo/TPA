@@ -15,20 +15,20 @@ namespace ViewModel.Treeview
         public TypeTreeView(TypeMetadata type) 
         {
             _type = type;
-            Name = type.Name;
+            Name = type.TypeName;
             TypeOfMetadata = "type";
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
-            if (_type.m_Properties != null)
-                foreach (PropertyMetadata property in _type.m_Properties)
+            if (_type.Properties != null)
+                foreach (PropertyMetadata property in _type.Properties)
                 {
                     children.Add(new PropertyTreeView(property));
                 }
 
-            if (_type.m_Methods != null)
-                foreach (MethodMetadata method in _type.m_Methods)
+            if (_type.Methods != null)
+                foreach (MethodMetadata method in _type.Methods)
                 {
                     children.Add(new MethodTreeView(method));
                 }

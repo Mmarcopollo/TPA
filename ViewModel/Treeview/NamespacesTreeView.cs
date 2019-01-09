@@ -16,16 +16,16 @@ namespace ViewModel.Treeview
         public NamespacesTreeView(NamespaceMetadata namespaceMeta)
         {
             _namespaceMeta = namespaceMeta;
-            Name = namespaceMeta.Name;
+            Name = namespaceMeta.NamespaceName;
             TypeOfMetadata = "namespace";
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
-            if (_namespaceMeta.m_Types != null)
-                foreach (TypeMetadata type in _namespaceMeta.m_Types)
+            if (_namespaceMeta.Types != null)
+                foreach (TypeMetadata type in _namespaceMeta.Types)
                 {
-                    children.Add(new TypeTreeView(TypeMetadata.TypeDictionary[type.m_typeName]));
+                    children.Add(new TypeTreeView(TypeMetadata.TypeDictionary[type.TypeName]));
                 }
         }
     }

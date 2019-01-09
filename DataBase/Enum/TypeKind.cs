@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Serialization
+namespace BasicData
 {
-    public enum SealedEnum
+    public enum TypeKind
     {
-        Sealed, NotSealed
+        EnumType, StructType, InterfaceType, ClassType
     }
 }

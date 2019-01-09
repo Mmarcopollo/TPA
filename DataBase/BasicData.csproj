@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E040D4D9-889D-4864-8C20-265800B6FE92}</ProjectGuid>
+    <ProjectGuid>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Serialization</RootNamespace>
-    <AssemblyName>Serialization</AssemblyName>
+    <RootNamespace>DataBase</RootNamespace>
+    <AssemblyName>DataBase</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -42,24 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\AssemblyMetadataDTO.cs" />
-    <Compile Include="DTO\MethodMetadataDTO.cs" />
-    <Compile Include="DTO\NamespaceMetadataDTO.cs" />
-    <Compile Include="DTO\ParameterMetadataDTO.cs" />
-    <Compile Include="DTO\PropertyMetadataDTO.cs" />
-    <Compile Include="DTO\TypeMetadataDTO.cs" />
-    <Compile Include="ISerializer.cs" />
-    <Compile Include="Serializer.cs" />
+    <Compile Include="BaseAssemblyMetadata.cs" />
+    <Compile Include="BaseMethodMetadata.cs" />
+    <Compile Include="BaseNamespaceMetadata.cs" />
+    <Compile Include="BaseParameterMetadata.cs" />
+    <Compile Include="BasePropertyMetadata.cs" />
+    <Compile Include="BaseTypeMetadata.cs" />
+    <Compile Include="Enum\AbstractENum.cs" />
+    <Compile Include="Enum\AccessLevel.cs" />
+    <Compile Include="Enum\SealedEnum.cs" />
+    <Compile Include="Enum\StaticEnum.cs" />
+    <Compile Include="Enum\TypeKind.cs" />
+    <Compile Include="Enum\VirtualEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataBase\BasicData.csproj">
-      <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
-      <Name>BasicData</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

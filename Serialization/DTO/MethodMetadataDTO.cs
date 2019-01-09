@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BasicData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -10,25 +11,25 @@ using System.Threading.Tasks;
 namespace Serialization
 {
     [DataContract(IsReference = true)]
-    public class MethodMetadataDTO
+    public class MethodMetadataDTO : BaseMethodMetadata
     {
         [DataMember]
-        public string m_Name;
+        public override string Name { get => base.Name; set => base.Name = value; }
         [DataMember]
-        public IEnumerable<TypeMetadataDTO> m_GenericArguments;
+        public override IEnumerable<BaseTypeMetadata> GenericArguments { get => base.GenericArguments; set => base.GenericArguments = value; }
         [DataMember]
-        public AccessLevel AccessLevel;
+        public override AccessLevel AccessLevel { get => base.AccessLevel; set => base.AccessLevel = value; }
         [DataMember]
-        public AbstractEnum AbstractEnum;
+        public override AbstractEnum AbstractEnum { get => base.AbstractEnum; set => base.AbstractEnum = value; }
         [DataMember]
-        public StaticEnum StaticEnum;
+        public override StaticEnum StaticEnum { get => base.StaticEnum; set => base.StaticEnum = value; }
         [DataMember]
-        public VirtualEnum VirtualEnum;
+        public override VirtualEnum VirtualEnum { get => base.VirtualEnum; set => base.VirtualEnum = value; }
         [DataMember]
-        public TypeMetadataDTO m_ReturnType;
+        public override BaseTypeMetadata ReturnType { get => base.ReturnType; set => base.ReturnType = value; }
         [DataMember]
-        public bool m_Extension;
+        public override bool Extension { get => base.Extension; set => base.Extension = value; }
         [DataMember]
-        public IEnumerable<ParameterMetadataDTO> m_Parameters;
+        public override IEnumerable<BaseParameterMetadata> Parameters { get => base.Parameters; set => base.Parameters = value; }
     }
 }

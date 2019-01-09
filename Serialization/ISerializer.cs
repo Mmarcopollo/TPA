@@ -4,7 +4,7 @@ namespace Serialization
 {
     public interface ISerializer
     {
-        void Write<T>(T obj, string filePath);
-        T Read<T>(string filePath);
+        void Write(AssemblyMetadataDTO obj, string filePath);
+        AssemblyMetadataDTO Read(string filePath);
     }
 }

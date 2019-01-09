@@ -34,7 +34,7 @@ namespace Model
         {
             M_AssemblyModel = assembly;
             TypeMetadata.TypeDictionary.Clear();
-            M_AssemblyModel.m_Namespaces.ToList().ForEach(ns => ns.m_Types.ToList().ForEach(t => TypeMetadata.TypeDictionary.Add(t.Name, t)));
+            M_AssemblyModel.Namespaces.ToList().ForEach(ns => ns.Types.ToList().ForEach(t => TypeMetadata.TypeDictionary.Add(t.TypeName, (TypeMetadata)t)));
         }
         [DataMember]
         public AssemblyMetadata M_AssemblyModel { get; set; }

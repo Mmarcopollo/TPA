@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Serialization
+namespace BasicData
 {
-    public enum VirtualEnum
+    public enum AccessLevel
     {
-        NotVirtual, Virtual
+        IsPublic, IsProtected, IsProtectedInternal, IsPrivate
     }
 }
