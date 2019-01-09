@@ -18,8 +18,6 @@ namespace ViewWPF
     /// </summary>
     public partial class App : Application
     {
-        private CompositionContainer _container;
-        private AggregateCatalog _aggCatalog = new AggregateCatalog();
 
         public void Start(object sender, StartupEventArgs e)
         {
@@ -30,23 +28,6 @@ namespace ViewWPF
             };
             window.Show();
             Application.Current.MainWindow = window;
-
-        }
-
-        public void Compose(object obj)
-        {
-
-            _aggCatalog = new AggregateCatalog();
-            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\Log\\bin\\Debug");
-            DirectoryCatalog serialize = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
-            DirectoryCatalog thisDirectory = new DirectoryCatalog(Directory.GetCurrentDirectory(), "*.exe");
-            _aggCatalog.Catalogs.Add(logger);
-            _aggCatalog.Catalogs.Add(serialize);
-            _aggCatalog.Catalogs.Add(thisDirectory);
-
-            _container = new CompositionContainer(_aggCatalog);
-            _container.ComposeParts(obj);
-
 
         }
     }
