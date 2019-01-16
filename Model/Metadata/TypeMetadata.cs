@@ -190,7 +190,24 @@ namespace Model
             result.AbstractEnum = AbstractEnum;
             result.SealedEnum = SealedEnum;
             result.TypeKind = TypeKind;
-            result.Attributes = Attributes;
+
+            //Attributes
+            if (Attributes != null)
+            {
+                List<TypeMetadataDTO> tempAttributes = new List<TypeMetadataDTO>();
+                foreach (var metadata in Attributes)
+                {
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.TypeName))
+                    {
+                        tempAttributes.Add(TypeMetadataDTO.DTOTypeDictionary[metadata.TypeName]);
+                    }
+                    else
+                    {
+                        tempAttributes.Add(metadata.ConvertToDTO());
+                    }
+                }
+                result.Attributes = tempAttributes;
+            }
 
             if (ImplementedInterfaces != null)
             {
