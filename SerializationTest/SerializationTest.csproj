@@ -55,10 +55,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBase\BasicData.csproj">
-      <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
-      <Name>BasicData</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{3BD54EE6-C405-40BA-8246-E83A2046C996}</Project>
       <Name>Model</Name>

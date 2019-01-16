@@ -55,11 +55,5 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataBase\BasicData.csproj">
-      <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
-      <Name>BasicData</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
