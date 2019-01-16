@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Controls;
+using FileLogger;
 using Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;

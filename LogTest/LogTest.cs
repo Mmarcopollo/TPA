@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using FileLogger;
 using Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
