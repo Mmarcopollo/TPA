@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogTest", "LogTest\LogTest.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log", "Log\Log.csproj", "{0444571E-C2D7-4BD7-B610-747A52CB69AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicData", "DataBase\BasicData.csproj", "{05F972F3-6C2D-4595-8B09-A248E41E79D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicData", "BasicData\BasicData.csproj", "{05F972F3-6C2D-4595-8B09-A248E41E79D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
