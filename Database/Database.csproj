@@ -78,6 +78,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Logging\Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -129,6 +130,10 @@
     <ProjectReference Include="..\BasicData\BasicData.csproj">
       <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
       <Name>BasicData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Log\Log.csproj">
+      <Project>{0444571E-C2D7-4BD7-B610-747A52CB69AA}</Project>
+      <Name>Log</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
