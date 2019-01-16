@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.ComponentModel.Composition;
+using Serialization.DTO;
 
 namespace Serialization
 {
@@ -29,7 +30,8 @@ namespace Serialization
                 typeof(NamespaceMetadataDTO),
                 typeof(ParameterMetadataDTO),
                 typeof(PropertyMetadataDTO),
-                typeof(TypeMetadataDTO)
+                typeof(TypeMetadataDTO),
+                typeof(FieldMetadataDTO)
             };
 
 
