@@ -30,7 +30,7 @@ namespace Serialization
         [DataMember]
         public override TypeKind TypeKind { get => base.TypeKind; set => base.TypeKind = value; }
         [DataMember]
-        public override IEnumerable<Attribute> Attributes { get => base.Attributes; set => base.Attributes = value; }
+        public override IEnumerable<BaseTypeMetadata> Attributes { get => base.Attributes; set => base.Attributes = value; }
         [DataMember]
         public override IEnumerable<BaseTypeMetadata> ImplementedInterfaces { get => base.ImplementedInterfaces; set => base.ImplementedInterfaces = value; }
         [DataMember]

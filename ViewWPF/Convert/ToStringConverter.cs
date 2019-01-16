@@ -19,6 +19,7 @@ namespace ViewWPF.Convert
             Type type = value.GetType();
             string typeString = type == typeof(AssemblyTreeView) ? "Assembly" :
                 type == typeof(MethodTreeView) ? "Method" :
+                 type == typeof(AttributeTreeView) ? "Attribute" :
                 type == typeof(FieldTreeView) ? "Field" :
                 type == typeof(NamespacesTreeView) ? "Namespace" :
                 type == typeof(ParameterTreeView) ? "Parameter" :
