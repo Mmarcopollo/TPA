@@ -15,6 +15,8 @@ namespace ViewModel.Treeview
         public FieldTreeView(FieldMetadata field) 
         {
             _field = field;
+            Name = field.FieldName;
+            TypeOfMetadata = "field";
         }
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)

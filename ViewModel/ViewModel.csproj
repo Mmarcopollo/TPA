@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseItems\RellyCommand.cs" />
     <Compile Include="Treeview\AssemblyTreeView.cs" />
+    <Compile Include="Treeview\AttributeTreeView.cs" />
     <Compile Include="Treeview\FieldTreeView.cs" />
     <Compile Include="Treeview\MethodTreeView.cs" />
     <Compile Include="Treeview\NamespacesTreeView.cs" />

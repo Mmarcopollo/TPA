@@ -27,7 +27,7 @@ namespace BasicData
         [DataMember]
         public virtual TypeKind TypeKind { get; set; }
         [DataMember]
-        public virtual IEnumerable<Attribute> Attributes { get; set; }
+        public virtual IEnumerable<BaseTypeMetadata> Attributes { get; set; }
         [DataMember]
         public virtual IEnumerable<BaseTypeMetadata> ImplementedInterfaces { get; set; }
         [DataMember]

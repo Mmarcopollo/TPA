@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Model
 {
@@ -22,7 +25,7 @@ namespace Model
         public override SealedEnum SealedEnum { get => base.SealedEnum; set => base.SealedEnum = value; }
         public override TypeKind TypeKind { get => base.TypeKind; set => base.TypeKind = value; }
         public new IEnumerable<FieldMetadata> Fields { get => (IEnumerable<FieldMetadata>)base.Fields; set => base.Fields = value; }
-        public override IEnumerable<Attribute> Attributes { get => base.Attributes; set => base.Attributes = value; }
+        public new IEnumerable<TypeMetadata> Attributes { get => (IEnumerable<TypeMetadata>)base.Attributes; set => base.Attributes = value; }
         public new IEnumerable<TypeMetadata> ImplementedInterfaces { get => (IEnumerable<TypeMetadata>)base.ImplementedInterfaces; set => base.ImplementedInterfaces = value; }
         public new IEnumerable<TypeMetadata> NestedTypes { get => (IEnumerable<TypeMetadata>)base.NestedTypes; set => base.NestedTypes = value; }
         public new IEnumerable<PropertyMetadata> Properties { get => (IEnumerable<PropertyMetadata>)base.Properties; set => base.Properties = value; }
@@ -46,7 +49,7 @@ namespace Model
             Properties = PropertyMetadata.EmitProperties(type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static));
             Fields = EmitFields(type);
             TypeKind = GetTypeKind(type);
-            Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            Attributes = type.GetCustomAttributes(false).Select(x => EmitReference(x.GetType()));
 
 
             if (!TypeDictionary.ContainsKey(this.TypeName))
@@ -83,7 +86,7 @@ namespace Model
             AbstractEnum = typeMetadataDTO.AbstractEnum;
             SealedEnum = typeMetadataDTO.SealedEnum;
             TypeKind = typeMetadataDTO.TypeKind;
-            Attributes = typeMetadataDTO.Attributes;
+            Attributes = (IEnumerable<TypeMetadata>)typeMetadataDTO.Attributes;
 
             if(typeMetadataDTO.ImplementedInterfaces != null)
             {
