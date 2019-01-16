@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BasicData\BasicData.csproj">
+      <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
+      <Name>BasicData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Serialization\Serialization.csproj">
       <Project>{E040D4D9-889D-4864-8C20-265800B6FE92}</Project>
       <Name>Serialization</Name>
