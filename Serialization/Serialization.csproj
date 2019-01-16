@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\AssemblyMetadataDTO.cs" />
+    <Compile Include="DTO\FieldMetadataDTO.cs" />
     <Compile Include="DTO\MethodMetadataDTO.cs" />
     <Compile Include="DTO\NamespaceMetadataDTO.cs" />
     <Compile Include="DTO\ParameterMetadataDTO.cs" />

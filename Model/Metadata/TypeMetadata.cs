@@ -1,8 +1,11 @@
 ﻿using BasicData;
+using Model.Metadata;
 using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +24,7 @@ namespace Model
         public override AbstractEnum AbstractEnum { get => base.AbstractEnum; set => base.AbstractEnum = value; }
         public override SealedEnum SealedEnum { get => base.SealedEnum; set => base.SealedEnum = value; }
         public override TypeKind TypeKind { get => base.TypeKind; set => base.TypeKind = value; }
+        public new IEnumerable<FieldMetadata> Fields { get => (IEnumerable<FieldMetadata>)base.Fields; set => base.Fields = value; }
         public override IEnumerable<Attribute> Attributes { get => base.Attributes; set => base.Attributes = value; }
         public new IEnumerable<TypeMetadata> ImplementedInterfaces { get => (IEnumerable<TypeMetadata>)base.ImplementedInterfaces; set => base.ImplementedInterfaces = value; }
         public new IEnumerable<TypeMetadata> NestedTypes { get => (IEnumerable<TypeMetadata>)base.NestedTypes; set => base.NestedTypes = value; }
@@ -42,9 +46,11 @@ namespace Model
             GenericArguments = !type.IsGenericTypeDefinition ? null : TypeMetadata.EmitGenericArguments(type.GetGenericArguments());
             EmitModifiers(type);
             BaseType = EmitExtends(type.BaseType);
-            Properties = PropertyMetadata.EmitProperties(type.GetProperties());
+            Properties = PropertyMetadata.EmitProperties(type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static));
+            Fields = EmitFields(type);
             TypeKind = GetTypeKind(type);
             Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+
 
             if (!TypeDictionary.ContainsKey(this.TypeName))
             {
@@ -270,6 +276,18 @@ namespace Model
         public static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
             return from Type _argument in arguments select EmitReference(_argument);
+        }
+        private static IEnumerable<FieldMetadata> EmitFields(Type type)
+        {
+            List<FieldMetadata> fields = new List<FieldMetadata>();
+            foreach (var field in type
+                .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static)
+                .Where(f => f.GetCustomAttribute<CompilerGeneratedAttribute>() == null))
+            {
+                fields.Add(new FieldMetadata(field));
+            }
+
+            return fields;
         }
         #endregion
 
