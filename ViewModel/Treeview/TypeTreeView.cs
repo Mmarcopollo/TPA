@@ -22,13 +22,13 @@ namespace ViewModel.Treeview
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
-            if (_type.Attributes != null)
-            {
-                foreach (TypeMetadata attribute in _type.Attributes)
-                {
-                    Children.Add(new AttributeTreeView(attribute));
-                }
-            }
+            //if (_type.Attributes != null)
+            //{
+            //    foreach (TypeMetadata attribute in _type.Attributes)
+            //    {
+            //        Children.Add(new AttributeTreeView(attribute));
+            //    }
+            //}
 
             if (_type.Fields != null)
                 foreach (FieldMetadata field in _type.Fields)
