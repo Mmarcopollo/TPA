@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database.Logging
+namespace Database.DTO
 {
     [Table("Log")]
-    public class Log
+    public class DBLog
     {
         [Key]
         public int LogEntityId { get; set; }

@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Database
 {
-    class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext
     {
         public DatabaseContext() : base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\LocalDatabase.mdf;Integrated Security=True") { }
 
@@ -19,5 +20,6 @@ namespace Database
         public virtual DbSet<PropertyMetadataDTO> PropertyMetadata { get; set; }
         public virtual DbSet<MethodMetadataDTO> MethodMetadata { get; set; }
         public virtual DbSet<ParameterMetadataDTO> ParameterMetadata { get; set; }
+        public virtual DbSet<DBLog> Log { get; set; }
     }
 }
