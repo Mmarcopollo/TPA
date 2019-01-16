@@ -7,12 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Database.DTO
 {
     [Table("NamespaceMetadata")]
-    public class NamespaceMetadataDTO
-    {
-    }
-
-
-    public class DBNamespaceMetadata : BaseNamespaceMetadata
+    public class NamespaceMetadataDTO : BaseNamespaceMetadata
     {
         public int Id { get; set; }
 

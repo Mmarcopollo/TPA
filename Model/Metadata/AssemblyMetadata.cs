@@ -73,7 +73,7 @@ namespace Model
         public static AssemblyMetadata DeserializeAssembly(string path)
         {
             Serializer serializer = new Serializer();
-            AssemblyMetadataDTO deserializedData = serializer.Read(path);
+            AssemblyMetadataDTO deserializedData = (AssemblyMetadataDTO)serializer.Read(path);
             return new AssemblyMetadata(deserializedData);
         }
 

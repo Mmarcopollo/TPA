@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.ComponentModel.Composition;
 using Serialization.DTO;
+using BasicData;
 
 namespace Serialization
 {
@@ -15,7 +16,7 @@ namespace Serialization
     public class Serializer : ISerializer
     {
 
-        public void Write(AssemblyMetadataDTO obj, string filePath)
+        public void Write(BaseAssemblyMetadata obj, string filePath)
         {
             List<Type> lista = new List<Type>
             {
@@ -53,7 +54,7 @@ namespace Serialization
 
         }
 
-        public AssemblyMetadataDTO Read(string filePath)
+        public BaseAssemblyMetadata Read(string filePath)
         {
             List<Type> lista = new List<Type>
             {

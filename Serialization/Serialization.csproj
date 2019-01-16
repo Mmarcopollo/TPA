@@ -49,7 +49,6 @@
     <Compile Include="DTO\ParameterMetadataDTO.cs" />
     <Compile Include="DTO\PropertyMetadataDTO.cs" />
     <Compile Include="DTO\TypeMetadataDTO.cs" />
-    <Compile Include="ISerializer.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
