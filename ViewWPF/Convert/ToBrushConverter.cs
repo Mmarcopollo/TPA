@@ -20,6 +20,7 @@ namespace ViewWPF.Convert
             Type type = value.GetType();
             return type == typeof(AssemblyTreeView) ? new SolidColorBrush(Colors.BlueViolet) :
                 type == typeof(MethodTreeView) ? new SolidColorBrush(Colors.Salmon) :
+                 type == typeof(FieldTreeView) ? new SolidColorBrush(Colors.Brown) :
                 type == typeof(NamespacesTreeView) ? new SolidColorBrush(Colors.DarkBlue) :
                 type == typeof(ParameterTreeView) ? new SolidColorBrush(Colors.SeaGreen) :
                 type == typeof(PropertyTreeView) ? new SolidColorBrush(Colors.OrangeRed) :

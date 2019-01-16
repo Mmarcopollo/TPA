@@ -21,6 +21,11 @@ namespace ViewModel.Treeview
 
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
+            if (_type.Fields != null)
+                foreach (var field in _type.Fields)
+                {
+                    children.Add(new FieldTreeView(field));
+                }
             if (_type.Properties != null)
                 foreach (PropertyMetadata property in _type.Properties)
                 {
@@ -32,6 +37,7 @@ namespace ViewModel.Treeview
                 {
                     children.Add(new MethodTreeView(method));
                 }
+
         }
     }
 }
