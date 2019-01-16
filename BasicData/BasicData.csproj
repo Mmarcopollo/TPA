@@ -55,6 +55,7 @@
     <Compile Include="Enum\StaticEnum.cs" />
     <Compile Include="Enum\TypeKind.cs" />
     <Compile Include="Enum\VirtualEnum.cs" />
+    <Compile Include="ISerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

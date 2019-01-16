@@ -1,6 +1,7 @@
 ﻿using BasicData;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Serialization
 {
+    [Export(typeof(BaseAssemblyMetadata))]
     [DataContract]
     public class AssemblyMetadataDTO : BaseAssemblyMetadata
     {

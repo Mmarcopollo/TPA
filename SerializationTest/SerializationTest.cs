@@ -21,7 +21,7 @@ namespace SerializationTest
             AssemblyMetadataDTO DTO = reflector.M_AssemblyModel.ConvertToDTO();
             repository.Write(DTO, pathXML);
 
-            AssemblyMetadataDTO assemblyLoaded = repository.Read(pathXML);
+            AssemblyMetadataDTO assemblyLoaded = (AssemblyMetadataDTO)repository.Read(pathXML);
 
             Assert.IsTrue(File.Exists("..\\..\\..\\MyLibrary\\bin\\Debug\\Data.xml"));
         }
@@ -34,7 +34,7 @@ namespace SerializationTest
             Serializer repository = new Serializer();
             repository.Write(reflector.M_AssemblyModel.ConvertToDTO(), pathXML);
 
-            AssemblyMetadataDTO assemblyLoaded = repository.Read(pathXML);
+            AssemblyMetadataDTO assemblyLoaded = (AssemblyMetadataDTO)repository.Read(pathXML);
 
             Assert.AreEqual(reflector.M_AssemblyModel.Name, assemblyLoaded.Name);
         }
