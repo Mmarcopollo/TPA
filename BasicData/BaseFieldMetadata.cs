@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBase
+namespace BasicData
 {
     [DataContract(IsReference = true)]
     public abstract class BaseFieldMetadata

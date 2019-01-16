@@ -47,6 +47,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\AssemblyMetadataDTO.cs" />
+    <Compile Include="DTO\FieldMetadataDTO.cs" />
+    <Compile Include="DTO\MethodMetadataDTO.cs" />
+    <Compile Include="DTO\NamespaceMetadataDTO.cs" />
+    <Compile Include="DTO\PropertyMetadataDTO.cs" />
+    <Compile Include="DTO\TypeMetadataDTO.cs" />
     <Compile Include="LocalDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -106,6 +114,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BasicData\BasicData.csproj">
+      <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
+      <Name>BasicData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
