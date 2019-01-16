@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -32,6 +33,8 @@ namespace BasicData
         public virtual IEnumerable<BaseTypeMetadata> ImplementedInterfaces { get; set; }
         [DataMember]
         public virtual IEnumerable<BaseTypeMetadata> NestedTypes { get; set; }
+        [DataMember]
+        public virtual IEnumerable<BaseFieldMetadata> Fields { get; set; }
         [DataMember]
         public virtual IEnumerable<BasePropertyMetadata> Properties { get; set; }
         [DataMember]

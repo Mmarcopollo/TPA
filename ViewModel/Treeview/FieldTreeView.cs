@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasicData
+namespace ViewModel.Treeview
 {
-    public enum AccessLevel
+    class FieldTreeView
     {
-        IsPublic, IsProtected, IsProtectedInternal, IsPrivate, IsInternal
     }
 }

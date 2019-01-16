@@ -18,11 +18,14 @@ namespace Model
         {
             get; set;
         }
+
+        public override Guid Guid { get => base.Guid; set => base.Guid = value; }
         public override string Name { get => base.Name; set => base.Name = value; }
         public new IEnumerable<NamespaceMetadata> Namespaces { get => (IEnumerable<NamespaceMetadata>)base.Namespaces; set => base.Namespaces = value; }
 
         public AssemblyMetadata(Assembly assembly)
         {
+            Guid = Guid.NewGuid();
             Name = assembly.ManifestModule.Name;
             Namespaces = from Type _type in assembly.GetTypes()
                            where _type.GetVisible()
