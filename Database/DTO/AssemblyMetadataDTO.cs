@@ -15,10 +15,14 @@ namespace Database.DTO
     public class AssemblyMetadataDTO : BaseAssemblyMetadata
     {
         public int Id { get; set; }
-
         [Required, StringLength(100)]
         public override string Name { get; set; }
         public new List<NamespaceMetadataDTO> Namespaces { get; set; }
+
+        public AssemblyMetadataDTO()
+        {
+            Namespaces = new List<NamespaceMetadataDTO>();
+        }
 
     }
 }

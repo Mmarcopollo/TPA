@@ -19,5 +19,11 @@ namespace Database.DTO
         public new TypeMetadataDTO ReturnType { get; set; }
         public override bool Extension { get; set; }
         public new List<ParameterMetadataDTO> Parameters { get; set; }
+
+        public MethodMetadataDTO()
+        {
+            GenericArguments = new List<TypeMetadataDTO>();
+            Parameters = new List<ParameterMetadataDTO>();
+        }
     }
 }

@@ -26,5 +26,17 @@ namespace Database.DTO
         public new TypeMetadataDTO DeclaringType { get; set; }
         public new List<MethodMetadataDTO> Methods { get; set; }
         public new List<MethodMetadataDTO> Constructors { get; set; }
+
+        public TypeMetadataDTO()
+        {
+            GenericArguments = new List<TypeMetadataDTO>();
+            Attributes = new List<Attribute>();
+            ImplementedInterfaces = new List<TypeMetadataDTO>();
+            NestedTypes = new List<TypeMetadataDTO>();
+            Fields = new List<FieldMetadataDTO>();
+            Properties = new List<PropertyMetadataDTO>();
+            Methods = new List<MethodMetadataDTO>();
+            Constructors = new List<MethodMetadataDTO>();
+        }
     }
 }

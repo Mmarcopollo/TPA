@@ -17,5 +17,10 @@ namespace Database.DTO
         public new TypeMetadataDTO FieldType { get; set; }
         public override Tuple<AccessLevel, StaticEnum> Modifiers { get; set; }
         public new List<TypeMetadataDTO> Attributes { get; set; }
+
+        public FieldMetadataDTO()
+        {
+            Attributes = new List<TypeMetadataDTO>();
+        }
     }
 }

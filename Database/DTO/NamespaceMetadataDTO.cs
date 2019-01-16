@@ -10,10 +10,14 @@ namespace Database.DTO
     public class NamespaceMetadataDTO : BaseNamespaceMetadata
     {
         public int Id { get; set; }
-
         [Required, StringLength(100)]
         public override string NamespaceName { get; set; }
         public override Guid Guid { get; set; }
         public new List<TypeMetadataDTO> Types { get; set; }
+
+        public NamespaceMetadataDTO()
+        {
+            Types = new List<TypeMetadataDTO>();
+        }
     }
 }
