@@ -18,7 +18,7 @@ namespace Database.DTO
         public override AbstractEnum AbstractEnum { get; set; }
         public override SealedEnum SealedEnum { get; set; }
         public override TypeKind TypeKind { get; set; }
-        public new List<Attribute> Attributes { get; set; }
+        public new List<TypeMetadataDTO> Attributes{ get; set; }
         public new List<TypeMetadataDTO> ImplementedInterfaces { get; set; }
         public new List<TypeMetadataDTO> NestedTypes { get; set; }
         public new List<FieldMetadataDTO> Fields { get; set; }
