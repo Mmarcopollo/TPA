@@ -11,7 +11,7 @@ namespace Database
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext() : base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\LocalDatabase.mdf;Integrated Security=True") { }
+        public DatabaseContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Project;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework") { }
 
         public virtual DbSet<AssemblyMetadataDTO> AssemblyMetadata { get; set; }
         public virtual DbSet<NamespaceMetadataDTO> NamespaceMetadata { get; set; }
