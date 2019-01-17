@@ -42,12 +42,6 @@ namespace Model.Metadata
             set => base.Modifiers = value;
         }
 
-        public new IEnumerable<TypeMetadata> Attributes
-        {
-            get => (IEnumerable<TypeMetadata>)base.Attributes;
-            set => base.Attributes = value;
-        }
-
         #endregion
 
         #region constructors
@@ -59,7 +53,6 @@ namespace Model.Metadata
             FieldType = EmitFieldType(field.FieldType);
             IsReadOnly = field.IsInitOnly;
             Modifiers = EmitModifiers(field);
-            Attributes = field.GetCustomAttributes(false).Select(x => TypeMetadata.EmitReference(x.GetType()));
         }
 
         #endregion
@@ -126,25 +119,6 @@ namespace Model.Metadata
             //Field Modifiers
             fieldDTO.Modifiers = Modifiers;
 
-            //Field Attributes
-            if (Attributes != null)
-            {
-                List<TypeMetadataDTO> tempAttributes = new List<TypeMetadataDTO>();
-                foreach (TypeMetadata metadata in Attributes)
-                {
-                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.TypeName))
-                    {
-                        tempAttributes.Add(TypeMetadataDTO.DTOTypeDictionary[metadata.TypeName]);
-                    }
-                    else
-                    {
-                        tempAttributes.Add(metadata.ConvertToDTO());
-                    }
-                }
-
-                fieldDTO.Attributes = tempAttributes;
-            }
-
 
 
             return fieldDTO;
@@ -177,24 +151,6 @@ namespace Model.Metadata
             //Field Modifiers
             Modifiers = baseFields.Modifiers;
 
-            //Field Attributes
-            if (baseFields.Attributes != null)
-            {
-                List<TypeMetadata> tempAttributes = new List<TypeMetadata>();
-                foreach (TypeMetadataDTO metadata in baseFields.Attributes)
-                {
-                    if (TypeMetadata.TypeDictionary.ContainsKey(metadata.TypeName))
-                    {
-                        tempAttributes.Add(TypeMetadata.TypeDictionary[metadata.TypeName]);
-                    }
-                    else
-                    {
-                        tempAttributes.Add(new TypeMetadata(metadata));
-                    }
-                }
-
-                Attributes = tempAttributes;
-            }
         }
 
         #endregion

@@ -26,7 +26,5 @@ namespace Serialization.DTO
         [DataMember(Name = "FieldModifiers")]
         public override Tuple<AccessLevel, StaticEnum> Modifiers { get => base.Modifiers; set => base.Modifiers = value; }
 
-        [DataMember(Name = "FieldAttributes")]
-        public override IEnumerable<BaseTypeMetadata> Attributes { get => base.Attributes; set => base.Attributes = value; }
     }
 }

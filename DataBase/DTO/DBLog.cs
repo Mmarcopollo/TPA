@@ -13,8 +13,17 @@ namespace Database.DTO
     [Table("Log")]
     public class DBLog
     {
+        [Key]
         public int ID { get; set; }
         public string Message { get; set; }
         public DateTime Time { get; set; }
+
+        public DBLog() { }
+
+        public DBLog(string message, DateTime dateTime)
+        {
+            Message = message;
+            Time = dateTime;
+        }
     }
 }

@@ -26,8 +26,6 @@ namespace BasicData
         public virtual SealedEnum SealedEnum { get; set; }
         [DataMember]
         public virtual TypeKind TypeKind { get; set; }
-       // [DataMember]
-        //public virtual IEnumerable<BaseTypeMetadata> Attributes { get; set; }
         [DataMember]
         public virtual IEnumerable<BaseTypeMetadata> ImplementedInterfaces { get; set; }
         [DataMember]

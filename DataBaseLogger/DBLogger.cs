@@ -4,6 +4,7 @@ using Log;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,10 @@ using System.Threading.Tasks;
 namespace DataBaseLogger
 {
     [Export(typeof(ILogger))]
-    public class DBLogger : ILogger
+    public class DBLoger : DbContext, ILogger
     {
+
+
         public void Log(string message)
         {
             using (DatabaseContext context = new DatabaseContext())
@@ -22,6 +25,7 @@ namespace DataBaseLogger
                     Message = message,
                     Time = DateTime.Now
                 });
+                context.SaveChanges();
             }
         }
     }

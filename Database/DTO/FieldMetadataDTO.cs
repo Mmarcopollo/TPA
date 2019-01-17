@@ -16,6 +16,5 @@ namespace Database.DTO
         public override bool IsReadOnly { get; set; }
         public new TypeMetadataDTO FieldType { get; set; }
         public override Tuple<AccessLevel, StaticEnum> Modifiers { get; set; }
-        public new List<TypeMetadataDTO> Attributes { get; set; }
     }
 }
