@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Database.DTO
 {
     [Table("PropertyMetadata")]
-    public class PropertyMetadataDTO : BasePropertyMetadata
+    public class PropertyMetadataDatabaseDTO : BasePropertyMetadata
     {
         public int Id { get; set; }
         [Required, StringLength(100)]
         public override string Name { get; set; }
-        public new TypeMetadataDTO UsedTypeMetadata { get; set; }
+        public new TypeMetadataDatabaseDTO UsedTypeMetadata { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using BasicData;
-using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,28 +24,14 @@ namespace Model
             }
         }
 
-        public ParameterMetadata(ParameterMetadataDTO parameterMetadataDTO)
+        public ParameterMetadata(BaseParameterMetadata parameterMetadataDTO)
         {
             Name = parameterMetadataDTO.Name;
             if (parameterMetadataDTO.UsedTypeMetadata != null)
             {
                 if (TypeMetadata.TypeDictionary.ContainsKey(parameterMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = TypeMetadata.TypeDictionary[parameterMetadataDTO.UsedTypeMetadata.TypeName];
-                else UsedTypeMetadata = new TypeMetadata((TypeMetadataDTO)parameterMetadataDTO.UsedTypeMetadata);
+                else UsedTypeMetadata = new TypeMetadata(parameterMetadataDTO.UsedTypeMetadata);
             }
-        }
-
-        public ParameterMetadataDTO ConvertToDTO()
-        {
-            ParameterMetadataDTO result = new ParameterMetadataDTO
-            {
-                Name = Name
-            };
-            if (UsedTypeMetadata != null)
-            {
-                if(TypeMetadataDTO.DTOTypeDictionary.ContainsKey(UsedTypeMetadata.TypeName)) result.UsedTypeMetadata = TypeMetadataDTO.DTOTypeDictionary[UsedTypeMetadata.TypeName];
-                else result.UsedTypeMetadata = ((TypeMetadata)UsedTypeMetadata).ConvertToDTO();
-            }
-            return result;
         }
     }
 }

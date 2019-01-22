@@ -1,5 +1,4 @@
 ﻿using BasicData;
-using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,28 +29,14 @@ namespace Model
             UsedTypeMetadata = propertyType;
         }
 
-        public PropertyMetadata(PropertyMetadataDTO propertyMetadataDTO)
+        public PropertyMetadata(BasePropertyMetadata propertyMetadataDTO)
         {
             Name = propertyMetadataDTO.Name;
             if (propertyMetadataDTO.UsedTypeMetadata != null)
             {
                 if (TypeMetadata.TypeDictionary.ContainsKey(propertyMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = TypeMetadata.TypeDictionary[propertyMetadataDTO.UsedTypeMetadata.TypeName];
-                else UsedTypeMetadata = new TypeMetadata((TypeMetadataDTO)propertyMetadataDTO.UsedTypeMetadata);
+                else UsedTypeMetadata = new TypeMetadata(propertyMetadataDTO.UsedTypeMetadata);
             }
-        }
-
-        public PropertyMetadataDTO ConvertToDTO()
-        {
-            PropertyMetadataDTO result = new PropertyMetadataDTO
-            {
-                Name = Name
-            };
-            if (UsedTypeMetadata != null)
-            {
-                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(UsedTypeMetadata.TypeName)) result.UsedTypeMetadata = TypeMetadataDTO.DTOTypeDictionary[UsedTypeMetadata.TypeName];
-                else result.UsedTypeMetadata = ((TypeMetadata)UsedTypeMetadata).ConvertToDTO();
-            }
-            return result;
         }
 
         public override int GetHashCode()

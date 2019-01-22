@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BasicData;
-using Serialization;
-using Serialization.DTO;
 
 namespace Model.Metadata
 {
@@ -55,6 +53,35 @@ namespace Model.Metadata
             Modifiers = EmitModifiers(field);
         }
 
+        public FieldMetadata(BaseFieldMetadata baseFields)
+        {
+            //GUID
+            Guid = baseFields.Guid;
+
+            // Name
+            FieldName = baseFields.FieldName;
+
+            //Read Only
+            IsReadOnly = baseFields.IsReadOnly;
+
+            //FieldType
+            if (baseFields.FieldType != null)
+            {
+                if (TypeMetadata.TypeDictionary.ContainsKey(baseFields.FieldType.TypeName))
+                {
+                    FieldType = TypeMetadata.TypeDictionary[baseFields.FieldType.TypeName];
+                }
+                else
+                {
+                    FieldType = new TypeMetadata(baseFields.FieldType);
+                }
+            }
+
+            //Field Modifiers
+            Modifiers = baseFields.Modifiers;
+
+        }
+
         #endregion
 
         #region api
@@ -84,73 +111,6 @@ namespace Model.Metadata
                 _static = StaticEnum.Static;
 
             return new Tuple<AccessLevel, StaticEnum>(_access, _static);
-        }
-
-        #endregion
-
-        #region DTO
-
-        public FieldMetadataDTO Convert()
-        {
-            FieldMetadataDTO fieldDTO = new FieldMetadataDTO();
-
-            //GUID
-            fieldDTO.Guid = Guid;
-
-            // Name
-            fieldDTO.FieldName = FieldName;
-
-            //Read Only
-            fieldDTO.IsReadOnly = IsReadOnly;
-
-            //FieldType
-            if (FieldType != null)
-            {
-                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(FieldType.TypeName))
-                {
-                    fieldDTO.FieldType = TypeMetadataDTO.DTOTypeDictionary[FieldType.TypeName];
-                }
-                else
-                {
-                    fieldDTO.FieldType = FieldType.ConvertToDTO();
-                }
-            }
-
-            //Field Modifiers
-            fieldDTO.Modifiers = Modifiers;
-
-
-
-            return fieldDTO;
-        }
-
-        public FieldMetadata(BaseFieldMetadata baseFields)
-        {
-            //GUID
-            Guid = baseFields.Guid;
-
-            // Name
-            FieldName = baseFields.FieldName;
-
-            //Read Only
-            IsReadOnly = baseFields.IsReadOnly;
-
-            //FieldType
-            if (baseFields.FieldType != null)
-            {
-                if (TypeMetadata.TypeDictionary.ContainsKey(baseFields.FieldType.TypeName))
-                {
-                    FieldType = TypeMetadata.TypeDictionary[baseFields.FieldType.TypeName];
-                }
-                else
-                {
-                    FieldType = new TypeMetadata((TypeMetadataDTO)baseFields.FieldType);
-                }
-            }
-
-            //Field Modifiers
-            Modifiers = baseFields.Modifiers;
-
         }
 
         #endregion

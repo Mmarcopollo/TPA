@@ -1,5 +1,4 @@
 ﻿using BasicData;
-using Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -13,12 +12,6 @@ namespace Model
 {
     public class AssemblyMetadata : BaseAssemblyMetadata
     {
-        [Import(typeof(ISerializer))]
-        public ISerializer Serialization
-        {
-            get; set;
-        }
-
         public override Guid Guid { get => base.Guid; set => base.Guid = value; }
         public override string Name { get => base.Name; set => base.Name = value; }
         public new IEnumerable<NamespaceMetadata> Namespaces { get => (IEnumerable<NamespaceMetadata>)base.Namespaces; set => base.Namespaces = value; }
@@ -33,48 +26,19 @@ namespace Model
                            select new NamespaceMetadata(_group.Key, _group);
         }
 
-        public AssemblyMetadata(AssemblyMetadataDTO assemblyMetadataDTO)
+        public AssemblyMetadata(BaseAssemblyMetadata assemblyMetadataDTO)
         {
             Name = assemblyMetadataDTO.Name;
             if(assemblyMetadataDTO.Namespaces != null)
             {
                 List<NamespaceMetadata> namespaces = new List<NamespaceMetadata>();
-                foreach (NamespaceMetadataDTO DTO in assemblyMetadataDTO.Namespaces)
+                foreach (BaseNamespaceMetadata DTO in assemblyMetadataDTO.Namespaces)
                 {
                     NamespaceMetadata methodMetadata = new NamespaceMetadata(DTO);
                     namespaces.Add(methodMetadata);
                 }
                 Namespaces = namespaces;
             }
-        }
-
-        public AssemblyMetadataDTO ConvertToDTO()
-        {
-            AssemblyMetadataDTO result = new AssemblyMetadataDTO();
-            result.Name = Name;
-            if(Namespaces != null)
-            {
-                List<NamespaceMetadataDTO> namespaces = new List<NamespaceMetadataDTO>();
-                foreach (NamespaceMetadata metadata in Namespaces)
-                {
-                    namespaces.Add(metadata.ConvertToDTO());
-                }
-                result.Namespaces = namespaces;
-            }
-            return result;
-        }
-
-        public void SerializeAssembly(string path)
-        {
-            AssemblyMetadataDTO dataToSerialize = this.ConvertToDTO();
-            Serialization.Write(dataToSerialize, path);
-        }
-
-        public static AssemblyMetadata DeserializeAssembly(string path)
-        {
-            Serializer serializer = new Serializer();
-            AssemblyMetadataDTO deserializedData = (AssemblyMetadataDTO)serializer.Read(path);
-            return new AssemblyMetadata(deserializedData);
         }
 
         public override bool Equals(object obj)

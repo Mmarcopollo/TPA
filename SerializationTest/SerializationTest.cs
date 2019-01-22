@@ -18,7 +18,7 @@ namespace SerializationTest
             Reflector reflector = new Reflector(pathDLL);
 
             Serializer repository = new Serializer();
-            AssemblyMetadataDTO DTO = reflector.M_AssemblyModel.ConvertToDTO();
+            AssemblyMetadataDTO DTO = new AssemblyMetadataDTO(reflector.M_AssemblyModel);
             repository.Write(DTO, pathXML);
 
             AssemblyMetadataDTO assemblyLoaded = (AssemblyMetadataDTO)repository.Read(pathXML);
@@ -32,7 +32,7 @@ namespace SerializationTest
             Reflector reflector = new Reflector(pathDLL);
 
             Serializer repository = new Serializer();
-            repository.Write(reflector.M_AssemblyModel.ConvertToDTO(), pathXML);
+            repository.Write(new AssemblyMetadataDTO(reflector.M_AssemblyModel), pathXML);
 
             AssemblyMetadataDTO assemblyLoaded = (AssemblyMetadataDTO)repository.Read(pathXML);
 
@@ -45,7 +45,7 @@ namespace SerializationTest
 
             Reflector reflector = new Reflector(pathDLL);
 
-            AssemblyMetadataDTO dto = reflector.M_AssemblyModel.ConvertToDTO();
+            AssemblyMetadataDTO dto = new AssemblyMetadataDTO(reflector.M_AssemblyModel);
 
             AssemblyMetadata assembly = new AssemblyMetadata(dto);
 

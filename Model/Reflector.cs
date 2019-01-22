@@ -1,4 +1,5 @@
-﻿using Model.MEF;
+﻿using BasicData;
+using Model.MEF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -15,6 +16,23 @@ namespace Model
     [DataContract]
     public class Reflector
     {
+        [Import(typeof(ISerializer))]
+        public ISerializer Serialization
+        {
+            get; set;
+        }
+
+        public void SerializeAssembly(string path)
+        {
+            BaseAssemblyMetadata dataToSerialize = M_AssemblyModel;
+            Serialization.Write(dataToSerialize, path);
+        }
+
+        public void DeserializeAssembly(string path)
+        {
+            BaseAssemblyMetadata deserializedData = Serialization.Read(path);
+            M_AssemblyModel = new AssemblyMetadata(deserializedData);
+        }
 
         public Reflector(string assemblyFile)
         {
@@ -22,15 +40,18 @@ namespace Model
                 throw new System.ArgumentNullException();
             Assembly assembly = Assembly.LoadFrom(assemblyFile);
             M_AssemblyModel = new AssemblyMetadata(assembly);
-            MefStartup.Compose(M_AssemblyModel);
+            MefStartup.Compose(this);
         }
         public Reflector(Assembly assembly)
         {
             M_AssemblyModel = new AssemblyMetadata(assembly);
-            MefStartup.Compose(M_AssemblyModel);
+            MefStartup.Compose(this);
+        }
+        public Reflector()
+        {
+            MefStartup.Compose(this);
         }
 
-        public Reflector() { }
         public Reflector(AssemblyMetadata assembly)
         {
             M_AssemblyModel = assembly;

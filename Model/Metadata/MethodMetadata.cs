@@ -1,5 +1,4 @@
 ﻿using BasicData;
-using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,13 +43,13 @@ namespace Model
             Extension = EmitExtension(method);
         }
 
-        public MethodMetadata(MethodMetadataDTO methodMetadataDTO)
+        public MethodMetadata(BaseMethodMetadata methodMetadataDTO)
         {
             base.Name = methodMetadataDTO.Name;
             if (methodMetadataDTO.GenericArguments != null)
             {
                 List<TypeMetadata> generic = new List<TypeMetadata>();
-                foreach (TypeMetadataDTO DTO in methodMetadataDTO.GenericArguments)
+                foreach (BaseTypeMetadata DTO in methodMetadataDTO.GenericArguments)
                 {
                     TypeMetadata metadata;
                     if (TypeMetadata.TypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadata.TypeDictionary[DTO.TypeName];
@@ -67,7 +66,7 @@ namespace Model
             if (methodMetadataDTO.ReturnType != null)
             {
                 if (TypeMetadata.TypeDictionary.ContainsKey(methodMetadataDTO.ReturnType.TypeName)) ReturnType = TypeMetadata.TypeDictionary[methodMetadataDTO.ReturnType.TypeName];
-                else ReturnType = new TypeMetadata((TypeMetadataDTO)methodMetadataDTO.ReturnType);
+                else ReturnType = new TypeMetadata(methodMetadataDTO.ReturnType);
             }
 
             Extension = methodMetadataDTO.Extension;
@@ -75,7 +74,7 @@ namespace Model
             if (methodMetadataDTO.Parameters != null)
             {
                 List<ParameterMetadata> parameters = new List<ParameterMetadata>();
-                foreach (ParameterMetadataDTO DTO in methodMetadataDTO.Parameters)
+                foreach (BaseParameterMetadata DTO in methodMetadataDTO.Parameters)
                 {
                     ParameterMetadata methodMetadata = new ParameterMetadata(DTO);
                     parameters.Add(methodMetadata);
@@ -84,49 +83,6 @@ namespace Model
             }
         }
 
-        public MethodMetadataDTO ConvertToDTO()
-        {
-            MethodMetadataDTO result = new MethodMetadataDTO
-            {
-                Name = base.Name
-            };
-            if (GenericArguments != null)
-            {
-                List<TypeMetadataDTO> generic = new List<TypeMetadataDTO>();
-                foreach (TypeMetadata metadata in GenericArguments)
-                {
-                    TypeMetadataDTO DTO;
-                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.TypeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.TypeName];
-                    else DTO = metadata.ConvertToDTO();
-                    generic.Add(DTO);
-                }
-                result.GenericArguments = generic;
-            }
-            result.AccessLevel = AccessLevel;
-            result.AbstractEnum = AbstractEnum;
-            result.StaticEnum = StaticEnum;
-            result.VirtualEnum = VirtualEnum;
-
-            if (ReturnType != null)
-            {
-                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(ReturnType.TypeName)) result.ReturnType = TypeMetadataDTO.DTOTypeDictionary[ReturnType.TypeName];
-                else result.ReturnType = ((TypeMetadata)ReturnType).ConvertToDTO();
-            }
-
-            result.Extension = Extension;
-
-            if (Parameters != null)
-            {
-                List<ParameterMetadataDTO> parameters = new List<ParameterMetadataDTO>();
-                foreach (ParameterMetadata metadata in Parameters)
-                {
-                    ParameterMetadataDTO methodMetadataDTO = metadata.ConvertToDTO();
-                    parameters.Add(methodMetadataDTO);
-                }
-                result.Parameters = parameters;
-            }
-            return result;
-        }
         //methods
         private static IEnumerable<ParameterMetadata> EmitParameters(IEnumerable<ParameterInfo> parms)
         {

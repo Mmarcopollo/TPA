@@ -1,5 +1,4 @@
 ﻿using BasicData;
-using Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +22,14 @@ namespace Model
 
         }
 
-        public NamespaceMetadata(NamespaceMetadataDTO namespaceMetadataDTO)
+        public NamespaceMetadata(BaseNamespaceMetadata namespaceMetadataDTO)
         {
             NamespaceName = namespaceMetadataDTO.NamespaceName;
             Guid = namespaceMetadataDTO.Guid;
             if (namespaceMetadataDTO.Types != null)
             {
                 List<TypeMetadata> types = new List<TypeMetadata>();
-                foreach (TypeMetadataDTO DTO in namespaceMetadataDTO.Types)
+                foreach (BaseTypeMetadata DTO in namespaceMetadataDTO.Types)
                 {
                     TypeMetadata metadata;
                     if (TypeMetadata.TypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadata.TypeDictionary[DTO.TypeName];
@@ -40,27 +39,6 @@ namespace Model
                 Types = types;
             }
         }
-
-        public NamespaceMetadataDTO ConvertToDTO()
-        {
-            NamespaceMetadataDTO result = new NamespaceMetadataDTO();
-            result.NamespaceName = NamespaceName;
-            result.Guid = Guid;
-            if (Types != null)
-            {
-                List<TypeMetadataDTO> types = new List<TypeMetadataDTO>();
-                foreach (TypeMetadata metadata in Types)
-                {
-                    TypeMetadataDTO DTO;
-                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(metadata.TypeName)) DTO = TypeMetadataDTO.DTOTypeDictionary[metadata.TypeName];
-                    else DTO = metadata.ConvertToDTO();
-                    types.Add(DTO);
-                }
-                result.Types = types;
-            }
-            return result;
-        }
-
 
         public override bool Equals(object obj)
         {

@@ -29,8 +29,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicData", "BasicData\Basi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{93522188-31C5-4F68-9989-A3D3352D256F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseLogger", "DataBaseLogger\DataBaseLogger.csproj", "{E7EDC60A-C0F2-42AB-ACFF-3C72BFA7D3A6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLogger", "FileLogger\FileLogger.csproj", "{C420665B-2ECE-4D66-AADB-716B7FA5901F}"
 EndProject
 Global
@@ -91,10 +89,6 @@ Global
 		{93522188-31C5-4F68-9989-A3D3352D256F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93522188-31C5-4F68-9989-A3D3352D256F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93522188-31C5-4F68-9989-A3D3352D256F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7EDC60A-C0F2-42AB-ACFF-3C72BFA7D3A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7EDC60A-C0F2-42AB-ACFF-3C72BFA7D3A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7EDC60A-C0F2-42AB-ACFF-3C72BFA7D3A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7EDC60A-C0F2-42AB-ACFF-3C72BFA7D3A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C420665B-2ECE-4D66-AADB-716B7FA5901F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C420665B-2ECE-4D66-AADB-716B7FA5901F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C420665B-2ECE-4D66-AADB-716B7FA5901F}.Release|Any CPU.ActiveCfg = Release|Any CPU

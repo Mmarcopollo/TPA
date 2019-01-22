@@ -26,5 +26,34 @@ namespace Serialization.DTO
         [DataMember(Name = "FieldModifiers")]
         public override Tuple<AccessLevel, StaticEnum> Modifiers { get => base.Modifiers; set => base.Modifiers = value; }
 
+        public FieldMetadataDTO(BaseFieldMetadata baseFields)
+        {
+            //GUID
+            Guid = baseFields.Guid;
+
+            // Name
+            FieldName = baseFields.FieldName;
+
+            //Read Only
+            IsReadOnly = baseFields.IsReadOnly;
+
+            //FieldType
+            if (baseFields.FieldType != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(baseFields.FieldType.TypeName))
+                {
+                    FieldType = TypeMetadataDTO.DTOTypeDictionary[baseFields.FieldType.TypeName];
+                }
+                else
+                {
+                    FieldType = new TypeMetadataDTO(baseFields.FieldType);
+                }
+            }
+
+            //Field Modifiers
+            Modifiers = baseFields.Modifiers;
+
+        }
+
     }
 }

@@ -13,13 +13,12 @@ namespace Database
     {
         public DatabaseContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Project;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework") { }
 
-        public virtual DbSet<AssemblyMetadataDTO> AssemblyMetadata { get; set; }
-        public virtual DbSet<NamespaceMetadataDTO> NamespaceMetadata { get; set; }
-        public virtual DbSet<TypeMetadataDTO> TypeMetadata { get; set; }
-        public virtual DbSet<FieldMetadataDTO> FieldMetadata { get; set; }
-        public virtual DbSet<PropertyMetadataDTO> PropertyMetadata { get; set; }
-        public virtual DbSet<MethodMetadataDTO> MethodMetadata { get; set; }
-        public virtual DbSet<ParameterMetadataDTO> ParameterMetadata { get; set; }
-        public virtual DbSet<DBLog> Log { get; set; }
+        public virtual DbSet<AssemblyMetadataDatabaseDTO> AssemblyMetadata { get; set; }
+        public virtual DbSet<NamespaceMetadataDatabaseDTO> NamespaceMetadata { get; set; }
+        public virtual DbSet<TypeMetadataDatabaseDTO> TypeMetadata { get; set; }
+        public virtual DbSet<FieldMetadataDatabaseDTO> FieldMetadata { get; set; }
+        public virtual DbSet<PropertyMetadataDatabaseDTO> PropertyMetadata { get; set; }
+        public virtual DbSet<MethodMetadataDatabaseDTO> MethodMetadata { get; set; }
+        public virtual DbSet<ParameterMetadataDatabaseDTO> ParameterMetadata { get; set; }
     }
 }

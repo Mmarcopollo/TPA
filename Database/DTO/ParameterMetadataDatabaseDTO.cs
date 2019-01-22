@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Database.DTO
 {
     [Table("ParameterMetadata")]
-    public class ParameterMetadataDTO : BaseParameterMetadata
+    public class ParameterMetadataDatabaseDTO : BaseParameterMetadata
     {
         public int Id { get; set; }
-        [Required, StringLength(150)]
+        [Required, StringLength(100)]
         public override string Name { get; set; }
-        public new TypeMetadataDTO UsedTypeMetadata { get; set; }
+        public new TypeMetadataDatabaseDTO UsedTypeMetadata { get; set; }
     }
 }

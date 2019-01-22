@@ -12,13 +12,12 @@ namespace Database.DTO
 {
     [Table("AssemblyMetadata")]
     [Export(typeof(BaseAssemblyMetadata))]
-    public class AssemblyMetadataDTO : BaseAssemblyMetadata
+    public class AssemblyMetadataDatabaseDTO : BaseAssemblyMetadata
     {
         public int Id { get; set; }
-
         [Required, StringLength(100)]
         public override string Name { get; set; }
-        public new List<NamespaceMetadataDTO> Namespaces { get; set; }
+        public new List<NamespaceMetadataDatabaseDTO> Namespaces { get; set; }
 
     }
 }

@@ -29,7 +29,7 @@ namespace Serialization
         public override SealedEnum SealedEnum { get => base.SealedEnum; set => base.SealedEnum = value; }
         [DataMember]
         public override TypeKind TypeKind { get => base.TypeKind; set => base.TypeKind = value; }
-         [DataMember]
+        [DataMember]
         public override IEnumerable<BaseTypeMetadata> ImplementedInterfaces { get => base.ImplementedInterfaces; set => base.ImplementedInterfaces = value; }
         [DataMember]
         public override IEnumerable<BaseTypeMetadata> NestedTypes { get => base.NestedTypes; set => base.NestedTypes = value; }
@@ -41,5 +41,119 @@ namespace Serialization
         public override IEnumerable<BaseMethodMetadata> Methods { get => base.Methods; set => base.Methods = value; }
         [DataMember]
         public override IEnumerable<BaseMethodMetadata> Constructors { get => base.Constructors; set => base.Constructors = value; }
+        [DataMember]
+        public override IEnumerable<BaseFieldMetadata> Fields { get => base.Fields; set => base.Fields = value; }
+
+        public TypeMetadataDTO(BaseTypeMetadata typeMetadataDTO)
+        {
+            TypeName = typeMetadataDTO.TypeName;
+            NamespaceName = typeMetadataDTO.NamespaceName;
+
+            if (typeMetadataDTO.BaseType != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(typeMetadataDTO.BaseType.TypeName)) BaseType = TypeMetadataDTO.DTOTypeDictionary[typeMetadataDTO.BaseType.TypeName];
+                else BaseType = new TypeMetadataDTO(typeMetadataDTO.BaseType);
+            }
+
+            if (typeMetadataDTO.GenericArguments != null)
+            {
+                List<TypeMetadataDTO> arguments = new List<TypeMetadataDTO>();
+                foreach (BaseTypeMetadata DTO in typeMetadataDTO.GenericArguments)
+                {
+                    TypeMetadataDTO metadata;
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDTO.DTOTypeDictionary[DTO.TypeName];
+                    else metadata = new TypeMetadataDTO(DTO);
+                    arguments.Add(metadata);
+                }
+                GenericArguments = arguments;
+            }
+
+            AccessLevel = typeMetadataDTO.AccessLevel;
+            AbstractEnum = typeMetadataDTO.AbstractEnum;
+            SealedEnum = typeMetadataDTO.SealedEnum;
+            TypeKind = typeMetadataDTO.TypeKind;
+
+
+            if (typeMetadataDTO.ImplementedInterfaces != null)
+            {
+                List<TypeMetadataDTO> interfaces = new List<TypeMetadataDTO>();
+                foreach (BaseTypeMetadata DTO in typeMetadataDTO.ImplementedInterfaces)
+                {
+                    TypeMetadataDTO metadata;
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDTO.DTOTypeDictionary[DTO.TypeName];
+                    else metadata = new TypeMetadataDTO(DTO);
+                    interfaces.Add(metadata);
+                }
+                ImplementedInterfaces = interfaces;
+            }
+
+            if (typeMetadataDTO.NestedTypes != null)
+            {
+                List<TypeMetadataDTO> nested = new List<TypeMetadataDTO>();
+                foreach (BaseTypeMetadata DTO in typeMetadataDTO.NestedTypes)
+                {
+                    TypeMetadataDTO metadata;
+                    if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDTO.DTOTypeDictionary[DTO.TypeName];
+                    else metadata = new TypeMetadataDTO(DTO);
+                    nested.Add(metadata);
+                }
+                NestedTypes = nested;
+            }
+
+            if (typeMetadataDTO.Properties != null)
+            {
+                List<PropertyMetadataDTO> properties = new List<PropertyMetadataDTO>();
+                foreach (BasePropertyMetadata DTO in typeMetadataDTO.Properties)
+                {
+                    PropertyMetadataDTO propertyMetadata = new PropertyMetadataDTO(DTO);
+                    properties.Add(propertyMetadata);
+                }
+                Properties = properties;
+            }
+
+            if (typeMetadataDTO.DeclaringType != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(typeMetadataDTO.DeclaringType.TypeName)) DeclaringType = TypeMetadataDTO.DTOTypeDictionary[typeMetadataDTO.DeclaringType.TypeName];
+                else DeclaringType = new TypeMetadataDTO(typeMetadataDTO.DeclaringType);
+            }
+
+            if (typeMetadataDTO.Methods != null)
+            {
+                List<MethodMetadataDTO> methods = new List<MethodMetadataDTO>();
+                foreach (BaseMethodMetadata DTO in typeMetadataDTO.Methods)
+                {
+                    MethodMetadataDTO methodMetadata = new MethodMetadataDTO(DTO);
+                    methods.Add(methodMetadata);
+                }
+                Methods = methods;
+            }
+
+            if (typeMetadataDTO.Constructors != null)
+            {
+                List<MethodMetadataDTO> constructors = new List<MethodMetadataDTO>();
+                foreach (BaseMethodMetadata DTO in typeMetadataDTO.Constructors)
+                {
+                    MethodMetadataDTO methodMetadata = new MethodMetadataDTO(DTO);
+                    constructors.Add(methodMetadata);
+                }
+                Constructors = constructors;
+            }
+
+            if (typeMetadataDTO.Fields != null)
+            {
+                List<DTO.FieldMetadataDTO> fields = new List<DTO.FieldMetadataDTO>();
+                foreach (BaseFieldMetadata DTO in typeMetadataDTO.Fields)
+                {
+                    DTO.FieldMetadataDTO fieldMetadata = new DTO.FieldMetadataDTO(DTO);
+                    fields.Add(fieldMetadata);
+                }
+                Fields = fields;
+            }
+
+            if (!DTOTypeDictionary.ContainsKey(this.TypeName))
+            {
+                DTOTypeDictionary.Add(TypeName, this);
+            }
+        }
     }
 }

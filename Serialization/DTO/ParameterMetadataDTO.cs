@@ -15,5 +15,15 @@ namespace Serialization
         public override string Name { get => base.Name; set => base.Name = value; }
         [DataMember]
         public override BaseTypeMetadata UsedTypeMetadata { get => base.UsedTypeMetadata; set => base.UsedTypeMetadata = value; }
+
+        public ParameterMetadataDTO(BaseParameterMetadata parameterMetadataDTO)
+        {
+            Name = parameterMetadataDTO.Name;
+            if (parameterMetadataDTO.UsedTypeMetadata != null)
+            {
+                if (TypeMetadataDTO.DTOTypeDictionary.ContainsKey(parameterMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = TypeMetadataDTO.DTOTypeDictionary[parameterMetadataDTO.UsedTypeMetadata.TypeName];
+                else UsedTypeMetadata = new TypeMetadataDTO(parameterMetadataDTO.UsedTypeMetadata);
+            }
+        }
     }
 }

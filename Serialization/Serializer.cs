@@ -45,11 +45,11 @@ namespace Serialization
                 IndentChars = "\t"
             };
 
-            DataContractSerializer serializer = new DataContractSerializer(obj.GetType(), lista);
+            DataContractSerializer serializer = new DataContractSerializer(typeof(AssemblyMetadataDTO), lista);
 
             using (FileStream stream = File.Create(filePath))
             {
-                serializer.WriteObject(stream, obj);
+                serializer.WriteObject(stream, new AssemblyMetadataDTO(obj));
             }
 
         }
@@ -69,7 +69,8 @@ namespace Serialization
                 typeof(NamespaceMetadataDTO),
                 typeof(ParameterMetadataDTO),
                 typeof(PropertyMetadataDTO),
-                typeof(TypeMetadataDTO)
+                typeof(TypeMetadataDTO),
+                typeof(FieldMetadataDTO)
             };
 
 
@@ -77,7 +78,7 @@ namespace Serialization
             DataContractSerializer deserializer = new DataContractSerializer(typeof(AssemblyMetadataDTO),lista);
             using (FileStream stream = File.OpenRead(filePath))
             {
-                result = (AssemblyMetadataDTO)deserializer.ReadObject(stream);
+                result = new AssemblyMetadataDTO((BaseAssemblyMetadata)deserializer.ReadObject(stream));
             }
 
             return result;
