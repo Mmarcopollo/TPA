@@ -19,11 +19,13 @@ namespace Model.MEF
 
             _aggCatalog = new AggregateCatalog();
 
-            DirectoryCatalog exe = new DirectoryCatalog("..\\..\\..\\DllToCompose", "*.exe");
-            DirectoryCatalog dll = new DirectoryCatalog("..\\..\\..\\DllToCompose");
+            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\FileLogger\\bin\\Debug");
+            DirectoryCatalog serialization = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
+            DirectoryCatalog browser = new DirectoryCatalog("..\\..\\..\\ViewWPF\\bin\\debug", "*.exe");
 
-            _aggCatalog.Catalogs.Add(exe);
-            _aggCatalog.Catalogs.Add(dll);
+            _aggCatalog.Catalogs.Add(logger);
+            _aggCatalog.Catalogs.Add(serialization);
+            _aggCatalog.Catalogs.Add(browser);
 
             _container = new CompositionContainer(_aggCatalog);
             _container.ComposeParts(obj);
