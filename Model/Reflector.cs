@@ -22,12 +22,12 @@ namespace Model
                 throw new System.ArgumentNullException();
             Assembly assembly = Assembly.LoadFrom(assemblyFile);
             M_AssemblyModel = new AssemblyMetadata(assembly);
-            MefStartup.Compose(M_AssemblyModel);
+           // MefStartup.Compose(M_AssemblyModel);
         }
         public Reflector(Assembly assembly)
         {
             M_AssemblyModel = new AssemblyMetadata(assembly);
-            MefStartup.Compose(M_AssemblyModel);
+           // MefStartup.Compose(M_AssemblyModel);
         }
 
         public Reflector() { }

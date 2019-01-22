@@ -1,8 +1,12 @@
-﻿using Log;
+﻿using BasicData;
+using Log;
 using Model;
 using Model.MEF;
+using Serialization;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows.Input;
 using ViewModel.Treeview;
 
@@ -52,13 +56,18 @@ namespace ViewModel
         public Reflector Reflector { get; set; }
 
         #region MEF
+        [ImportMany(typeof(ISerializer))]
+        public IEnumerable<ISerializer> Serialization
+        {
+            get; set;
+        }
         [Import(typeof(IBrowseFile))]
         public IBrowseFile FilePathProvider
         {
             get; set;
         }
         [Import(typeof(ILogger))]
-        public ILogger Logger
+        public ILogger  Logger
         {
             get; set;
         }
@@ -94,7 +103,8 @@ namespace ViewModel
             if(Reflector != null)
             {
                 string pathToSaveSerializedFile = FilePathProvider.Browse();
-                if( pathToSaveSerializedFile != "" ) Reflector.M_AssemblyModel.SerializeAssembly(pathToSaveSerializedFile);
+                if( pathToSaveSerializedFile != "" ) //Reflector.M_AssemblyModel.SerializeAssembly(pathToSaveSerializedFile);
+                Serialization.FirstOrDefault()?.Write(Reflector.M_AssemblyModel.ConvertToDTO(), pathToSaveSerializedFile);
             }
         }
 
@@ -105,7 +115,8 @@ namespace ViewModel
 
             if (pathToSerializedFile != null)
             {
-                Reflector = new Reflector(AssemblyMetadata.DeserializeAssembly(pathToSerializedFile));
+                //Reflector = new Reflector(AssemblyMetadata.DeserializeAssembly(pathToSerializedFile));
+                Reflector = new Reflector(new AssemblyMetadata((AssemblyMetadataDTO)Serialization.FirstOrDefault()?.Read(pathToSerializedFile)));
 
                 HierarchicalAreas.Clear();
                 TreeViewLoaded();

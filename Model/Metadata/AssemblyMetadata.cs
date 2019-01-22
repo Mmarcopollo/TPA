@@ -12,13 +12,7 @@ using System.Threading.Tasks;
 namespace Model
 {
     public class AssemblyMetadata : BaseAssemblyMetadata
-    {
-        [Import(typeof(ISerializer))]
-        public ISerializer Serialization
-        {
-            get; set;
-        }
-
+    { 
         public override Guid Guid { get => base.Guid; set => base.Guid = value; }
         public override string Name { get => base.Name; set => base.Name = value; }
         public new IEnumerable<NamespaceMetadata> Namespaces { get => (IEnumerable<NamespaceMetadata>)base.Namespaces; set => base.Namespaces = value; }
@@ -64,18 +58,18 @@ namespace Model
             return result;
         }
 
-        public void SerializeAssembly(string path)
-        {
-            AssemblyMetadataDTO dataToSerialize = this.ConvertToDTO();
-            Serialization.Write(dataToSerialize, path);
-        }
+        //public void SerializeAssembly(string path)
+        //{
+        //    AssemblyMetadataDTO dataToSerialize = this.ConvertToDTO();
+        //    Serialization.Write(dataToSerialize, path);
+        //}
 
-        public static AssemblyMetadata DeserializeAssembly(string path)
-        {
-            Serializer serializer = new Serializer();
-            AssemblyMetadataDTO deserializedData = (AssemblyMetadataDTO)serializer.Read(path);
-            return new AssemblyMetadata(deserializedData);
-        }
+        //public static AssemblyMetadata DeserializeAssembly(string path)
+        //{
+        //    Serializer serializer = new Serializer();
+        //    AssemblyMetadataDTO deserializedData = (AssemblyMetadataDTO)serializer.Read(path);
+        //    return new AssemblyMetadata(deserializedData);
+        //}
 
         public override bool Equals(object obj)
         {

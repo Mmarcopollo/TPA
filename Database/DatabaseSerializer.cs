@@ -24,7 +24,7 @@ namespace Database
                 context.TypeMetadata
                     .Include(x => x.BaseType)
                     .Include(x => x.GenericArguments)
-                    .Include(x => x.Attributes)
+                    //.Include(x => x.Attributes)
                     .Include(x => x.ImplementedInterfaces)
                     .Include(x => x.NestedTypes)
                     .Include(x => x.Fields)

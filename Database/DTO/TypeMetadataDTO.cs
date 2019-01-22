@@ -29,7 +29,7 @@ namespace Database.DTO
         public TypeMetadataDTO()
         {
             GenericArguments = new List<TypeMetadataDTO>();
-            Attributes = new List<Attribute>();
+            //Attributes = new List<Attribute>();
             ImplementedInterfaces = new List<TypeMetadataDTO>();
             NestedTypes = new List<TypeMetadataDTO>();
             Fields = new List<FieldMetadataDTO>();

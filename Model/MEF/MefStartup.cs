@@ -18,13 +18,12 @@ namespace Model.MEF
             AggregateCatalog _aggCatalog = new AggregateCatalog();
 
             _aggCatalog = new AggregateCatalog();
-            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\DataBaseLogger\\bin\\Debug");
-            DirectoryCatalog serialize = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
-            DirectoryCatalog thisDirectory = new DirectoryCatalog(Directory.GetCurrentDirectory(), "*.exe");
 
-            _aggCatalog.Catalogs.Add(logger);
-            _aggCatalog.Catalogs.Add(serialize);
-            _aggCatalog.Catalogs.Add(thisDirectory);
+            DirectoryCatalog exe = new DirectoryCatalog("..\\..\\..\\DllToCompose", "*.exe");
+            DirectoryCatalog dll = new DirectoryCatalog("..\\..\\..\\DllToCompose");
+
+            _aggCatalog.Catalogs.Add(exe);
+            _aggCatalog.Catalogs.Add(dll);
 
             _container = new CompositionContainer(_aggCatalog);
             _container.ComposeParts(obj);
