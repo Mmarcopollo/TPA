@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace DataBaseLoger
 {
     [Export(typeof(ILogger))]
-    public class DataBaseLoger : ILogger
+    public class DBLogger : ILogger
     {
         public void Log(string message)
         {
