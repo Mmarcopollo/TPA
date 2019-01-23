@@ -21,8 +21,7 @@ namespace DataBaseSerializationTest
     [TestClass]
     public class DataBaseTests
     {
-
-        [TestMethod]
+      [TestMethod]
         public void AssemblyDatabaseTest()
         {
             using (DatabaseContext db = new DatabaseContext())
