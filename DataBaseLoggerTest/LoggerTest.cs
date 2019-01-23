@@ -27,7 +27,6 @@ namespace DatabaseLoggerTest
 
             Assert.AreEqual(DBL.Logs.OrderByDescending(p => p.Time).FirstOrDefault().Message, testString);
 
-
         }
     }
 }
