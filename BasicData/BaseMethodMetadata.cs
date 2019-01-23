@@ -10,6 +10,7 @@ namespace BasicData
     [DataContract(IsReference = true)]
     public abstract class BaseMethodMetadata
     {
+
         [DataMember]
         public virtual string Name { get; set; }
         [DataMember]

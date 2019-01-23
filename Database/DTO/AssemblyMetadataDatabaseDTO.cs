@@ -14,6 +14,7 @@ namespace Database.DTO
     [Export(typeof(BaseAssemblyMetadata))]
     public class AssemblyMetadataDatabaseDTO : BaseAssemblyMetadata
     {
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]

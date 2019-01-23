@@ -11,6 +11,7 @@ namespace DatabaseLog.DTO
         [Table("Log")]
         public class LogDTO
         {
+
             [Key]
             public int ID { get; set; }
             public string Message { get; set; }

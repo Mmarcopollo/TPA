@@ -11,6 +11,7 @@ namespace Model
 {
     public class PropertyMetadata : BasePropertyMetadata
     {
+
         public override string Name { get => base.Name; set => base.Name = value; }
         public new TypeMetadata UsedTypeMetadata { get => (TypeMetadata)base.UsedTypeMetadata; set => base.UsedTypeMetadata = value; }
 

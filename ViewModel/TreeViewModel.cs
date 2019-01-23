@@ -11,6 +11,7 @@ namespace ViewModel
     public class TreeViewModel : ViewModelBase
     {
 
+
         public TreeViewModel()
         {
             MefStartup.Instance.ComposeParts(this);

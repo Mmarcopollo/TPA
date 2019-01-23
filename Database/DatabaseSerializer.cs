@@ -13,6 +13,7 @@ namespace Database
     [Export(typeof(ISerializer))]
     public class DatabaseSerializer : ISerializer
     {
+
         public BaseAssemblyMetadata Read(string path)
         {
             using (DatabaseContext context = new DatabaseContext())

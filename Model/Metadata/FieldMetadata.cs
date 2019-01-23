@@ -9,6 +9,7 @@ namespace Model.Metadata
 {
     public class FieldMetadata : BaseFieldMetadata
     {
+
         #region data
 
         public override Guid Guid

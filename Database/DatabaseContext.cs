@@ -17,6 +17,7 @@ namespace Database
             Configuration.ProxyCreationEnabled = false;
         }
 
+
         public virtual DbSet<AssemblyMetadataDatabaseDTO> AssemblyMetadata { get; set; }
         public virtual DbSet<NamespaceMetadataDatabaseDTO> NamespaceMetadata { get; set; }
         public virtual DbSet<TypeMetadataDatabaseDTO> TypeMetadata { get; set; }

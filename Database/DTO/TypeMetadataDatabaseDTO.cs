@@ -10,6 +10,7 @@ namespace Database.DTO
     [Table("TypeMetadata")]
     public class TypeMetadataDatabaseDTO : BaseTypeMetadata
     {
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [StringLength(100)]

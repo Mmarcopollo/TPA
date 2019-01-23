@@ -13,6 +13,7 @@ namespace DatabaseLoggerTest
     [TestClass]
     public class LoggerTest
     {
+
         [TestMethod]
         public void Logger_IsExistARow()
         {

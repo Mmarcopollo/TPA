@@ -10,6 +10,7 @@ namespace Model
 {
     public class NamespaceMetadata : BaseNamespaceMetadata
     {
+
         public override string NamespaceName { get => base.NamespaceName; set => base.NamespaceName = value; }
         public override Guid Guid { get => base.Guid; set => base.Guid = value; }
         public new IEnumerable<TypeMetadata> Types { get => (IEnumerable<TypeMetadata>)base.Types; set => base.Types = value; }

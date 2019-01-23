@@ -15,6 +15,7 @@ using WPFBrowseFile;
 
 namespace WPFTestProject
 {
+
     [TestClass]
     public class ViewModelTests
     {

@@ -12,6 +12,7 @@ namespace ReflectionTest
     [TestClass]
     public class ReflectionTest
     {
+
         [TestMethod]
         public void ReflectionTest_IsNumberOfElementsEqualToRealNumber()
         {

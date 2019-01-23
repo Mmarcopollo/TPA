@@ -10,6 +10,7 @@ namespace Model
 {
     public class ParameterMetadata : BaseParameterMetadata
     {
+
         public new string Name { get => base.Name; set => base.Name = value; }
         public new TypeMetadata UsedTypeMetadata { get => (TypeMetadata)base.UsedTypeMetadata; set => base.UsedTypeMetadata = value; }
 

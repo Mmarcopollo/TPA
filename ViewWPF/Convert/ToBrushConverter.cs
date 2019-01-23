@@ -14,6 +14,7 @@ namespace ViewWPF.Convert
     [ValueConversion(typeof(TreeViewNode), typeof(Brush))]
     public class ToBrushConverter :IValueConverter
     {
+
         public static ToBrushConverter Instance = new ToBrushConverter();
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

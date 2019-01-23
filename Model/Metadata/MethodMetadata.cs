@@ -12,6 +12,7 @@ namespace Model
 {
     public class MethodMetadata : BaseMethodMetadata
     {
+
         internal static IEnumerable<MethodMetadata> EmitMethods(IEnumerable<MethodBase> methods)
         {
             return from MethodBase _currentMethod in methods

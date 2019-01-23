@@ -7,6 +7,7 @@ namespace Database.DTO
     [Table("ParameterMetadata")]
     public class ParameterMetadataDatabaseDTO : BaseParameterMetadata
     {
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]

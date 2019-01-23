@@ -10,6 +10,7 @@ namespace Database.DTO
     [Table("NamespaceMetadata")]
     public class NamespaceMetadataDatabaseDTO : BaseNamespaceMetadata
     {
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]

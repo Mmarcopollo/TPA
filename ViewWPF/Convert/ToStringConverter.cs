@@ -13,6 +13,7 @@ namespace ViewWPF.Convert
     [ValueConversion(typeof(TreeViewNode), typeof(string))]
     public class ToStringConverter : IValueConverter
     {
+
         public static ToStringConverter Instance = new ToStringConverter();
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

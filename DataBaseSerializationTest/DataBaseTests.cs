@@ -21,6 +21,7 @@ namespace DataBaseSerializationTest
     [TestClass]
     public class DataBaseTests
     {
+
         [TestMethod]
         public void AssemblyDatabaseTest()
         {

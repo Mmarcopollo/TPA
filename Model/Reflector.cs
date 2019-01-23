@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+
     [DataContract]
     public class Reflector
     {

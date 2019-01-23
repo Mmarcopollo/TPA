@@ -9,6 +9,7 @@ using Serialization;
 
 namespace SerializationTest
 {
+
     [TestClass]
     public class SerializationTest
     {

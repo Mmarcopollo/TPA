@@ -10,6 +10,7 @@ namespace ViewModel.Treeview
 {
     public class AttributeTreeView : TreeViewNode
     {
+
         private TypeMetadata _attribute;
 
         public AttributeTreeView(TypeMetadata attribute)

@@ -16,6 +16,7 @@ namespace LogTest
     [TestClass]
     public class LogTest
     {
+
         [TestMethod]
         public void LogTest_CheckFile()
         {

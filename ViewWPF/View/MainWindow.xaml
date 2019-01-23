@@ -9,6 +9,7 @@
         Title="Reflection project" Height="600" Width="500"
         ResizeMode="NoResize">
 
+    
     <Window.DataContext>
         <local:TreeViewModel/>
     </Window.DataContext>

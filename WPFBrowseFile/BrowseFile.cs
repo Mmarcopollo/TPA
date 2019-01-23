@@ -9,6 +9,7 @@ using ViewModel;
 
 namespace WPFBrowseFile
 {
+
     [Export(typeof(IBrowseFile))]
     public class BrowseFile : IBrowseFile
     {

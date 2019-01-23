@@ -13,6 +13,7 @@ namespace DatabaseLogger
     [Export(typeof(ILogger))]
     public class DBLogger : ILogger
     {
+
         public void Log(string message)
         {
             using (DatabaseContextLog context = new DatabaseContextLog())

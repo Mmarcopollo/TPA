@@ -10,6 +10,7 @@ namespace MEF
 {
     public class MefStartup : IDisposable
     {
+
         private static MefStartup _instance = new MefStartup();
 
         public static MefStartup Instance

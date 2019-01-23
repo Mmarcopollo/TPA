@@ -13,6 +13,7 @@ namespace Model
 {
     public class TypeMetadata : BaseTypeMetadata
     {
+
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
 
         public override string TypeName { get => base.TypeName; set => base.TypeName = value; }
