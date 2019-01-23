@@ -14,5 +14,23 @@ namespace Database.DTO
         public override string NamespaceName { get; set; }
         public override Guid Guid { get; set; }
         public new List<TypeMetadataDatabaseDTO> Types { get; set; }
+
+        public NamespaceMetadataDatabaseDTO(BaseNamespaceMetadata namespaceMetadataDTO)
+        {
+            NamespaceName = namespaceMetadataDTO.NamespaceName;
+            Guid = namespaceMetadataDTO.Guid;
+            if (namespaceMetadataDTO.Types != null)
+            {
+                List<TypeMetadataDatabaseDTO> types = new List<TypeMetadataDatabaseDTO>();
+                foreach (BaseTypeMetadata DTO in namespaceMetadataDTO.Types)
+                {
+                    TypeMetadataDatabaseDTO metadata;
+                    if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[DTO.TypeName];
+                    else metadata = new TypeMetadataDatabaseDTO(DTO);
+                    types.Add(metadata);
+                }
+                Types = types;
+            }
+        }
     }
 }

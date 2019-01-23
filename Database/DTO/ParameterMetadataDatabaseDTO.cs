@@ -11,5 +11,15 @@ namespace Database.DTO
         [Required, StringLength(100)]
         public override string Name { get; set; }
         public new TypeMetadataDatabaseDTO UsedTypeMetadata { get; set; }
+
+        public ParameterMetadataDatabaseDTO(BaseParameterMetadata parameterMetadataDTO)
+        {
+            Name = parameterMetadataDTO.Name;
+            if (parameterMetadataDTO.UsedTypeMetadata != null)
+            {
+                if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(parameterMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[parameterMetadataDTO.UsedTypeMetadata.TypeName];
+                else UsedTypeMetadata = new TypeMetadataDatabaseDTO(parameterMetadataDTO.UsedTypeMetadata);
+            }
+        }
     }
 }

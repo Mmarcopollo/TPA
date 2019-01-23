@@ -16,5 +16,34 @@ namespace Database.DTO
         public override bool IsReadOnly { get; set; }
         public new TypeMetadataDatabaseDTO FieldType { get; set; }
         public override Tuple<AccessLevel, StaticEnum> Modifiers { get; set; }
+
+        public FieldMetadataDatabaseDTO(BaseFieldMetadata baseFields)
+        {
+            //GUID
+            Guid = baseFields.Guid;
+
+            // Name
+            FieldName = baseFields.FieldName;
+
+            //Read Only
+            IsReadOnly = baseFields.IsReadOnly;
+
+            //FieldType
+            if (baseFields.FieldType != null)
+            {
+                if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(baseFields.FieldType.TypeName))
+                {
+                    FieldType = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[baseFields.FieldType.TypeName];
+                }
+                else
+                {
+                    FieldType = new TypeMetadataDatabaseDTO(baseFields.FieldType);
+                }
+            }
+
+            //Field Modifiers
+            Modifiers = baseFields.Modifiers;
+
+        }
     }
 }

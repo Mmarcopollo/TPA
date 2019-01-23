@@ -19,5 +19,45 @@ namespace Database.DTO
         public new TypeMetadataDatabaseDTO ReturnType { get; set; }
         public override bool Extension { get; set; }
         public new List<ParameterMetadataDatabaseDTO> Parameters { get; set; }
+
+        public MethodMetadataDatabaseDTO(BaseMethodMetadata methodMetadataDTO)
+        {
+            base.Name = methodMetadataDTO.Name;
+            if (methodMetadataDTO.GenericArguments != null)
+            {
+                List<TypeMetadataDatabaseDTO> generic = new List<TypeMetadataDatabaseDTO>();
+                foreach (BaseTypeMetadata DTO in methodMetadataDTO.GenericArguments)
+                {
+                    TypeMetadataDatabaseDTO metadata;
+                    if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[DTO.TypeName];
+                    else metadata = new TypeMetadataDatabaseDTO(DTO);
+                    generic.Add(metadata);
+                }
+                GenericArguments = generic;
+            }
+            AccessLevel = methodMetadataDTO.AccessLevel;
+            AbstractEnum = methodMetadataDTO.AbstractEnum;
+            StaticEnum = methodMetadataDTO.StaticEnum;
+            VirtualEnum = methodMetadataDTO.VirtualEnum;
+
+            if (methodMetadataDTO.ReturnType != null)
+            {
+                if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(methodMetadataDTO.ReturnType.TypeName)) ReturnType = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[methodMetadataDTO.ReturnType.TypeName];
+                else ReturnType = new TypeMetadataDatabaseDTO(methodMetadataDTO.ReturnType);
+            }
+
+            Extension = methodMetadataDTO.Extension;
+
+            if (methodMetadataDTO.Parameters != null)
+            {
+                List<ParameterMetadataDatabaseDTO> parameters = new List<ParameterMetadataDatabaseDTO>();
+                foreach (BaseParameterMetadata DTO in methodMetadataDTO.Parameters)
+                {
+                    ParameterMetadataDatabaseDTO methodMetadata = new ParameterMetadataDatabaseDTO(DTO);
+                    parameters.Add(methodMetadata);
+                }
+                Parameters = parameters;
+            }
+        }
     }
 }

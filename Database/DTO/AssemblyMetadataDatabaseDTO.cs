@@ -19,5 +19,19 @@ namespace Database.DTO
         public override string Name { get; set; }
         public new List<NamespaceMetadataDatabaseDTO> Namespaces { get; set; }
 
+        public AssemblyMetadataDatabaseDTO(BaseAssemblyMetadata assemblyMetadataDTO)
+        {
+            Name = assemblyMetadataDTO.Name;
+            if (assemblyMetadataDTO.Namespaces != null)
+            {
+                List<NamespaceMetadataDatabaseDTO> namespaces = new List<NamespaceMetadataDatabaseDTO>();
+                foreach (BaseNamespaceMetadata DTO in assemblyMetadataDTO.Namespaces)
+                {
+                    NamespaceMetadataDatabaseDTO methodMetadata = new NamespaceMetadataDatabaseDTO(DTO);
+                    namespaces.Add(methodMetadata);
+                }
+                Namespaces = namespaces;
+            }
+        }
     }
 }
