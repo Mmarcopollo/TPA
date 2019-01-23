@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using FileLogger;
-using Log;
 using MEF;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
