@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
-using DataBaseLog;
-using DataBaseLoger;
+using DatabaseLog;
+using DatabaseLogger;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Moq;
 using ViewModel;
 using ViewWPF;
 
-namespace DataBaseLoggerTest
+namespace DatabaseLoggerTest
 {
     [TestClass]
     public class LoggerTest

@@ -31,11 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Databa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLogger", "FileLogger\FileLogger.csproj", "{C420665B-2ECE-4D66-AADB-716B7FA5901F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseLog", "DataBaseLog\DataBaseLog.csproj", "{A851BBC9-52E4-4741-B15B-320690235AB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLoggerTest", "DatabaseLoggerTest\DatabaseLoggerTest.csproj", "{72A252E2-21B7-4451-96FA-2AA538D102F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseLoger", "DataBaseLoger\DataBaseLoger.csproj", "{6285CB6A-978E-49CE-AB28-967ECEA2D13B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLog", "DatabaseLog\DatabaseLog.csproj", "{A851BBC9-52E4-4741-B15B-320690235AB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseLoggerTest", "DataBaseLoggerTest\DataBaseLoggerTest.csproj", "{72A252E2-21B7-4451-96FA-2AA538D102F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLogger", "DatabaseLogger\DatabaseLogger.csproj", "{6285CB6A-978E-49CE-AB28-967ECEA2D13B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +99,10 @@ Global
 		{C420665B-2ECE-4D66-AADB-716B7FA5901F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C420665B-2ECE-4D66-AADB-716B7FA5901F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C420665B-2ECE-4D66-AADB-716B7FA5901F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A252E2-21B7-4451-96FA-2AA538D102F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A252E2-21B7-4451-96FA-2AA538D102F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A252E2-21B7-4451-96FA-2AA538D102F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A252E2-21B7-4451-96FA-2AA538D102F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A851BBC9-52E4-4741-B15B-320690235AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A851BBC9-52E4-4741-B15B-320690235AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A851BBC9-52E4-4741-B15B-320690235AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,10 +111,6 @@ Global
 		{6285CB6A-978E-49CE-AB28-967ECEA2D13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6285CB6A-978E-49CE-AB28-967ECEA2D13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6285CB6A-978E-49CE-AB28-967ECEA2D13B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72A252E2-21B7-4451-96FA-2AA538D102F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72A252E2-21B7-4451-96FA-2AA538D102F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72A252E2-21B7-4451-96FA-2AA538D102F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72A252E2-21B7-4451-96FA-2AA538D102F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

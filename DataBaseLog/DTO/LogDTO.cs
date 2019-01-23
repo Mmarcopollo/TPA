@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseLog.DTO
+namespace DatabaseLog.DTO
 {
         [Table("Log")]
         public class LogDTO

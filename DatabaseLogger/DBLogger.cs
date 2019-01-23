@@ -1,5 +1,5 @@
-﻿using DataBaseLog;
-using DataBaseLog.DTO;
+﻿using DatabaseLog;
+using DatabaseLog.DTO;
 using Log;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseLoger
+namespace DatabaseLogger
 {
     [Export(typeof(ILogger))]
     public class DBLogger : ILogger

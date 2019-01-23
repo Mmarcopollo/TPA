@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Data.Entity;
-using DataBaseLog.DTO;
+using DatabaseLog.DTO;
 
-namespace DataBaseLog
+namespace DatabaseLog
 {
     public class DatabaseContextLog : DbContext
     {
