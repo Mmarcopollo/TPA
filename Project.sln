@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewWPF", "ViewWPF\ViewWPF.csproj", "{72139A33-76C2-49BA-B020-B47A4C348C45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewConsole", "ViewConsole\ViewConsole.csproj", "{14F3C14C-47FF-46F1-B6B3-1897ED7F9482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewConsolee", "ViewConsole\ViewConsolee.csproj", "{14F3C14C-47FF-46F1-B6B3-1897ED7F9482}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{50A4BC19-9BDD-47ED-A5DD-A027E4EA9A8C}"
 EndProject

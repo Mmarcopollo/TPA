@@ -86,9 +86,9 @@
       <Project>{3BD54EE6-C405-40BA-8246-E83A2046C996}</Project>
       <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewConsole\ViewConsole.csproj">
+    <ProjectReference Include="..\ViewConsole\ViewConsolee.csproj">
       <Project>{14F3C14C-47FF-46F1-B6B3-1897ED7F9482}</Project>
-      <Name>ViewConsole</Name>
+      <Name>ViewConsolee</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModel\ViewModel.csproj">
       <Project>{50A4BC19-9BDD-47ED-A5DD-A027E4EA9A8C}</Project>
