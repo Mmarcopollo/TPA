@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="BaseAssemblyMetadata.cs" />
     <Compile Include="BaseFieldMetadata.cs" />
+    <Compile Include="BaseLog.cs" />
     <Compile Include="BaseMethodMetadata.cs" />
     <Compile Include="BaseNamespaceMetadata.cs" />
     <Compile Include="BaseParameterMetadata.cs" />

@@ -18,8 +18,8 @@ namespace Model.MEF
             AggregateCatalog _aggCatalog = new AggregateCatalog();
 
             _aggCatalog = new AggregateCatalog();
-            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\FileLogger\\bin\\Debug");
             DirectoryCatalog serialize = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
+            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\DataBaseLoger\\bin\\Debug");
             DirectoryCatalog thisDirectory = new DirectoryCatalog(Directory.GetCurrentDirectory(), "*.exe");
 
             _aggCatalog.Catalogs.Add(logger);
