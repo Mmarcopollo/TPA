@@ -133,6 +133,7 @@ namespace DataBaseSerializationTest
 
             MefStartup.Instance._container = _container;
 
+
         }
 
 
