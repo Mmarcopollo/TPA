@@ -22,7 +22,7 @@ namespace Database.DTO
                 else UsedTypeMetadata = new TypeMetadataDatabaseDTO(parameterMetadataDTO.UsedTypeMetadata);
             }
 
-            if (!Mapper.DatabaseDTOParameterDictionary.ContainsKey(parameterMetadataDTO.Name))
+            if (!Mapper.DatabaseDTOParameterDictionary.ContainsKey(Name))
             {
                 Mapper.DatabaseDTOParameterDictionary.Add(Name, this);
             }

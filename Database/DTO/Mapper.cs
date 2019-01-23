@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Database.DTO
 {
-    class Mapper
+    internal class Mapper
     {
         public static Dictionary<string, TypeMetadataDatabaseDTO> DatabaseDTOTypeDictionary = new Dictionary<string, TypeMetadataDatabaseDTO>();
         public static Dictionary<string, NamespaceMetadataDatabaseDTO> DatabaseDTONamespaceDictionary = new Dictionary<string, NamespaceMetadataDatabaseDTO>();

@@ -46,7 +46,7 @@ namespace Database.DTO
             Modifiers = baseFields.Modifiers;
 
 
-            if (!Mapper.DatabaseDTOFieldDictionary.ContainsKey(baseFields.FieldName))
+            if (!Mapper.DatabaseDTOFieldDictionary.ContainsKey(FieldName))
             {
                 Mapper.DatabaseDTOFieldDictionary.Add(FieldName, this);
             }
