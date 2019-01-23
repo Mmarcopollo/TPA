@@ -14,10 +14,27 @@ namespace Database.DTO
     [Export(typeof(BaseAssemblyMetadata))]
     public class AssemblyMetadataDatabaseDTO : BaseAssemblyMetadata
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]
         public override string Name { get; set; }
         public new List<NamespaceMetadataDatabaseDTO> Namespaces { get; set; }
 
+        public AssemblyMetadataDatabaseDTO(BaseAssemblyMetadata assemblyMetadataDTO)
+        {
+            Name = assemblyMetadataDTO.Name;
+            if (assemblyMetadataDTO.Namespaces != null)
+            {
+                List<NamespaceMetadataDatabaseDTO> namespaces = new List<NamespaceMetadataDatabaseDTO>();
+                foreach (BaseNamespaceMetadata DTO in assemblyMetadataDTO.Namespaces)
+                {
+                    NamespaceMetadataDatabaseDTO methodMetadata;
+                    if (Mapper.DatabaseDTONamespaceDictionary.ContainsKey(DTO.NamespaceName)) methodMetadata = Mapper.DatabaseDTONamespaceDictionary[DTO.NamespaceName];
+                    else methodMetadata = new NamespaceMetadataDatabaseDTO(DTO);
+                    namespaces.Add(methodMetadata);
+                }
+                Namespaces = namespaces;
+            }
+        }
     }
 }

@@ -68,6 +68,7 @@
     <Compile Include="DatabaseSerializer.cs" />
     <Compile Include="DTO\AssemblyMetadataDatabaseDTO.cs" />
     <Compile Include="DTO\FieldMetadataDatabaseDTO.cs" />
+    <Compile Include="DTO\Mapper.cs" />
     <Compile Include="DTO\MethodMetadataDatabaseDTO.cs" />
     <Compile Include="DTO\NamespaceMetadataDatabaseDTO.cs" />
     <Compile Include="DTO\ParameterMetadataDatabaseDTO.cs" />
