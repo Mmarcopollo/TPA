@@ -7,6 +7,7 @@ namespace Database.DTO
     [Table("PropertyMetadata")]
     public class PropertyMetadataDatabaseDTO : BasePropertyMetadata
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]
         public override string Name { get; set; }

@@ -11,7 +11,11 @@ namespace Database
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Project;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework") { }
+        public DatabaseContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Project;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework")
+        {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+        }
 
         public virtual DbSet<AssemblyMetadataDatabaseDTO> AssemblyMetadata { get; set; }
         public virtual DbSet<NamespaceMetadataDatabaseDTO> NamespaceMetadata { get; set; }
@@ -20,5 +24,7 @@ namespace Database
         public virtual DbSet<PropertyMetadataDatabaseDTO> PropertyMetadata { get; set; }
         public virtual DbSet<MethodMetadataDatabaseDTO> MethodMetadata { get; set; }
         public virtual DbSet<ParameterMetadataDatabaseDTO> ParameterMetadata { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) { }
     }
 }

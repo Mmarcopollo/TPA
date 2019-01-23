@@ -60,10 +60,5 @@ namespace Model
         }
         [DataMember]
         public AssemblyMetadata M_AssemblyModel { get; set; }
-
-
-
-
-
     }
 }

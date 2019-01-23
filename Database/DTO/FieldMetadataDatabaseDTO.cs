@@ -9,6 +9,7 @@ namespace Database.DTO
     [Table("FieldMetadata")]
     public class FieldMetadataDatabaseDTO : BaseFieldMetadata
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public override Guid Guid { get; set; }
         [Required, StringLength(100)]

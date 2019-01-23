@@ -8,6 +8,7 @@ namespace Database.DTO
     [Table("MethodMetadata")]
     public class MethodMetadataDatabaseDTO : BaseMethodMetadata
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]
         public override string Name { get; set; }

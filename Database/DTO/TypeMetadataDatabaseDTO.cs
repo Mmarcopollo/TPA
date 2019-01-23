@@ -10,8 +10,9 @@ namespace Database.DTO
     public class TypeMetadataDatabaseDTO : BaseTypeMetadata
     {
         public static Dictionary<string, TypeMetadataDatabaseDTO> DatabaseDTOTypeDictionary = new Dictionary<string, TypeMetadataDatabaseDTO>();
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Key, StringLength(100)]
+        [StringLength(100)]
         public override string TypeName { get; set; }
         public override string NamespaceName { get; set; }
         public new TypeMetadataDatabaseDTO BaseType { get; set; }
