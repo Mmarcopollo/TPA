@@ -108,10 +108,13 @@ namespace Database.DTO
                 List<MethodMetadataDatabaseDTO> methods = new List<MethodMetadataDatabaseDTO>();
                 foreach (BaseMethodMetadata DTO in typeMetadataDTO.Methods)
                 {
-                    MethodMetadataDatabaseDTO methodMetadata;
-                    if (Mapper.DatabaseDTOMethodDictionary.ContainsKey(DTO.Name)) methodMetadata = Mapper.DatabaseDTOMethodDictionary[DTO.Name];
-                    else methodMetadata = new MethodMetadataDatabaseDTO(DTO);
-                    methods.Add(methodMetadata);
+                    if(DTO.Name != null)
+                    {
+                        MethodMetadataDatabaseDTO methodMetadata;
+                        if (Mapper.DatabaseDTOMethodDictionary.ContainsKey(DTO.Name)) methodMetadata = Mapper.DatabaseDTOMethodDictionary[DTO.Name];
+                        else methodMetadata = new MethodMetadataDatabaseDTO(DTO);
+                        methods.Add(methodMetadata);
+                    }
                 }
                 Methods = methods;
             }
@@ -121,10 +124,13 @@ namespace Database.DTO
                 List<MethodMetadataDatabaseDTO> constructors = new List<MethodMetadataDatabaseDTO>();
                 foreach (BaseMethodMetadata DTO in typeMetadataDTO.Constructors)
                 {
-                    MethodMetadataDatabaseDTO methodMetadata;
-                    if (Mapper.DatabaseDTOMethodDictionary.ContainsKey(DTO.Name)) methodMetadata = Mapper.DatabaseDTOMethodDictionary[DTO.Name];
-                    else methodMetadata = new MethodMetadataDatabaseDTO(DTO);
-                    constructors.Add(methodMetadata);
+                    if(DTO.Name != null)
+                    {
+                        MethodMetadataDatabaseDTO methodMetadata;
+                        if (Mapper.DatabaseDTOMethodDictionary.ContainsKey(DTO.Name)) methodMetadata = Mapper.DatabaseDTOMethodDictionary[DTO.Name];
+                        else methodMetadata = new MethodMetadataDatabaseDTO(DTO);
+                        constructors.Add(methodMetadata);
+                    }
                 }
                 Constructors = constructors;
             }
@@ -142,7 +148,7 @@ namespace Database.DTO
                 Fields = fields;
             }
 
-            if (!Mapper.DatabaseDTOTypeDictionary.ContainsKey(typeMetadataDTO.TypeName))
+            if (!Mapper.DatabaseDTOTypeDictionary.ContainsKey(TypeName))
             {
                 Mapper.DatabaseDTOTypeDictionary.Add(TypeName, this);
             }

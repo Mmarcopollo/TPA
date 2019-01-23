@@ -23,7 +23,7 @@ namespace Database.DTO
 
         public MethodMetadataDatabaseDTO(BaseMethodMetadata methodMetadataDTO)
         {
-            base.Name = methodMetadataDTO.Name;
+            this.Name = methodMetadataDTO.Name;
             if (methodMetadataDTO.GenericArguments != null)
             {
                 List<TypeMetadataDatabaseDTO> generic = new List<TypeMetadataDatabaseDTO>();
@@ -62,7 +62,7 @@ namespace Database.DTO
                 Parameters = parameters;
             }
 
-            if (!Mapper.DatabaseDTOMethodDictionary.ContainsKey(methodMetadataDTO.Name))
+            if (!Mapper.DatabaseDTOMethodDictionary.ContainsKey(Name))
             {
                 Mapper.DatabaseDTOMethodDictionary.Add(Name, this);
             }

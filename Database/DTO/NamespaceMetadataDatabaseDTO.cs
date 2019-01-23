@@ -33,7 +33,7 @@ namespace Database.DTO
                 Types = types;
             }
 
-            if (!Mapper.DatabaseDTONamespaceDictionary.ContainsKey(namespaceMetadataDTO.NamespaceName))
+            if (!Mapper.DatabaseDTONamespaceDictionary.ContainsKey(NamespaceName))
             {
                 Mapper.DatabaseDTONamespaceDictionary.Add(NamespaceName, this);
             }
