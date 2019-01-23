@@ -59,13 +59,16 @@ namespace Database
         {
             using (DatabaseContext context = new DatabaseContext())
             {
-                context.Database.ExecuteSqlCommand("DELETE FROM ParameterMetadata WHERE ID != -1");
-                context.Database.ExecuteSqlCommand("DELETE FROM PropertyMetadata WHERE ID != -1");
-                context.Database.ExecuteSqlCommand("DELETE FROM MethodMetadata WHERE ID != -1");
-                context.Database.ExecuteSqlCommand("DELETE FROM TypeMetadata WHERE ID != -1");
-                context.Database.ExecuteSqlCommand("DELETE FROM NamespaceMetadata WHERE ID != -1");
-                context.Database.ExecuteSqlCommand("DELETE FROM AssemblyMetadata WHERE ID != -1");
+                context.Database.ExecuteSqlCommand("DELETE FROM ParameterMetadata");
+                context.Database.ExecuteSqlCommand("DELETE FROM PropertyMetadata");
+                context.Database.ExecuteSqlCommand("DELETE FROM MethodMetadata");
+                context.Database.ExecuteSqlCommand("DELETE FROM TypeMetadata");
+                context.Database.ExecuteSqlCommand("DELETE FROM NamespaceMetadata");
+                context.Database.ExecuteSqlCommand("DELETE FROM AssemblyMetadata");
                 context.SaveChanges();
+            }
+            using (DatabaseContext context = new DatabaseContext())
+            {
                 AssemblyMetadataDatabaseDTO assemblyMetadata = new AssemblyMetadataDatabaseDTO(obj);
                 context.AssemblyMetadata.Add(assemblyMetadata);
                 context.SaveChanges();

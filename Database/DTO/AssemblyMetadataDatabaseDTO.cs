@@ -28,7 +28,9 @@ namespace Database.DTO
                 List<NamespaceMetadataDatabaseDTO> namespaces = new List<NamespaceMetadataDatabaseDTO>();
                 foreach (BaseNamespaceMetadata DTO in assemblyMetadataDTO.Namespaces)
                 {
-                    NamespaceMetadataDatabaseDTO methodMetadata = new NamespaceMetadataDatabaseDTO(DTO);
+                    NamespaceMetadataDatabaseDTO methodMetadata;
+                    if (Mapper.DatabaseDTONamespaceDictionary.ContainsKey(DTO.NamespaceName)) methodMetadata = Mapper.DatabaseDTONamespaceDictionary[DTO.NamespaceName];
+                    else methodMetadata = new NamespaceMetadataDatabaseDTO(DTO);
                     namespaces.Add(methodMetadata);
                 }
                 Namespaces = namespaces;

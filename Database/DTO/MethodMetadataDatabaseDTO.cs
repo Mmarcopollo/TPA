@@ -30,7 +30,7 @@ namespace Database.DTO
                 foreach (BaseTypeMetadata DTO in methodMetadataDTO.GenericArguments)
                 {
                     TypeMetadataDatabaseDTO metadata;
-                    if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[DTO.TypeName];
+                    if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = Mapper.DatabaseDTOTypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadataDatabaseDTO(DTO);
                     generic.Add(metadata);
                 }
@@ -43,7 +43,7 @@ namespace Database.DTO
 
             if (methodMetadataDTO.ReturnType != null)
             {
-                if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(methodMetadataDTO.ReturnType.TypeName)) ReturnType = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[methodMetadataDTO.ReturnType.TypeName];
+                if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(methodMetadataDTO.ReturnType.TypeName)) ReturnType = Mapper.DatabaseDTOTypeDictionary[methodMetadataDTO.ReturnType.TypeName];
                 else ReturnType = new TypeMetadataDatabaseDTO(methodMetadataDTO.ReturnType);
             }
 
@@ -54,10 +54,17 @@ namespace Database.DTO
                 List<ParameterMetadataDatabaseDTO> parameters = new List<ParameterMetadataDatabaseDTO>();
                 foreach (BaseParameterMetadata DTO in methodMetadataDTO.Parameters)
                 {
-                    ParameterMetadataDatabaseDTO methodMetadata = new ParameterMetadataDatabaseDTO(DTO);
+                    ParameterMetadataDatabaseDTO methodMetadata;
+                    if (Mapper.DatabaseDTOParameterDictionary.ContainsKey(DTO.Name)) methodMetadata = Mapper.DatabaseDTOParameterDictionary[DTO.Name];
+                    else methodMetadata = new ParameterMetadataDatabaseDTO(DTO);
                     parameters.Add(methodMetadata);
                 }
                 Parameters = parameters;
+            }
+
+            if (!Mapper.DatabaseDTOMethodDictionary.ContainsKey(methodMetadataDTO.Name))
+            {
+                Mapper.DatabaseDTOMethodDictionary.Add(Name, this);
             }
         }
     }

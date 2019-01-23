@@ -18,8 +18,13 @@ namespace Database.DTO
             Name = propertyMetadataDTO.Name;
             if (propertyMetadataDTO.UsedTypeMetadata != null)
             {
-                if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(propertyMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[propertyMetadataDTO.UsedTypeMetadata.TypeName];
+                if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(propertyMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = Mapper.DatabaseDTOTypeDictionary[propertyMetadataDTO.UsedTypeMetadata.TypeName];
                 else UsedTypeMetadata = new TypeMetadataDatabaseDTO(propertyMetadataDTO.UsedTypeMetadata);
+            }
+
+            if (!Mapper.DatabaseDTOPropertyDictionary.ContainsKey(propertyMetadataDTO.Name))
+            {
+                Mapper.DatabaseDTOPropertyDictionary.Add(Name, this);
             }
         }
     }

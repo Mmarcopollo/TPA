@@ -9,7 +9,6 @@ namespace Database.DTO
     [Table("TypeMetadata")]
     public class TypeMetadataDatabaseDTO : BaseTypeMetadata
     {
-        public static Dictionary<string, TypeMetadataDatabaseDTO> DatabaseDTOTypeDictionary = new Dictionary<string, TypeMetadataDatabaseDTO>();
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [StringLength(100)]
@@ -36,7 +35,7 @@ namespace Database.DTO
 
             if (typeMetadataDTO.BaseType != null)
             {
-                if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(typeMetadataDTO.BaseType.TypeName)) BaseType = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[typeMetadataDTO.BaseType.TypeName];
+                if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(typeMetadataDTO.BaseType.TypeName)) BaseType = Mapper.DatabaseDTOTypeDictionary[typeMetadataDTO.BaseType.TypeName];
                 else BaseType = new TypeMetadataDatabaseDTO(typeMetadataDTO.BaseType);
             }
 
@@ -46,7 +45,7 @@ namespace Database.DTO
                 foreach (BaseTypeMetadata DTO in typeMetadataDTO.GenericArguments)
                 {
                     TypeMetadataDatabaseDTO metadata;
-                    if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[DTO.TypeName];
+                    if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = Mapper.DatabaseDTOTypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadataDatabaseDTO(DTO);
                     arguments.Add(metadata);
                 }
@@ -65,7 +64,7 @@ namespace Database.DTO
                 foreach (BaseTypeMetadata DTO in typeMetadataDTO.ImplementedInterfaces)
                 {
                     TypeMetadataDatabaseDTO metadata;
-                    if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[DTO.TypeName];
+                    if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = Mapper.DatabaseDTOTypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadataDatabaseDTO(DTO);
                     interfaces.Add(metadata);
                 }
@@ -78,7 +77,7 @@ namespace Database.DTO
                 foreach (BaseTypeMetadata DTO in typeMetadataDTO.NestedTypes)
                 {
                     TypeMetadataDatabaseDTO metadata;
-                    if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[DTO.TypeName];
+                    if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = Mapper.DatabaseDTOTypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadataDatabaseDTO(DTO);
                     nested.Add(metadata);
                 }
@@ -90,7 +89,9 @@ namespace Database.DTO
                 List<PropertyMetadataDatabaseDTO> properties = new List<PropertyMetadataDatabaseDTO>();
                 foreach (BasePropertyMetadata DTO in typeMetadataDTO.Properties)
                 {
-                    PropertyMetadataDatabaseDTO propertyMetadata = new PropertyMetadataDatabaseDTO(DTO);
+                    PropertyMetadataDatabaseDTO propertyMetadata;
+                    if (Mapper.DatabaseDTOPropertyDictionary.ContainsKey(DTO.Name)) propertyMetadata = Mapper.DatabaseDTOPropertyDictionary[DTO.Name];
+                    else propertyMetadata = new PropertyMetadataDatabaseDTO(DTO);
                     properties.Add(propertyMetadata);
                 }
                 Properties = properties;
@@ -98,7 +99,7 @@ namespace Database.DTO
 
             if (typeMetadataDTO.DeclaringType != null)
             {
-                if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(typeMetadataDTO.DeclaringType.TypeName)) DeclaringType = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[typeMetadataDTO.DeclaringType.TypeName];
+                if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(typeMetadataDTO.DeclaringType.TypeName)) DeclaringType = Mapper.DatabaseDTOTypeDictionary[typeMetadataDTO.DeclaringType.TypeName];
                 else DeclaringType = new TypeMetadataDatabaseDTO(typeMetadataDTO.DeclaringType);
             }
 
@@ -107,7 +108,9 @@ namespace Database.DTO
                 List<MethodMetadataDatabaseDTO> methods = new List<MethodMetadataDatabaseDTO>();
                 foreach (BaseMethodMetadata DTO in typeMetadataDTO.Methods)
                 {
-                    MethodMetadataDatabaseDTO methodMetadata = new MethodMetadataDatabaseDTO(DTO);
+                    MethodMetadataDatabaseDTO methodMetadata;
+                    if (Mapper.DatabaseDTOMethodDictionary.ContainsKey(DTO.Name)) methodMetadata = Mapper.DatabaseDTOMethodDictionary[DTO.Name];
+                    else methodMetadata = new MethodMetadataDatabaseDTO(DTO);
                     methods.Add(methodMetadata);
                 }
                 Methods = methods;
@@ -118,7 +121,9 @@ namespace Database.DTO
                 List<MethodMetadataDatabaseDTO> constructors = new List<MethodMetadataDatabaseDTO>();
                 foreach (BaseMethodMetadata DTO in typeMetadataDTO.Constructors)
                 {
-                    MethodMetadataDatabaseDTO methodMetadata = new MethodMetadataDatabaseDTO(DTO);
+                    MethodMetadataDatabaseDTO methodMetadata;
+                    if (Mapper.DatabaseDTOMethodDictionary.ContainsKey(DTO.Name)) methodMetadata = Mapper.DatabaseDTOMethodDictionary[DTO.Name];
+                    else methodMetadata = new MethodMetadataDatabaseDTO(DTO);
                     constructors.Add(methodMetadata);
                 }
                 Constructors = constructors;
@@ -129,15 +134,17 @@ namespace Database.DTO
                 List<FieldMetadataDatabaseDTO> fields = new List<FieldMetadataDatabaseDTO>();
                 foreach (BaseFieldMetadata DTO in typeMetadataDTO.Fields)
                 {
-                    FieldMetadataDatabaseDTO fieldMetadata = new FieldMetadataDatabaseDTO(DTO);
+                    FieldMetadataDatabaseDTO fieldMetadata;
+                    if (Mapper.DatabaseDTOFieldDictionary.ContainsKey(DTO.FieldName)) fieldMetadata = Mapper.DatabaseDTOFieldDictionary[DTO.FieldName];
+                    else fieldMetadata = new FieldMetadataDatabaseDTO(DTO);
                     fields.Add(fieldMetadata);
                 }
                 Fields = fields;
             }
 
-            if (!DatabaseDTOTypeDictionary.ContainsKey(this.TypeName))
+            if (!Mapper.DatabaseDTOTypeDictionary.ContainsKey(typeMetadataDTO.TypeName))
             {
-                DatabaseDTOTypeDictionary.Add(TypeName, this);
+                Mapper.DatabaseDTOTypeDictionary.Add(TypeName, this);
             }
         }
     }

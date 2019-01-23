@@ -26,11 +26,16 @@ namespace Database.DTO
                 foreach (BaseTypeMetadata DTO in namespaceMetadataDTO.Types)
                 {
                     TypeMetadataDatabaseDTO metadata;
-                    if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[DTO.TypeName];
+                    if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = Mapper.DatabaseDTOTypeDictionary[DTO.TypeName];
                     else metadata = new TypeMetadataDatabaseDTO(DTO);
                     types.Add(metadata);
                 }
                 Types = types;
+            }
+
+            if (!Mapper.DatabaseDTONamespaceDictionary.ContainsKey(namespaceMetadataDTO.NamespaceName))
+            {
+                Mapper.DatabaseDTONamespaceDictionary.Add(NamespaceName, this);
             }
         }
     }

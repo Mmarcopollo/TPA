@@ -32,9 +32,9 @@ namespace Database.DTO
             //FieldType
             if (baseFields.FieldType != null)
             {
-                if (TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary.ContainsKey(baseFields.FieldType.TypeName))
+                if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(baseFields.FieldType.TypeName))
                 {
-                    FieldType = TypeMetadataDatabaseDTO.DatabaseDTOTypeDictionary[baseFields.FieldType.TypeName];
+                    FieldType = Mapper.DatabaseDTOTypeDictionary[baseFields.FieldType.TypeName];
                 }
                 else
                 {
@@ -45,6 +45,11 @@ namespace Database.DTO
             //Field Modifiers
             Modifiers = baseFields.Modifiers;
 
+
+            if (!Mapper.DatabaseDTOFieldDictionary.ContainsKey(baseFields.FieldName))
+            {
+                Mapper.DatabaseDTOFieldDictionary.Add(FieldName, this);
+            }
         }
     }
 }
