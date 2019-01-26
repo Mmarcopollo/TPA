@@ -1,6 +1,8 @@
 ﻿using BasicData;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Database.DTO
 {
@@ -15,17 +17,23 @@ namespace Database.DTO
 
         public PropertyMetadataDatabaseDTO(BasePropertyMetadata propertyMetadataDTO)
         {
+            Name = "";
             Name = propertyMetadataDTO.Name;
-            if (propertyMetadataDTO.UsedTypeMetadata != null)
-            {
-                if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(propertyMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = Mapper.DatabaseDTOTypeDictionary[propertyMetadataDTO.UsedTypeMetadata.TypeName];
-                else UsedTypeMetadata = new TypeMetadataDatabaseDTO(propertyMetadataDTO.UsedTypeMetadata);
-            }
+            UsedTypeMetadata = TypeMetadataDatabaseDTO.EmitReferenceDatabase(propertyMetadataDTO.UsedTypeMetadata);
 
             if (!Mapper.DatabaseDTOPropertyDictionary.ContainsKey(Name))
             {
                 Mapper.DatabaseDTOPropertyDictionary.Add(Name, this);
             }
         }
+
+        internal static IEnumerable<PropertyMetadataDatabaseDTO> EmitPropertiesDatabase(IEnumerable<BasePropertyMetadata> props)
+        {
+            if (props == null) return null;
+            return from prop in props
+                   select new PropertyMetadataDatabaseDTO(prop);
+        }
+
+        public PropertyMetadataDatabaseDTO() { }
     }
 }

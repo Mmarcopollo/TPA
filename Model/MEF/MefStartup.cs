@@ -19,7 +19,7 @@ namespace Model.MEF
 
             _aggCatalog = new AggregateCatalog();
 
-            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\DatabaseLogger\\bin\\Debug");
+            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\FileLogger\\bin\\Debug");
             DirectoryCatalog serialization = new DirectoryCatalog("..\\..\\..\\Database\\bin\\Debug");
             DirectoryCatalog browser = new DirectoryCatalog("..\\..\\..\\ViewWPF\\bin\\debug", "*.exe");
 

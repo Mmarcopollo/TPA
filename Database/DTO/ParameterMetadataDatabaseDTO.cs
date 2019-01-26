@@ -15,17 +15,16 @@ namespace Database.DTO
 
         public ParameterMetadataDatabaseDTO(BaseParameterMetadata parameterMetadataDTO)
         {
+            Name = "";
             Name = parameterMetadataDTO.Name;
-            if (parameterMetadataDTO.UsedTypeMetadata != null)
-            {
-                if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(parameterMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = Mapper.DatabaseDTOTypeDictionary[parameterMetadataDTO.UsedTypeMetadata.TypeName];
-                else UsedTypeMetadata = new TypeMetadataDatabaseDTO(parameterMetadataDTO.UsedTypeMetadata);
-            }
+            UsedTypeMetadata = TypeMetadataDatabaseDTO.EmitReferenceDatabase(parameterMetadataDTO.UsedTypeMetadata);
 
             if (!Mapper.DatabaseDTOParameterDictionary.ContainsKey(Name))
             {
                 Mapper.DatabaseDTOParameterDictionary.Add(Name, this);
             }
         }
+
+        public ParameterMetadataDatabaseDTO() { }
     }
 }

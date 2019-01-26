@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Database.DTO
 {
@@ -14,29 +15,37 @@ namespace Database.DTO
         [Required, StringLength(100)]
         public override string NamespaceName { get; set; }
         public override Guid Guid { get; set; }
-        public new List<TypeMetadataDatabaseDTO> Types { get; set; }
+        [NotMapped]
+        public new IEnumerable<TypeMetadataDatabaseDTO> Types { get; set; }
+        public List<TypeMetadataDatabaseDTO> TypesEF { get; set; } = new List<TypeMetadataDatabaseDTO>();
 
         public NamespaceMetadataDatabaseDTO(BaseNamespaceMetadata namespaceMetadataDTO)
         {
+            NamespaceName = "";
             NamespaceName = namespaceMetadataDTO.NamespaceName;
-            Guid = namespaceMetadataDTO.Guid;
-            if (namespaceMetadataDTO.Types != null)
+            List<TypeMetadataDatabaseDTO> m_Types = new List<TypeMetadataDatabaseDTO>();
+            foreach (var type in namespaceMetadataDTO.Types)
             {
-                List<TypeMetadataDatabaseDTO> types = new List<TypeMetadataDatabaseDTO>();
-                foreach (BaseTypeMetadata DTO in namespaceMetadataDTO.Types)
-                {
-                    TypeMetadataDatabaseDTO metadata;
-                    if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(DTO.TypeName)) metadata = Mapper.DatabaseDTOTypeDictionary[DTO.TypeName];
-                    else metadata = new TypeMetadataDatabaseDTO(DTO);
-                    types.Add(metadata);
-                }
-                Types = types;
+                Mapper.DatabaseDTOTypeDictionary[type.TypeName] = new TypeMetadataDatabaseDTO(type);
+                m_Types.Add(TypeMetadataDatabaseDTO.FillType(Mapper.DatabaseDTOTypeDictionary[type.TypeName], type));
             }
+            Types = m_Types;
 
             if (!Mapper.DatabaseDTONamespaceDictionary.ContainsKey(NamespaceName))
             {
                 Mapper.DatabaseDTONamespaceDictionary.Add(NamespaceName, this);
             }
         }
+
+        public void ToEntityFramework()
+        {
+            TypesEF = Types.ToList();
+            foreach (TypeMetadataDatabaseDTO type in TypesEF)
+            {
+                type.ToEntityFramework();
+            }
+        }
+
+        public NamespaceMetadataDatabaseDTO() { }
     }
 }

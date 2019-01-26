@@ -45,7 +45,7 @@ namespace Model
             EmitModifiers(type);
             BaseType = EmitExtends(type.BaseType);
             Properties = PropertyMetadata.EmitProperties(type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static));
-            Fields = EmitFields(type);
+            Fields = FieldMetadata.EmitFields(type.GetFields());
             TypeKind = GetTypeKind(type);
 
 
@@ -181,18 +181,6 @@ namespace Model
         public static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
             return from Type _argument in arguments select EmitReference(_argument);
-        }
-        private static IEnumerable<FieldMetadata> EmitFields(Type type)
-        {
-            List<FieldMetadata> fields = new List<FieldMetadata>();
-            foreach (var field in type
-                .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static)
-                .Where(f => f.GetCustomAttribute<CompilerGeneratedAttribute>() == null))
-            {
-                fields.Add(new FieldMetadata(field));
-            }
-
-            return fields;
         }
         #endregion
 

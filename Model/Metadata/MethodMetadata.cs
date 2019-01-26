@@ -98,7 +98,12 @@ namespace Model
         }
         private static bool EmitExtension(MethodBase method)
         {
-            return method.IsDefined(typeof(ExtensionAttribute), true);
+            IList<CustomAttributeData> attributeDatas = CustomAttributeData.GetCustomAttributes(method);
+            foreach(CustomAttributeData customAttribute in attributeDatas)
+            {
+                if (customAttribute.AttributeType == typeof(ExtensionAttribute)) return true;
+            }
+            return false;
         }
         private static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> EmitModifiers(MethodBase method)
         {

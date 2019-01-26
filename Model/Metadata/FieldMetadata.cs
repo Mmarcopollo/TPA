@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using BasicData;
 
 namespace Model.Metadata
@@ -85,6 +86,12 @@ namespace Model.Metadata
         #endregion
 
         #region api
+        internal static IEnumerable<FieldMetadata> EmitFields(IEnumerable<FieldInfo> fields)
+        {
+            return from FieldInfo field in fields
+                   where field.GetCustomAttribute<CompilerGeneratedAttribute>() == null
+                   select new FieldMetadata(field);
+        }
 
         private static TypeMetadata EmitFieldType(Type type)
         {

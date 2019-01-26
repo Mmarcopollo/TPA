@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Database.DTO
 {
@@ -20,36 +21,26 @@ namespace Database.DTO
 
         public FieldMetadataDatabaseDTO(BaseFieldMetadata baseFields)
         {
-            //GUID
+            FieldName = "";
             Guid = baseFields.Guid;
-
-            // Name
             FieldName = baseFields.FieldName;
-
-            //Read Only
             IsReadOnly = baseFields.IsReadOnly;
-
-            //FieldType
-            if (baseFields.FieldType != null)
-            {
-                if (Mapper.DatabaseDTOTypeDictionary.ContainsKey(baseFields.FieldType.TypeName))
-                {
-                    FieldType = Mapper.DatabaseDTOTypeDictionary[baseFields.FieldType.TypeName];
-                }
-                else
-                {
-                    FieldType = new TypeMetadataDatabaseDTO(baseFields.FieldType);
-                }
-            }
-
-            //Field Modifiers
+            FieldType = TypeMetadataDatabaseDTO.EmitReferenceDatabase(baseFields.FieldType);
             Modifiers = baseFields.Modifiers;
-
 
             if (!Mapper.DatabaseDTOFieldDictionary.ContainsKey(FieldName))
             {
                 Mapper.DatabaseDTOFieldDictionary.Add(FieldName, this);
             }
         }
+
+        internal static IEnumerable<FieldMetadataDatabaseDTO> EmitFieldsDatabase(IEnumerable<BaseFieldMetadata> fields)
+        {
+            if (fields == null) return null;
+            return from field in fields
+                   select new FieldMetadataDatabaseDTO(field);
+        }
+
+        public FieldMetadataDatabaseDTO() { }
     }
 }

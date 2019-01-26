@@ -18,23 +18,27 @@ namespace Database.DTO
         public int Id { get; set; }
         [Required, StringLength(100)]
         public override string Name { get; set; }
-        public new List<NamespaceMetadataDatabaseDTO> Namespaces { get; set; }
+        [NotMapped]
+        public new IEnumerable<NamespaceMetadataDatabaseDTO> Namespaces { get; set; }
+        public List<NamespaceMetadataDatabaseDTO> NamespacesEF { get; set; } = new List<NamespaceMetadataDatabaseDTO>();
 
         public AssemblyMetadataDatabaseDTO(BaseAssemblyMetadata assemblyMetadataDTO)
         {
+            Name = "";
             Name = assemblyMetadataDTO.Name;
             if (assemblyMetadataDTO.Namespaces != null)
             {
-                List<NamespaceMetadataDatabaseDTO> namespaces = new List<NamespaceMetadataDatabaseDTO>();
-                foreach (BaseNamespaceMetadata DTO in assemblyMetadataDTO.Namespaces)
-                {
-                    NamespaceMetadataDatabaseDTO methodMetadata;
-                    if (Mapper.DatabaseDTONamespaceDictionary.ContainsKey(DTO.NamespaceName)) methodMetadata = Mapper.DatabaseDTONamespaceDictionary[DTO.NamespaceName];
-                    else methodMetadata = new NamespaceMetadataDatabaseDTO(DTO);
-                    namespaces.Add(methodMetadata);
-                }
-                Namespaces = namespaces;
+                Namespaces = from BaseNamespaceMetadata _namespace in assemblyMetadataDTO.Namespaces
+                             select new NamespaceMetadataDatabaseDTO(_namespace);
+                if(Namespaces != null) NamespacesEF = Namespaces.ToList();
+            }
+            NamespacesEF = Namespaces.ToList();
+            foreach(NamespaceMetadataDatabaseDTO @namespace in NamespacesEF)
+            {
+                @namespace.ToEntityFramework();
             }
         }
+
+        public AssemblyMetadataDatabaseDTO() { }
     }
 }
