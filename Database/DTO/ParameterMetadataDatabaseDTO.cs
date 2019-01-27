@@ -18,11 +18,6 @@ namespace Database.DTO
             Name = "";
             Name = parameterMetadataDTO.Name;
             UsedTypeMetadata = TypeMetadataDatabaseDTO.EmitReferenceDatabase(parameterMetadataDTO.UsedTypeMetadata);
-
-            if (!Mapper.DatabaseDTOParameterDictionary.ContainsKey(Name))
-            {
-                Mapper.DatabaseDTOParameterDictionary.Add(Name, this);
-            }
         }
 
         public ParameterMetadataDatabaseDTO() { }

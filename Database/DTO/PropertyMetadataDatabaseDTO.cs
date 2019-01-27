@@ -20,11 +20,6 @@ namespace Database.DTO
             Name = "";
             Name = propertyMetadataDTO.Name;
             UsedTypeMetadata = TypeMetadataDatabaseDTO.EmitReferenceDatabase(propertyMetadataDTO.UsedTypeMetadata);
-
-            if (!Mapper.DatabaseDTOPropertyDictionary.ContainsKey(Name))
-            {
-                Mapper.DatabaseDTOPropertyDictionary.Add(Name, this);
-            }
         }
 
         internal static IEnumerable<PropertyMetadataDatabaseDTO> EmitPropertiesDatabase(IEnumerable<BasePropertyMetadata> props)

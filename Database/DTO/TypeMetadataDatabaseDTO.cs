@@ -31,9 +31,11 @@ namespace Database.DTO
         public List<TypeMetadataDatabaseDTO> NestedTypesEF { get; set; } = new List<TypeMetadataDatabaseDTO>();
         [NotMapped]
         public new IEnumerable<FieldMetadataDatabaseDTO> Fields { get; set; }
+        [NotMapped]
         public List<FieldMetadataDatabaseDTO> FieldsEF { get; set; } = new List<FieldMetadataDatabaseDTO>();
         [NotMapped]
         public new IEnumerable<PropertyMetadataDatabaseDTO> Properties { get; set; }
+        [NotMapped]
         public List<PropertyMetadataDatabaseDTO> PropertiesEF { get; set; } = new List<PropertyMetadataDatabaseDTO>();
         public new TypeMetadataDatabaseDTO DeclaringType { get; set; }
         [NotMapped]
@@ -180,6 +182,58 @@ namespace Database.DTO
         {
             if (baseType == null) return null;
             return EmitReferenceDatabase(baseType);
+        }
+
+        public void RepopulateType()
+        {
+            Mapper.RepopulatedTypesDictionary.Add(TypeName, this);
+            GenericArguments = GenericArgumentsEF;
+            if(GenericArguments != null)
+            {
+                foreach(TypeMetadataDatabaseDTO typeMetadata in GenericArguments)
+                {
+                    if (!Mapper.RepopulatedTypesDictionary.ContainsKey(typeMetadata.TypeName)) typeMetadata.RepopulateType();
+                }
+            }
+
+            ImplementedInterfaces = ImplementedInterfacesEF;
+            if (ImplementedInterfaces != null)
+            {
+                foreach (TypeMetadataDatabaseDTO typeMetadata in ImplementedInterfaces)
+                {
+                    if (!Mapper.RepopulatedTypesDictionary.ContainsKey(typeMetadata.TypeName)) typeMetadata.RepopulateType();
+                }
+            }
+
+            NestedTypes = NestedTypesEF;
+            if (NestedTypes != null)
+            {
+                foreach (TypeMetadataDatabaseDTO typeMetadata in NestedTypes)
+                {
+                    if (!Mapper.RepopulatedTypesDictionary.ContainsKey(typeMetadata.TypeName)) typeMetadata.RepopulateType();
+                }
+            }
+
+            Fields = FieldsEF;
+            Properties = PropertiesEF;
+
+            Methods = MethodsEF;
+            if (Methods != null)
+            {
+                foreach (MethodMetadataDatabaseDTO methodMetadata in Methods)
+                {
+                    methodMetadata.RepopulateMethod();
+                }
+            }
+
+            Constructors = ConstructorsEF;
+            if (Constructors != null)
+            {
+                foreach (MethodMetadataDatabaseDTO methodMetadata in Constructors)
+                {
+                    methodMetadata.RepopulateMethod();
+                }
+            }
         }
 
         public TypeMetadataDatabaseDTO() { }

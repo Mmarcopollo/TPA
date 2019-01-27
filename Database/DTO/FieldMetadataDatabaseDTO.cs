@@ -27,11 +27,6 @@ namespace Database.DTO
             IsReadOnly = baseFields.IsReadOnly;
             FieldType = TypeMetadataDatabaseDTO.EmitReferenceDatabase(baseFields.FieldType);
             Modifiers = baseFields.Modifiers;
-
-            if (!Mapper.DatabaseDTOFieldDictionary.ContainsKey(FieldName))
-            {
-                Mapper.DatabaseDTOFieldDictionary.Add(FieldName, this);
-            }
         }
 
         internal static IEnumerable<FieldMetadataDatabaseDTO> EmitFieldsDatabase(IEnumerable<BaseFieldMetadata> fields)

@@ -24,6 +24,7 @@ namespace Database.DTO
 
         public AssemblyMetadataDatabaseDTO(BaseAssemblyMetadata assemblyMetadataDTO)
         {
+            Mapper.DatabaseDTOTypeDictionary.Clear();
             Name = "";
             Name = assemblyMetadataDTO.Name;
             if (assemblyMetadataDTO.Namespaces != null)
@@ -36,6 +37,19 @@ namespace Database.DTO
             foreach(NamespaceMetadataDatabaseDTO @namespace in NamespacesEF)
             {
                 @namespace.ToEntityFramework();
+            }
+        }
+
+        public void RepopulateAssembly()
+        {
+            Mapper.RepopulatedTypesDictionary.Clear();
+            Namespaces = NamespacesEF;
+            if(Namespaces != null)
+            {
+                foreach(NamespaceMetadataDatabaseDTO namespaceMetadata in Namespaces)
+                {
+                    namespaceMetadata.RepopulateNamespace();
+                }
             }
         }
 

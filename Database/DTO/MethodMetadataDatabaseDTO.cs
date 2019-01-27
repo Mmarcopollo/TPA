@@ -37,11 +37,6 @@ namespace Database.DTO
             AbstractEnum = methodMetadataDTO.AbstractEnum;
             StaticEnum = methodMetadataDTO.StaticEnum;
             VirtualEnum = methodMetadataDTO.VirtualEnum;
-
-            if (!Mapper.DatabaseDTOMethodDictionary.ContainsKey(Name))
-            {
-                Mapper.DatabaseDTOMethodDictionary.Add(Name, this);
-            }
         }
 
         public void ToEntityFramework()
@@ -66,6 +61,20 @@ namespace Database.DTO
         {
             if (!(method is BaseMethodMetadata methodInfo)) return null;
             return TypeMetadataDatabaseDTO.EmitReferenceDatabase(methodInfo.ReturnType);
+        }
+
+        public void RepopulateMethod()
+        {
+            GenericArguments = GenericArgumentsEF;
+            if (GenericArguments != null)
+            {
+                foreach (TypeMetadataDatabaseDTO typeMetadata in GenericArguments)
+                {
+                    if (!Mapper.RepopulatedTypesDictionary.ContainsKey(typeMetadata.TypeName)) typeMetadata.RepopulateType();
+                }
+            }
+
+            Parameters = ParametersEF;
         }
 
         public MethodMetadataDatabaseDTO() { }

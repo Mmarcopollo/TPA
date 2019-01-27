@@ -30,11 +30,6 @@ namespace Database.DTO
                 m_Types.Add(TypeMetadataDatabaseDTO.FillType(Mapper.DatabaseDTOTypeDictionary[type.TypeName], type));
             }
             Types = m_Types;
-
-            if (!Mapper.DatabaseDTONamespaceDictionary.ContainsKey(NamespaceName))
-            {
-                Mapper.DatabaseDTONamespaceDictionary.Add(NamespaceName, this);
-            }
         }
 
         public void ToEntityFramework()
@@ -43,6 +38,18 @@ namespace Database.DTO
             foreach (TypeMetadataDatabaseDTO type in TypesEF)
             {
                 type.ToEntityFramework();
+            }
+        }
+
+        public void RepopulateNamespace()
+        {
+            Types = TypesEF;
+            if (Types != null)
+            {
+                foreach (TypeMetadataDatabaseDTO typeMetadata in Types)
+                {
+                    if(!Mapper.RepopulatedTypesDictionary.ContainsKey(typeMetadata.TypeName))typeMetadata.RepopulateType();
+                }
             }
         }
 

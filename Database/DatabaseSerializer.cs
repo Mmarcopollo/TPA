@@ -18,19 +18,19 @@ namespace Database
             using (DatabaseContext context = new DatabaseContext())
             {
                 context.NamespaceMetadata
-                    .Include(x => x.Types)
+                    .Include(x => x.TypesEF)
                     .Load();
                 context.TypeMetadata
                     .Include(x => x.BaseType)
-                    .Include(x => x.GenericArguments)
+                    .Include(x => x.GenericArgumentsEF)
                     //.Include(x => x.Attributes)
-                    .Include(x => x.ImplementedInterfaces)
-                    .Include(x => x.NestedTypes)
-                    .Include(x => x.Fields)
-                    .Include(x => x.Properties)
+                    .Include(x => x.ImplementedInterfacesEF)
+                    .Include(x => x.NestedTypesEF)
+                    //.Include(x => x.FieldsEF)
+                    //.Include(x => x.PropertiesEF)
                     .Include(x => x.DeclaringType)
-                    .Include(x => x.Methods)
-                    .Include(x => x.Constructors)
+                    .Include(x => x.MethodsEF)
+                    .Include(x => x.ConstructorsEF)
                     .Load();
                 context.FieldMetadata
                     .Include(x => x.FieldType)
@@ -40,16 +40,17 @@ namespace Database
                     .Include(x => x.UsedTypeMetadata)
                     .Load();
                 context.MethodMetadata
-                    .Include(x => x.GenericArguments)
+                    .Include(x => x.GenericArgumentsEF)
                     .Include(x => x.ReturnType)
-                    .Include(x => x.Parameters)
+                    .Include(x => x.ParametersEF)
                     .Load();
                 context.PropertyMetadata
                     .Include(x => x.UsedTypeMetadata)
                     .Load();
 
 
-                AssemblyMetadataDatabaseDTO assemblyMetadata = context.AssemblyMetadata.Include(x => x.Namespaces).ToList().FirstOrDefault();
+                AssemblyMetadataDatabaseDTO assemblyMetadata = context.AssemblyMetadata.Include(x => x.NamespacesEF).ToList().FirstOrDefault();
+                assemblyMetadata.RepopulateAssembly();
                 if (assemblyMetadata == null) throw new Exception("Database is empty");
                 return assemblyMetadata;
             }
