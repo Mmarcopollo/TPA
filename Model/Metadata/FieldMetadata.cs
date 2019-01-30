@@ -96,7 +96,7 @@ namespace Model.Metadata
         internal static IEnumerable<FieldMetadata> EmitFields(IEnumerable<FieldInfo> fields)
         {
             return from FieldInfo field in fields
-                   where field.GetCustomAttribute<CompilerGeneratedAttribute>() == null
+                   //where field.GetCustomAttribute<CompilerGeneratedAttribute>() == null
                    select new FieldMetadata(field);
         }
 
