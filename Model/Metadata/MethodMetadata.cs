@@ -42,7 +42,7 @@ namespace Model
             Parameters = EmitParameters(method.GetParameters());
             EmitModifiers(method);
             Extension = EmitExtension(method);
-            Attributes = method.GetCustomAttributes(false).Select(x => TypeMetadata.EmitReference(x.GetType()));
+            Attributes = CustomAttributeData.GetCustomAttributes(method).Select(x => TypeMetadata.EmitReference(x.GetType()));
         }
 
         public MethodMetadata(BaseMethodMetadata methodMetadataDTO)

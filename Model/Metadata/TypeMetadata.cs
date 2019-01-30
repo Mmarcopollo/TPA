@@ -48,9 +48,9 @@ namespace Model
             EmitModifiers(type);
             BaseType = EmitExtends(type.BaseType);
             Properties = PropertyMetadata.EmitProperties(type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static));
-            Fields = FieldMetadata.EmitFields(type.GetFields());
+            Fields = FieldMetadata.EmitFields(type.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static));
             TypeKind = GetTypeKind(type);
-            Attributes = type.GetCustomAttributes(false).Select(x => EmitReference(x.GetType()));
+            Attributes = CustomAttributeData.GetCustomAttributes(type).Select(x => EmitReference(x.GetType()));
 
 
 

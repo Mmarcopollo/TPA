@@ -58,7 +58,7 @@ namespace Model.Metadata
             FieldType = EmitFieldType(field.FieldType);
             IsReadOnly = field.IsInitOnly;
             Modifiers = EmitModifiers(field);
-            Attributes = field.GetCustomAttributes(false).Select(x => TypeMetadata.EmitReference(x.GetType()));
+            Attributes = CustomAttributeData.GetCustomAttributes(field).Select(x => TypeMetadata.EmitReference(x.GetType()));
         }
 
         public FieldMetadata(BaseFieldMetadata baseFields)
@@ -96,7 +96,7 @@ namespace Model.Metadata
         internal static IEnumerable<FieldMetadata> EmitFields(IEnumerable<FieldInfo> fields)
         {
             return from FieldInfo field in fields
-                   where field.GetCustomAttribute<CompilerGeneratedAttribute>() == null
+                   //where field.GetCustomAttribute<CompilerGeneratedAttribute>() == null
                    select new FieldMetadata(field);
         }
 
