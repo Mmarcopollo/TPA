@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MEF
 {
-    public class MefStartup
+    public class MefStartup : IDisposable
     {
         private static MefStartup _instance = new MefStartup();
 
@@ -35,6 +35,11 @@ namespace MEF
         public void ComposeParts(object obj)
         {
             _container.ComposeParts(obj);
+        }
+
+        public void Dispose()
+        {
+            _container.Dispose();
         }
     }
 }

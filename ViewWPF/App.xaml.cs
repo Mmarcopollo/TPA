@@ -18,7 +18,7 @@ namespace ViewWPF
     /// </summary>
     public partial class App : Application
     {
-        public void On_Startup(object sender, StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("dirpaths");
             string[] pluginsCatalogs = plugins.AllKeys;
@@ -28,6 +28,11 @@ namespace ViewWPF
                     MefStartup.Instance.AddCatalog(new DirectoryCatalog(pluginsCatalog));
             }
             MefStartup.Instance.CreateCompositionContainer();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            MefStartup.Instance.Dispose();
         }
     }
 }
