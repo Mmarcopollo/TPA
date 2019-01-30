@@ -51,6 +51,7 @@
       <HintPath>..\packages\Moq.4.10.1\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -76,6 +77,10 @@
     <ProjectReference Include="..\Log\Log.csproj">
       <Project>{0444571E-C2D7-4BD7-B610-747A52CB69AA}</Project>
       <Name>Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MEF\MEF.csproj">
+      <Project>{BAD8F9F0-B54E-4AC1-B484-49E7FA8153F6}</Project>
+      <Name>MEF</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{3BD54EE6-C405-40BA-8246-E83A2046C996}</Project>

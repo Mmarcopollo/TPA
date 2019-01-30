@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
+using MEF;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 
@@ -12,6 +15,8 @@ namespace ReflectionTest
         [TestMethod]
         public void ReflectionTest_IsNumberOfElementsEqualToRealNumber()
         {
+            Compose(this);
+
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
@@ -42,6 +47,8 @@ namespace ReflectionTest
         [TestMethod]
         public void NamespacemetadataTest_IsNumberOfElementsEqualToRealNumber()
         {
+            Compose(this);
+
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
@@ -53,6 +60,9 @@ namespace ReflectionTest
         [TestMethod]
         public void TypesMetadataTest_IsNumberOfElementsEqualToRealNumber()
         {
+            Compose(this);
+
+
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
@@ -65,6 +75,9 @@ namespace ReflectionTest
         [TestMethod]
         public void MethodsMetadataTest_IsNumberOfElementsEqualToRealNumber()
         {
+            Compose(this);
+
+
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
@@ -88,6 +101,8 @@ namespace ReflectionTest
         [TestMethod]
         public void PropertiesMetadataTest_IsNumberOfElementsEqualToRealNumber()
         {
+            Compose(this);
+
             string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\MyLibrary.dll";
             Reflector reflector = new Reflector(path);
 
@@ -104,6 +119,27 @@ namespace ReflectionTest
 
             props = ((IEnumerable<PropertyMetadata>)types[2].Properties).ToList();
             Assert.AreEqual(props.Count, 2);
+
+        }
+
+        public void Compose(object obj)
+        {
+            CompositionContainer _container;
+            AggregateCatalog _aggCatalog = new AggregateCatalog();
+
+            _aggCatalog = new AggregateCatalog();
+            DirectoryCatalog logger = new DirectoryCatalog("..\\..\\..\\FileLogger\\bin\\Debug");
+            DirectoryCatalog serialize = new DirectoryCatalog("..\\..\\..\\Serialization\\bin\\Debug");
+            DirectoryCatalog broser = new DirectoryCatalog("..\\..\\..\\WPFBrowseFile\\bin\\Debug");
+
+            _aggCatalog.Catalogs.Add(logger);
+            _aggCatalog.Catalogs.Add(serialize);
+            _aggCatalog.Catalogs.Add(broser);
+
+            _container = new CompositionContainer(_aggCatalog);
+            _container.ComposeParts(obj);
+
+            MefStartup.Instance._container = _container;
 
         }
     }

@@ -45,6 +45,7 @@
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MEF\MEF.csproj">
+      <Project>{BAD8F9F0-B54E-4AC1-B484-49E7FA8153F6}</Project>
+      <Name>MEF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{3BD54EE6-C405-40BA-8246-E83A2046C996}</Project>
       <Name>Model</Name>
