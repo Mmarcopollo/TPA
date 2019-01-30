@@ -41,6 +41,12 @@ namespace Model.Metadata
             set => base.Modifiers = value;
         }
 
+        public new IEnumerable<TypeMetadata> Attributes
+        {
+            get => (IEnumerable<TypeMetadata>)base.Attributes;
+            set => base.Attributes = value;
+        }
+
         #endregion
 
         #region constructors
@@ -52,6 +58,7 @@ namespace Model.Metadata
             FieldType = EmitFieldType(field.FieldType);
             IsReadOnly = field.IsInitOnly;
             Modifiers = EmitModifiers(field);
+            Attributes = field.GetCustomAttributes(false).Select(x => TypeMetadata.EmitReference(x.GetType()));
         }
 
         public FieldMetadata(BaseFieldMetadata baseFields)

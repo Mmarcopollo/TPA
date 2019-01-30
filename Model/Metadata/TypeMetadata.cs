@@ -30,6 +30,9 @@ namespace Model
         public new TypeMetadata DeclaringType { get => (TypeMetadata)base.DeclaringType; set => base.DeclaringType = value; }
         public new IEnumerable<MethodMetadata> Methods { get => (IEnumerable<MethodMetadata>)base.Methods; set => base.Methods = value; }
         public new IEnumerable<MethodMetadata> Constructors { get => (IEnumerable<MethodMetadata>)base.Constructors; set => base.Constructors = value; }
+        public new IEnumerable<TypeMetadata> Attributes { get => (IEnumerable<TypeMetadata>)base.Attributes; set => base.Attributes = value; }
+
+
 
 
         #region constructors
@@ -47,6 +50,7 @@ namespace Model
             Properties = PropertyMetadata.EmitProperties(type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static));
             Fields = FieldMetadata.EmitFields(type.GetFields());
             TypeKind = GetTypeKind(type);
+            Attributes = type.GetCustomAttributes(false).Select(x => EmitReference(x.GetType()));
 
 
 
@@ -139,6 +143,8 @@ namespace Model
                 }
                 Methods = methods;
             }
+
+
 
             if(typeMetadataDTO.Constructors != null)
             {

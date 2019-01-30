@@ -28,5 +28,7 @@ namespace BasicData
         public virtual bool Extension { get; set; }
         [DataMember]
         public virtual IEnumerable<BaseParameterMetadata> Parameters { get; set; }
+        [DataMember]
+        public virtual IEnumerable<BaseTypeMetadata> Attributes { get; set; }
     }
 }

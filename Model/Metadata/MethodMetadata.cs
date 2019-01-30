@@ -30,6 +30,7 @@ namespace Model
         public new TypeMetadata ReturnType { get => (TypeMetadata)base.ReturnType; set => base.ReturnType = value; }
         public override bool Extension { get => base.Extension; set => base.Extension = value; }
         public new IEnumerable<ParameterMetadata> Parameters { get => (IEnumerable<ParameterMetadata>)base.Parameters; set => base.Parameters = value; }
+        public new IEnumerable<TypeMetadata> Attributes { get => (IEnumerable<TypeMetadata>)base.Attributes; set => base.Attributes = value; }
 
 
         //constructor
@@ -41,6 +42,7 @@ namespace Model
             Parameters = EmitParameters(method.GetParameters());
             EmitModifiers(method);
             Extension = EmitExtension(method);
+            Attributes = method.GetCustomAttributes(false).Select(x => TypeMetadata.EmitReference(x.GetType()));
         }
 
         public MethodMetadata(BaseMethodMetadata methodMetadataDTO)

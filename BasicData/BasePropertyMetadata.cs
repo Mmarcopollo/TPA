@@ -14,5 +14,6 @@ namespace BasicData
         public virtual string Name { get; set; }
         [DataMember]
         public virtual BaseTypeMetadata UsedTypeMetadata { get; set; }
+
     }
 }

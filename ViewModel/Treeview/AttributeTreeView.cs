@@ -1,10 +1,10 @@
-﻿using Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model;
 
 namespace ViewModel.Treeview
 {
@@ -18,11 +18,9 @@ namespace ViewModel.Treeview
             Name = attribute.TypeName;
             TypeOfMetadata = "attribute";
         }
-
-
         public override void BuildMyself(ObservableCollection<TreeViewNode> children)
         {
-           
+            //
         }
     }
 }

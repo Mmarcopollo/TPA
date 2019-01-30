@@ -40,5 +40,7 @@ namespace BasicData
         public virtual IEnumerable<BaseMethodMetadata> Methods { get; set; }
         [DataMember]
         public virtual IEnumerable<BaseMethodMetadata> Constructors { get; set; }
+
+        public virtual IEnumerable<BaseTypeMetadata> Attributes { get; set; }
     }
 }

@@ -21,5 +21,7 @@ namespace BasicData
         public virtual BaseTypeMetadata FieldType { get; set; }
         [DataMember]
         public virtual Tuple<AccessLevel, StaticEnum> Modifiers { get; set; }
+        [DataMember]
+        public virtual IEnumerable<BaseTypeMetadata> Attributes { get; set; }
     }
 }

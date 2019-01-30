@@ -37,6 +37,7 @@ namespace Model
                 if (TypeMetadata.TypeDictionary.ContainsKey(propertyMetadataDTO.UsedTypeMetadata.TypeName)) UsedTypeMetadata = TypeMetadata.TypeDictionary[propertyMetadataDTO.UsedTypeMetadata.TypeName];
                 else UsedTypeMetadata = new TypeMetadata(propertyMetadataDTO.UsedTypeMetadata);
             }
+
         }
 
         public override int GetHashCode()
