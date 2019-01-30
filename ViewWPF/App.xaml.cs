@@ -9,6 +9,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Reflection;
 using System.Configuration;
+using MEF;
 
 namespace ViewWPF
 {
@@ -17,6 +18,17 @@ namespace ViewWPF
     /// </summary>
     public partial class App : Application
     {
+        public void On_Startup(object sender, StartupEventArgs e)
+        {
+            NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("dirpaths");
+            string[] pluginsCatalogs = plugins.AllKeys;
+            foreach (string pluginsCatalog in pluginsCatalogs)
+            {
+                if (Directory.Exists(pluginsCatalog))
+                    MefStartup.Instance.AddCatalog(new DirectoryCatalog(pluginsCatalog));
+            }
+            MefStartup.Instance.CreateCompositionContainer();
+        }
     }
 }
 

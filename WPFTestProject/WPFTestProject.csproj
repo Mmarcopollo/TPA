@@ -92,6 +92,10 @@
       <Project>{72139A33-76C2-49BA-B020-B47A4C348C45}</Project>
       <Name>ViewWPF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WPFBrowseFile\WPFBrowseFile.csproj">
+      <Project>{37502E39-0684-4CCC-A22C-F9FB54C634CF}</Project>
+      <Name>WPFBrowseFile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

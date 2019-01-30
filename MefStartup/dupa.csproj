@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3BD54EE6-C405-40BA-8246-E83A2046C996}</ProjectGuid>
+    <ProjectGuid>{E9B7F5A2-2DE9-4983-B72A-E49DF4BD462F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Model</RootNamespace>
-    <AssemblyName>Model</AssemblyName>
+    <RootNamespace>MefStartup</RootNamespace>
+    <AssemblyName>MefStartup</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,13 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,29 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Metadata\AssemblyMetadata.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Metadata\FieldMetadata.cs" />
-    <Compile Include="Metadata\MethodMetadata.cs" />
-    <Compile Include="Metadata\NamespaceMetadata.cs" />
-    <Compile Include="Metadata\ParameterMetadata.cs" />
+    <Compile Include="MefStartup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Metadata\PropertyMetadata.cs" />
-    <Compile Include="Reflector.cs" />
-    <Compile Include="Metadata\TypeMetadata.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BasicData\BasicData.csproj">
-      <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
-      <Name>BasicData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MEF\MEF.csproj">
-      <Project>{BAD8F9F0-B54E-4AC1-B484-49E7FA8153F6}</Project>
-      <Name>MEF</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

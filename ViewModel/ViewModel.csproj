@@ -69,6 +69,10 @@
       <Project>{0444571E-C2D7-4BD7-B610-747A52CB69AA}</Project>
       <Name>Log</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MEF\MEF.csproj">
+      <Project>{BAD8F9F0-B54E-4AC1-B484-49E7FA8153F6}</Project>
+      <Name>MEF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{3bd54ee6-c405-40ba-8246-e83a2046c996}</Project>
       <Name>Model</Name>

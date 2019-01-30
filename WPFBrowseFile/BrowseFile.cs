@@ -5,10 +5,9 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using ViewModel;
 
-namespace ViewWPF
+namespace WPFBrowseFile
 {
     [Export(typeof(IBrowseFile))]
     public class BrowseFile : IBrowseFile
@@ -17,7 +16,7 @@ namespace ViewWPF
         {
             OpenFileDialog test = new OpenFileDialog()
             {
-               Filter = "Dynamic Library File(*.dll)|*.dll|Executable(*.exe)|*.exe|All|*"
+                Filter = "Dynamic Library File(*.dll)|*.dll|Executable(*.exe)|*.exe|All|*"
             };
             test.ShowDialog();
             return test.FileName;

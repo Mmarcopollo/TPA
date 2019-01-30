@@ -1,6 +1,6 @@
 ﻿using Log;
+using MEF;
 using Model;
-using Model.MEF;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Windows.Input;
@@ -13,7 +13,7 @@ namespace ViewModel
 
         public TreeViewModel()
         {
-            MefStartup.Compose(this);
+            MefStartup.Instance.ComposeParts(this);
             HierarchicalAreas = new ObservableCollection<TreeViewNode>();
             LoadDllCmd = new RelayCommand(pars => LoadDLL());
             BrowseCmd = new RelayCommand(pars => ExecuteBrowseFile());

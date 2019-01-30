@@ -1,5 +1,5 @@
 ﻿using BasicData;
-using Model.MEF;
+using MEF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -40,16 +40,16 @@ namespace Model
                 throw new System.ArgumentNullException();
             Assembly assembly = Assembly.LoadFrom(assemblyFile);
             M_AssemblyModel = new AssemblyMetadata(assembly);
-            MefStartup.Compose(this);
+            MefStartup.Instance.ComposeParts(this);
         }
         public Reflector(Assembly assembly)
         {
             M_AssemblyModel = new AssemblyMetadata(assembly);
-            MefStartup.Compose(this);
+            MefStartup.Instance.ComposeParts(this);
         }
         public Reflector()
         {
-            MefStartup.Compose(this);
+            MefStartup.Instance.ComposeParts(this);
         }
 
         public Reflector(AssemblyMetadata assembly)

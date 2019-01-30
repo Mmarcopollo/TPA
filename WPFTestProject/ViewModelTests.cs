@@ -8,6 +8,7 @@ using Model;
 using Moq;
 using ViewModel;
 using ViewWPF;
+using WPFBrowseFile;
 
 namespace WPFTestProject
 {
