@@ -13,36 +13,36 @@ namespace Database.DTO
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [StringLength(100)]
-        public override string TypeName { get; set; }
-        public override string NamespaceName { get; set; }
-        public new TypeMetadataDatabaseDTO BaseType { get; set; }
+        public override string TypeName { get => base.TypeName; set => base.TypeName = value; }
+        public override string NamespaceName { get => base.NamespaceName; set => base.NamespaceName = value; }
+        public new TypeMetadataDatabaseDTO BaseType { get => (TypeMetadataDatabaseDTO)base.BaseType; set => base.BaseType = value; }
         [NotMapped]
-        public new IEnumerable<TypeMetadataDatabaseDTO> GenericArguments { get; set; }
+        public new IEnumerable<TypeMetadataDatabaseDTO> GenericArguments { get => (IEnumerable<TypeMetadataDatabaseDTO>)base.GenericArguments; set => base.GenericArguments = value; }
         public List<TypeMetadataDatabaseDTO> GenericArgumentsEF { get; set; } = new List<TypeMetadataDatabaseDTO>();
-        public override AccessLevel AccessLevel { get; set; }
-        public override AbstractEnum AbstractEnum { get; set; }
-        public override SealedEnum SealedEnum { get; set; }
-        public override TypeKind TypeKind { get; set; }
+        public override AccessLevel AccessLevel { get => base.AccessLevel; set => base.AccessLevel = value; }
+        public override AbstractEnum AbstractEnum { get => base.AbstractEnum; set => base.AbstractEnum = value; }
+        public override SealedEnum SealedEnum { get => base.SealedEnum; set => base.SealedEnum = value; }
+        public override TypeKind TypeKind { get => base.TypeKind; set => base.TypeKind = value; }
         [NotMapped]
-        public new IEnumerable<TypeMetadataDatabaseDTO> ImplementedInterfaces { get; set; }
+        public new IEnumerable<TypeMetadataDatabaseDTO> ImplementedInterfaces { get => (IEnumerable<TypeMetadataDatabaseDTO>)base.ImplementedInterfaces; set => base.ImplementedInterfaces = value; }
         public List<TypeMetadataDatabaseDTO> ImplementedInterfacesEF { get; set; } = new List<TypeMetadataDatabaseDTO>();
         [NotMapped]
-        public new IEnumerable<TypeMetadataDatabaseDTO> NestedTypes { get; set; }
+        public new IEnumerable<TypeMetadataDatabaseDTO> NestedTypes { get => (IEnumerable<TypeMetadataDatabaseDTO>)base.NestedTypes; set => base.NestedTypes = value; }
         public List<TypeMetadataDatabaseDTO> NestedTypesEF { get; set; } = new List<TypeMetadataDatabaseDTO>();
         [NotMapped]
-        public new IEnumerable<FieldMetadataDatabaseDTO> Fields { get; set; }
+        public new IEnumerable<FieldMetadataDatabaseDTO> Fields { get => (IEnumerable<FieldMetadataDatabaseDTO>)base.Fields; set => base.Fields = value; }
         [NotMapped]
         public List<FieldMetadataDatabaseDTO> FieldsEF { get; set; } = new List<FieldMetadataDatabaseDTO>();
         [NotMapped]
-        public new IEnumerable<PropertyMetadataDatabaseDTO> Properties { get; set; }
+        public new IEnumerable<PropertyMetadataDatabaseDTO> Properties { get => (IEnumerable<PropertyMetadataDatabaseDTO>)base.Properties; set => base.Properties = value; }
         [NotMapped]
         public List<PropertyMetadataDatabaseDTO> PropertiesEF { get; set; } = new List<PropertyMetadataDatabaseDTO>();
-        public new TypeMetadataDatabaseDTO DeclaringType { get; set; }
+        public new TypeMetadataDatabaseDTO DeclaringType { get => (TypeMetadataDatabaseDTO)base.DeclaringType; set => base.DeclaringType = value; }
         [NotMapped]
-        public new IEnumerable<MethodMetadataDatabaseDTO> Methods { get; set; }
+        public new IEnumerable<MethodMetadataDatabaseDTO> Methods { get => (IEnumerable<MethodMetadataDatabaseDTO>)base.Methods; set => base.Methods = value; }
         public List<MethodMetadataDatabaseDTO> MethodsEF { get; set; } = new List<MethodMetadataDatabaseDTO>();
         [NotMapped]
-        public new IEnumerable<MethodMetadataDatabaseDTO> Constructors { get; set; }
+        public new IEnumerable<MethodMetadataDatabaseDTO> Constructors { get => (IEnumerable<MethodMetadataDatabaseDTO>)base.Constructors; set => base.Constructors = value; }
         public List<MethodMetadataDatabaseDTO> ConstructorsEF { get; set; } = new List<MethodMetadataDatabaseDTO>();
 
         public TypeMetadataDatabaseDTO(BaseTypeMetadata typeMetadataDTO)

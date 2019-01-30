@@ -12,8 +12,8 @@ namespace Database.DTO
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]
-        public override string Name { get; set; }
-        public new TypeMetadataDatabaseDTO UsedTypeMetadata { get; set; }
+        public override string Name { get => base.Name; set => base.Name = value; }
+        public new TypeMetadataDatabaseDTO UsedTypeMetadata { get => (TypeMetadataDatabaseDTO)base.UsedTypeMetadata; set => base.UsedTypeMetadata = value; }
 
         public PropertyMetadataDatabaseDTO(BasePropertyMetadata propertyMetadataDTO)
         {

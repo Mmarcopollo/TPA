@@ -12,12 +12,12 @@ namespace Database.DTO
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public override Guid Guid { get; set; }
+        public override Guid Guid { get => base.Guid; set => base.Guid = value; }
         [Required, StringLength(100)]
-        public override string FieldName { get; set; }
-        public override bool IsReadOnly { get; set; }
-        public new TypeMetadataDatabaseDTO FieldType { get; set; }
-        public override Tuple<AccessLevel, StaticEnum> Modifiers { get; set; }
+        public override string FieldName { get => base.FieldName; set => base.FieldName = value; }
+        public override bool IsReadOnly { get => base.IsReadOnly; set => base.IsReadOnly = value; }
+        public new TypeMetadataDatabaseDTO FieldType { get => (TypeMetadataDatabaseDTO)base.FieldType; set => base.FieldType = value; }
+        public override Tuple<AccessLevel, StaticEnum> Modifiers { get => base.Modifiers; set => base.Modifiers = value; }
 
         public FieldMetadataDatabaseDTO(BaseFieldMetadata baseFields)
         {

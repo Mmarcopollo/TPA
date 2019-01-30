@@ -13,10 +13,10 @@ namespace Database.DTO
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]
-        public override string NamespaceName { get; set; }
-        public override Guid Guid { get; set; }
+        public override string NamespaceName { get => base.NamespaceName; set => base.NamespaceName = value; }
+        public override Guid Guid { get => base.Guid; set => base.Guid = value; }
         [NotMapped]
-        public new IEnumerable<TypeMetadataDatabaseDTO> Types { get; set; }
+        public new IEnumerable<TypeMetadataDatabaseDTO> Types { get => (IEnumerable<TypeMetadataDatabaseDTO>)base.Types; set => base.Types = value; }
         public List<TypeMetadataDatabaseDTO> TypesEF { get; set; } = new List<TypeMetadataDatabaseDTO>();
 
         public NamespaceMetadataDatabaseDTO(BaseNamespaceMetadata namespaceMetadataDTO)

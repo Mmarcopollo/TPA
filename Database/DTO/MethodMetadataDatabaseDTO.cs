@@ -12,18 +12,18 @@ namespace Database.DTO
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]
-        public override string Name { get; set; }
+        public override string Name { get => base.Name; set => base.Name = value; }
         [NotMapped]
-        public new IEnumerable<TypeMetadataDatabaseDTO> GenericArguments { get; set; }
+        public new IEnumerable<TypeMetadataDatabaseDTO> GenericArguments { get => (IEnumerable<TypeMetadataDatabaseDTO>)base.GenericArguments; set => base.GenericArguments = value; }
         public List<TypeMetadataDatabaseDTO> GenericArgumentsEF { get; set; } = new List<TypeMetadataDatabaseDTO>();
-        public override AccessLevel AccessLevel { get; set; }
-        public override AbstractEnum AbstractEnum { get; set; }
-        public override StaticEnum StaticEnum { get; set; }
-        public override VirtualEnum VirtualEnum { get; set; }
-        public new TypeMetadataDatabaseDTO ReturnType { get; set; }
-        public override bool Extension { get; set; }
+        public override AccessLevel AccessLevel { get => base.AccessLevel; set => base.AccessLevel = value; }
+        public override AbstractEnum AbstractEnum { get => base.AbstractEnum; set => base.AbstractEnum = value; }
+        public override StaticEnum StaticEnum { get => base.StaticEnum; set => base.StaticEnum = value; }
+        public override VirtualEnum VirtualEnum { get => base.VirtualEnum; set => base.VirtualEnum = value; }
+        public new TypeMetadataDatabaseDTO ReturnType { get => (TypeMetadataDatabaseDTO)base.ReturnType; set => base.ReturnType = value; }
+        public override bool Extension { get => base.Extension; set => base.Extension = value; }
         [NotMapped]
-        public new IEnumerable<ParameterMetadataDatabaseDTO> Parameters { get; set; }
+        public new IEnumerable<ParameterMetadataDatabaseDTO> Parameters { get => (IEnumerable<ParameterMetadataDatabaseDTO>)base.Parameters; set => base.Parameters = value; }
         public List<ParameterMetadataDatabaseDTO> ParametersEF { get; set; } = new List<ParameterMetadataDatabaseDTO>();
 
         public MethodMetadataDatabaseDTO(BaseMethodMetadata methodMetadataDTO)

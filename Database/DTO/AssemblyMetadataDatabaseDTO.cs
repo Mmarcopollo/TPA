@@ -17,11 +17,11 @@ namespace Database.DTO
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required, StringLength(100)]
-        public override string Name { get; set; }
+        public override string Name { get => base.Name; set => base.Name = value; }
+        public override Guid Guid { get => base.Guid; set => base.Guid = value; }
         [NotMapped]
-        public new IEnumerable<NamespaceMetadataDatabaseDTO> Namespaces { get; set; }
+        public new IEnumerable<NamespaceMetadataDatabaseDTO> Namespaces { get => (IEnumerable<NamespaceMetadataDatabaseDTO>)base.Namespaces; set => base.Namespaces = value; }
         public List<NamespaceMetadataDatabaseDTO> NamespacesEF { get; set; } = new List<NamespaceMetadataDatabaseDTO>();
-
         public AssemblyMetadataDatabaseDTO(BaseAssemblyMetadata assemblyMetadataDTO)
         {
             Mapper.DatabaseDTOTypeDictionary.Clear();
