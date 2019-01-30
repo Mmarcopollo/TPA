@@ -38,7 +38,7 @@ namespace Model
         {
             if (string.IsNullOrEmpty(assemblyFile))
                 throw new System.ArgumentNullException();
-            Assembly assembly = Assembly.LoadFrom(assemblyFile);
+            Assembly assembly = Assembly.ReflectionOnlyLoadFrom(assemblyFile);
             M_AssemblyModel = new AssemblyMetadata(assembly);
             MefStartup.Instance.ComposeParts(this);
         }

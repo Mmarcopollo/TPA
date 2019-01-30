@@ -71,12 +71,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BasicData\BasicData.csproj">
-      <Project>{05F972F3-6C2D-4595-8B09-A248E41E79D0}</Project>
-      <Name>BasicData</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="LogDatabase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

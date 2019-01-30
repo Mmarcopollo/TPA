@@ -58,7 +58,7 @@ namespace Model.Metadata
             FieldType = EmitFieldType(field.FieldType);
             IsReadOnly = field.IsInitOnly;
             Modifiers = EmitModifiers(field);
-            Attributes = field.GetCustomAttributes(false).Select(x => TypeMetadata.EmitReference(x.GetType()));
+            Attributes = CustomAttributeData.GetCustomAttributes(field).Select(x => TypeMetadata.EmitReference(x.GetType()));
         }
 
         public FieldMetadata(BaseFieldMetadata baseFields)

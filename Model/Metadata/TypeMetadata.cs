@@ -50,7 +50,7 @@ namespace Model
             Properties = PropertyMetadata.EmitProperties(type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static));
             Fields = FieldMetadata.EmitFields(type.GetFields());
             TypeKind = GetTypeKind(type);
-            Attributes = type.GetCustomAttributes(false).Select(x => EmitReference(x.GetType()));
+            Attributes = CustomAttributeData.GetCustomAttributes(type).Select(x => EmitReference(x.GetType()));
 
 
 

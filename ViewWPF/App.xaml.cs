@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Windows;
-using ViewModel;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Reflection;
