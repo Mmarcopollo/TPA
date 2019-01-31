@@ -95,7 +95,7 @@ namespace DataBaseSerializationTest
         {
             Compose(this);
 
-            string path = "..\\..\\..\\MyLibrary\\bin\\Debug\\TPA.ApplicationArchitecture.dll";
+            string path = "..\\..\\..\\MyLibrary\\TPA.ApplicationArchitecture.dll";
             Mock<Reflector> reflector = new Mock<Reflector>(path);
             reflector.SetupAllProperties();
 
